@@ -287,7 +287,7 @@ public class StudentMain extends javax.swing.JFrame {
 
         labReserButt.setBackground(new java.awt.Color(255, 255, 255));
         labReserButt.setForeground(new java.awt.Color(255, 255, 255));
-        labReserButt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/LabReservationSystem/실습실예약버튼.PNG"))); // NOI18N
+        labReserButt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ButtPicture/실습실예약버튼.PNG"))); // NOI18N
         labReserButt.setBorderPainted(false);
         labReserButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,7 +297,7 @@ public class StudentMain extends javax.swing.JFrame {
 
         userInformationButt.setBackground(new java.awt.Color(255, 255, 255));
         userInformationButt.setForeground(new java.awt.Color(255, 255, 255));
-        userInformationButt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/LabReservationSystem/회원정보버튼.PNG"))); // NOI18N
+        userInformationButt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ButtPicture/회원정보버튼.PNG"))); // NOI18N
         userInformationButt.setBorderPainted(false);
         userInformationButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,7 +307,7 @@ public class StudentMain extends javax.swing.JFrame {
 
         labButt.setBackground(new java.awt.Color(255, 255, 255));
         labButt.setForeground(new java.awt.Color(255, 255, 255));
-        labButt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/LabReservationSystem/실습실버튼.PNG"))); // NOI18N
+        labButt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ButtPicture/실습실버튼.PNG"))); // NOI18N
         labButt.setBorderPainted(false);
         labButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -317,7 +317,7 @@ public class StudentMain extends javax.swing.JFrame {
 
         manageButt.setBackground(new java.awt.Color(255, 255, 255));
         manageButt.setForeground(new java.awt.Color(255, 255, 255));
-        manageButt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/LabReservationSystem/신고관리버튼.PNG"))); // NOI18N
+        manageButt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ButtPicture/신고관리버튼.PNG"))); // NOI18N
         manageButt.setBorderPainted(false);
         manageButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

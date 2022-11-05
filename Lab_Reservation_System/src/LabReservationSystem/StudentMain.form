@@ -177,7 +177,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/LabReservationSystem/&#xc2e4;&#xc2b5;&#xc2e4;&#xc608;&#xc57d;&#xbc84;&#xd2bc;.PNG"/>
+              <Image iconType="3" name="/ButtPicture/&#xc2e4;&#xc2b5;&#xc2e4;&#xc608;&#xc57d;&#xbc84;&#xd2bc;.PNG"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
@@ -194,7 +194,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/LabReservationSystem/&#xd68c;&#xc6d0;&#xc815;&#xbcf4;&#xbc84;&#xd2bc;.PNG"/>
+              <Image iconType="3" name="/ButtPicture/&#xd68c;&#xc6d0;&#xc815;&#xbcf4;&#xbc84;&#xd2bc;.PNG"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
@@ -211,7 +211,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/LabReservationSystem/&#xc2e4;&#xc2b5;&#xc2e4;&#xbc84;&#xd2bc;.PNG"/>
+              <Image iconType="3" name="/ButtPicture/&#xc2e4;&#xc2b5;&#xc2e4;&#xbc84;&#xd2bc;.PNG"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
@@ -228,7 +228,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/LabReservationSystem/&#xc2e0;&#xace0;&#xad00;&#xb9ac;&#xbc84;&#xd2bc;.PNG"/>
+              <Image iconType="3" name="/ButtPicture/&#xc2e0;&#xace0;&#xad00;&#xb9ac;&#xbc84;&#xd2bc;.PNG"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
