@@ -32,8 +32,10 @@ public class StudentMain extends javax.swing.JFrame {
         teamCheck.setVisible(false);
         
         LabCheckPanel.setVisible(false);
-        LabTTPanel.setVisible(false);
+        LabTTCheckPanel.setVisible(false);
+        TT.setVisible(false);
         LabNoticePanel.setVisible(false);
+
     }
     
     // 화면에 띄우는 패널들 초기화하는 함수
@@ -56,8 +58,10 @@ public class StudentMain extends javax.swing.JFrame {
         teamCheck.setVisible(false);
         
         LabCheckPanel.setVisible(false);
-        LabTTPanel.setVisible(false);
+        LabTTCheckPanel.setVisible(false);
+        TT.setVisible(false);
         LabNoticePanel.setVisible(false);
+
         
         menuReser.setBackground(Color.WHITE);
         menuCheck.setBackground(Color.WHITE);
@@ -224,10 +228,15 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         LabCheckPanel = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
-        LabTTPanel = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
         LabNoticePanel = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
+        LabTTCheckPanel = new javax.swing.JPanel();
+        jComboBox7 = new javax.swing.JComboBox<>();
+        TTCheckButt = new javax.swing.JButton();
+        jLabel30 = new javax.swing.JLabel();
+        TT = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -1646,27 +1655,6 @@ public class StudentMain extends javax.swing.JFrame {
 
         getContentPane().add(LabCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
 
-        jLabel28.setText("실습실 시간표 조회");
-
-        javax.swing.GroupLayout LabTTPanelLayout = new javax.swing.GroupLayout(LabTTPanel);
-        LabTTPanel.setLayout(LabTTPanelLayout);
-        LabTTPanelLayout.setHorizontalGroup(
-            LabTTPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LabTTPanelLayout.createSequentialGroup()
-                .addGap(415, 415, 415)
-                .addComponent(jLabel28)
-                .addContainerGap(441, Short.MAX_VALUE))
-        );
-        LabTTPanelLayout.setVerticalGroup(
-            LabTTPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LabTTPanelLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel28)
-                .addContainerGap(554, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(LabTTPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
-
         jLabel29.setText("실습실 공지사항 및 규칙 조회");
 
         javax.swing.GroupLayout LabNoticePanelLayout = new javax.swing.GroupLayout(LabNoticePanel);
@@ -1687,6 +1675,90 @@ public class StudentMain extends javax.swing.JFrame {
         );
 
         getContentPane().add(LabNoticePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
+
+        jComboBox7.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
+
+        TTCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        TTCheckButt.setText("조회");
+        TTCheckButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TTCheckButtActionPerformed(evt);
+            }
+        });
+
+        jLabel30.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel30.setText("실습실 : ");
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jTable4);
+
+        javax.swing.GroupLayout TTLayout = new javax.swing.GroupLayout(TT);
+        TT.setLayout(TTLayout);
+        TTLayout.setHorizontalGroup(
+            TTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TTLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        TTLayout.setVerticalGroup(
+            TTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TTLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout LabTTCheckPanelLayout = new javax.swing.GroupLayout(LabTTCheckPanel);
+        LabTTCheckPanel.setLayout(LabTTCheckPanelLayout);
+        LabTTCheckPanelLayout.setHorizontalGroup(
+            LabTTCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LabTTCheckPanelLayout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82)
+                .addComponent(TTCheckButt)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LabTTCheckPanelLayout.createSequentialGroup()
+                .addContainerGap(80, Short.MAX_VALUE)
+                .addComponent(TT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
+        );
+        LabTTCheckPanelLayout.setVerticalGroup(
+            LabTTCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LabTTCheckPanelLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(LabTTCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TTCheckButt)
+                    .addComponent(jLabel30))
+                .addGap(18, 18, 18)
+                .addComponent(TT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(LabTTCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1834,7 +1906,7 @@ public class StudentMain extends javax.swing.JFrame {
         reset();
         Lab_menuPanel.setVisible(true);
         menuTimeTable.setBackground(Color.yellow);
-        LabTTPanel.setVisible(true);
+        LabTTCheckPanel.setVisible(true);
     }//GEN-LAST:event_menuTimeTableMouseClicked
 
     // 실습실 메뉴바 -  사용가능한 실습실 확인 선택 시 
@@ -1844,6 +1916,11 @@ public class StudentMain extends javax.swing.JFrame {
         menuLabCheck.setBackground(Color.yellow);
         LabCheckPanel.setVisible(true);
     }//GEN-LAST:event_menuLabCheckMouseClicked
+
+    // 실습실 시간표 조회 버튼
+    private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
+        TT.setVisible(true);
+    }//GEN-LAST:event_TTCheckButtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1887,12 +1964,14 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JTextField DD_Text;
     private javax.swing.JPanel LabCheckPanel;
     private javax.swing.JPanel LabNoticePanel;
-    private javax.swing.JPanel LabTTPanel;
+    private javax.swing.JPanel LabTTCheckPanel;
     private javax.swing.JPanel Lab_menuPanel;
     private javax.swing.JTextField MM_Text;
     private javax.swing.JPanel OverReser;
     private javax.swing.JPanel ReserPanel;
     private javax.swing.JPanel Reser_menuPanel;
+    private javax.swing.JPanel TT;
+    private javax.swing.JButton TTCheckButt;
     private javax.swing.JPanel TitlePanel;
     private javax.swing.JTextField YYYY_Text;
     private javax.swing.JPanel afterReser;
@@ -1922,6 +2001,7 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JComboBox<String> jComboBox6;
+    private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1942,9 +2022,9 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1953,7 +2033,9 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JButton labButt;
