@@ -47,6 +47,13 @@ public class AssistantMain extends javax.swing.JFrame {
         LabStatusPanel.setVisible(false);
         ManageRightPanel.setVisible(false);
         NoticeAddPanel.setVisible(false);
+        
+        // 회원 정보 관리
+        UserManage_menuPanel.setVisible(false);
+        
+        UserInfoPanel.setVisible(false);
+        UserDeletePanel.setVisible(false);
+        UserChangePanel.setVisible(false);
     }
 
     
@@ -88,6 +95,15 @@ public class AssistantMain extends javax.swing.JFrame {
         LabStatusPanel.setVisible(false);
         ManageRightPanel.setVisible(false);
         NoticeAddPanel.setVisible(false);
+        
+        // 회원 정보 관리
+        UserManage_menuPanel.setVisible(false);
+        menuUserDelete.setBackground(Color.WHITE);
+        menuUserChange.setBackground(Color.WHITE);
+        
+        UserInfoPanel.setVisible(false);
+        UserDeletePanel.setVisible(false);
+        UserChangePanel.setVisible(false);
     }
     
     /**
@@ -252,6 +268,36 @@ public class AssistantMain extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         NoticeAddPanel = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
+        UserManage_menuPanel = new javax.swing.JPanel();
+        menuUserChange = new javax.swing.JPanel();
+        jLabel48 = new javax.swing.JLabel();
+        menuUserDelete = new javax.swing.JPanel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        UserDeletePanel = new javax.swing.JPanel();
+        DeleteButt = new javax.swing.JButton();
+        jTextField18 = new javax.swing.JTextField();
+        jLabel55 = new javax.swing.JLabel();
+        UserChangePanel = new javax.swing.JPanel();
+        jTextField12 = new javax.swing.JTextField();
+        jTextField13 = new javax.swing.JTextField();
+        jLabel36 = new javax.swing.JLabel();
+        jTextField14 = new javax.swing.JTextField();
+        jLabel46 = new javax.swing.JLabel();
+        ChangeButt = new javax.swing.JButton();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jTextField15 = new javax.swing.JTextField();
+        jTextField16 = new javax.swing.JTextField();
+        jTextField17 = new javax.swing.JTextField();
+        UserInfoPanel = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable6 = new javax.swing.JTable();
+        UserDeleteButt = new javax.swing.JButton();
+        UserChangeButt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1110, 760));
@@ -1963,6 +2009,317 @@ public class AssistantMain extends javax.swing.JFrame {
 
         getContentPane().add(NoticeAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
+        UserManage_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
+        UserManage_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        menuUserChange.setBackground(new java.awt.Color(255, 255, 255));
+        menuUserChange.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        menuUserChange.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuUserChange.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuUserChangeMouseClicked(evt);
+            }
+        });
+
+        jLabel48.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        jLabel48.setText("회원 정보 수정");
+
+        javax.swing.GroupLayout menuUserChangeLayout = new javax.swing.GroupLayout(menuUserChange);
+        menuUserChange.setLayout(menuUserChangeLayout);
+        menuUserChangeLayout.setHorizontalGroup(
+            menuUserChangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuUserChangeLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel48)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        menuUserChangeLayout.setVerticalGroup(
+            menuUserChangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuUserChangeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        menuUserDelete.setBackground(new java.awt.Color(255, 255, 255));
+        menuUserDelete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        menuUserDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuUserDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuUserDeleteMouseClicked(evt);
+            }
+        });
+
+        jLabel49.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        jLabel49.setText("회원 정보 삭제");
+
+        javax.swing.GroupLayout menuUserDeleteLayout = new javax.swing.GroupLayout(menuUserDelete);
+        menuUserDelete.setLayout(menuUserDeleteLayout);
+        menuUserDeleteLayout.setHorizontalGroup(
+            menuUserDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuUserDeleteLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel49)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        menuUserDeleteLayout.setVerticalGroup(
+            menuUserDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuUserDeleteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel49, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel50.setFont(new java.awt.Font("맑은 고딕", 0, 36)); // NOI18N
+        jLabel50.setText("관리");
+
+        jLabel51.setFont(new java.awt.Font("맑은 고딕", 0, 36)); // NOI18N
+        jLabel51.setText("회원정보");
+
+        javax.swing.GroupLayout UserManage_menuPanelLayout = new javax.swing.GroupLayout(UserManage_menuPanel);
+        UserManage_menuPanel.setLayout(UserManage_menuPanelLayout);
+        UserManage_menuPanelLayout.setHorizontalGroup(
+            UserManage_menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(menuUserChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(menuUserDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(UserManage_menuPanelLayout.createSequentialGroup()
+                .addComponent(jLabel51)
+                .addGap(0, 4, Short.MAX_VALUE))
+            .addGroup(UserManage_menuPanelLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel50)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        UserManage_menuPanelLayout.setVerticalGroup(
+            UserManage_menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UserManage_menuPanelLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel51)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel50)
+                .addGap(18, 18, 18)
+                .addComponent(menuUserDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(menuUserChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(312, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(UserManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+
+        DeleteButt.setFont(new java.awt.Font("맑은 고딕", 0, 16)); // NOI18N
+        DeleteButt.setText("회원 정보 삭제");
+        DeleteButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtActionPerformed(evt);
+            }
+        });
+
+        jTextField18.setFont(new java.awt.Font("맑은 고딕", 0, 16)); // NOI18N
+        jTextField18.setText("홍길동");
+
+        jLabel55.setFont(new java.awt.Font("맑은 고딕", 0, 16)); // NOI18N
+        jLabel55.setText("님의 회원 정보 삭제하시겠습니까?");
+
+        javax.swing.GroupLayout UserDeletePanelLayout = new javax.swing.GroupLayout(UserDeletePanel);
+        UserDeletePanel.setLayout(UserDeletePanelLayout);
+        UserDeletePanelLayout.setHorizontalGroup(
+            UserDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UserDeletePanelLayout.createSequentialGroup()
+                .addGap(304, 304, 304)
+                .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(UserDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel55)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDeletePanelLayout.createSequentialGroup()
+                        .addComponent(DeleteButt)
+                        .addGap(82, 82, 82)))
+                .addContainerGap(330, Short.MAX_VALUE))
+        );
+        UserDeletePanelLayout.setVerticalGroup(
+            UserDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UserDeletePanelLayout.createSequentialGroup()
+                .addGap(214, 214, 214)
+                .addGroup(UserDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel55))
+                .addGap(62, 62, 62)
+                .addComponent(DeleteButt)
+                .addContainerGap(285, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(UserDeletePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
+
+        jTextField12.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jTextField12.setText("jTextField6");
+
+        jTextField13.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jTextField13.setText("jTextField7");
+
+        jLabel36.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel36.setText("ID : ");
+
+        jTextField14.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jTextField14.setText("jTextField8");
+
+        jLabel46.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel46.setText("PW : ");
+
+        ChangeButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        ChangeButt.setText("수정");
+        ChangeButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChangeButtActionPerformed(evt);
+            }
+        });
+
+        jLabel47.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel47.setText("이름 : ");
+
+        jLabel52.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel52.setText("전화번호 : ");
+
+        jLabel53.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel53.setText("이메일 : ");
+
+        jLabel54.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel54.setText("비고 : ");
+
+        jTextField15.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jTextField15.setText("jTextField3");
+
+        jTextField16.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jTextField16.setText("jTextField4");
+
+        jTextField17.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jTextField17.setText("jTextField5");
+
+        javax.swing.GroupLayout UserChangePanelLayout = new javax.swing.GroupLayout(UserChangePanel);
+        UserChangePanel.setLayout(UserChangePanelLayout);
+        UserChangePanelLayout.setHorizontalGroup(
+            UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserChangePanelLayout.createSequentialGroup()
+                .addContainerGap(329, Short.MAX_VALUE)
+                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(UserChangePanelLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel54, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel52)))
+                    .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(UserChangePanelLayout.createSequentialGroup()
+                        .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116)
+                        .addComponent(ChangeButt)))
+                .addGap(287, 287, 287))
+        );
+        UserChangePanelLayout.setVerticalGroup(
+            UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UserChangePanelLayout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel46))
+                .addGap(21, 21, 21)
+                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel47)
+                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel52)
+                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel53)
+                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel54)
+                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ChangeButt))
+                .addContainerGap(192, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(UserChangePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
+
+        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane7.setViewportView(jTable6);
+
+        UserDeleteButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        UserDeleteButt.setText("삭제");
+        UserDeleteButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserDeleteButtActionPerformed(evt);
+            }
+        });
+
+        UserChangeButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        UserChangeButt.setText("수정");
+        UserChangeButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserChangeButtActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout UserInfoPanelLayout = new javax.swing.GroupLayout(UserInfoPanel);
+        UserInfoPanel.setLayout(UserInfoPanelLayout);
+        UserInfoPanelLayout.setHorizontalGroup(
+            UserInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserInfoPanelLayout.createSequentialGroup()
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addGroup(UserInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(UserInfoPanelLayout.createSequentialGroup()
+                        .addComponent(UserChangeButt)
+                        .addGap(31, 31, 31)
+                        .addComponent(UserDeleteButt))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55))
+        );
+        UserInfoPanelLayout.setVerticalGroup(
+            UserInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UserInfoPanelLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(UserInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(UserDeleteButt, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(UserChangeButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(UserInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1991,6 +2348,8 @@ public class AssistantMain extends javax.swing.JFrame {
         ReserManage_menuPanel.setVisible(true);
         ReserCheckPanel.setVisible(true);
         menuReserCheck.setBackground(Color.pink);
+        
+        // 예약 승인 패널(ReserCheckPanel)에 테이블 값 DB에서 가져와서 띄우기
     }//GEN-LAST:event_reservationManageButtActionPerformed
 
     // 메인화면 - 공지사항 및 신고 관리 버튼
@@ -2000,7 +2359,12 @@ public class AssistantMain extends javax.swing.JFrame {
 
     // 메인화면 - 회원정보 관리 버튼
     private void userInforManageButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userInforManageButtActionPerformed
-        // TODO add your handling code here:
+        reset();
+        UserManage_menuPanel.setVisible(true);
+        UserInfoPanel.setVisible(true);
+        menuUserDelete.setBackground(Color.pink);
+        
+        // 테이블에 모든 회원 정보 띄움
     }//GEN-LAST:event_userInforManageButtActionPerformed
 
     // 메인화면 - 실습실 관리 버튼
@@ -2027,6 +2391,8 @@ public class AssistantMain extends javax.swing.JFrame {
         ListCheckPanel.setVisible(true);
 
         menuListCheck.setBackground(Color.pink);
+        
+        // 예약 리스트 조회 및 취소 패널(ReserCanclePanel)에 테이블 값 DB에서 가져와서 띄우기
     }//GEN-LAST:event_menuListCheckMouseClicked
 
     // 예약 관리 메뉴바 - 예약 승인 선택 시
@@ -2036,6 +2402,8 @@ public class AssistantMain extends javax.swing.JFrame {
         ReserCheckPanel.setVisible(true);
 
         menuReserCheck.setBackground(Color.pink);
+        
+        // 예약 승인 패널(ReserCheckPanel)에 테이블 값 DB에서 가져와서 띄우기
     }//GEN-LAST:event_menuReserCheckMouseClicked
 
     // 좌석별 조회 - 실습실, 날짜 입력 후 조회 버튼 클릭
@@ -2538,6 +2906,60 @@ public class AssistantMain extends javax.swing.JFrame {
         menuLabStatus.setBackground(Color.pink);
     }//GEN-LAST:event_menuLabStatusMouseClicked
 
+    // 회원정보 관리 메뉴바 - 회원 정보 수정 선택 시
+    private void menuUserChangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuUserChangeMouseClicked
+        reset();
+        UserManage_menuPanel.setVisible(true);
+        UserInfoPanel.setVisible(true);
+
+        menuUserChange.setBackground(Color.pink);
+        
+        // 테이블에 모든 회원 정보 띄움
+    }//GEN-LAST:event_menuUserChangeMouseClicked
+
+    // 회원정보 관리 메뉴바 - 회원 정보 삭제 선택 시
+    private void menuUserDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuUserDeleteMouseClicked
+        reset();
+        UserManage_menuPanel.setVisible(true);
+        UserInfoPanel.setVisible(true);
+
+        menuUserDelete.setBackground(Color.pink);
+        
+        // 테이블에 모든 회원 정보 띄움
+    }//GEN-LAST:event_menuUserDeleteMouseClicked
+
+    // 테이블에서 한 행 선택 후 수정 버튼 클릭 시
+    private void UserChangeButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserChangeButtActionPerformed
+        reset();
+        UserManage_menuPanel.setVisible(true);
+        UserChangePanel.setVisible(true);
+        
+        menuUserChange.setBackground(Color.pink);
+        
+        // 테이블에서 선택한 행의 값 출력
+    }//GEN-LAST:event_UserChangeButtActionPerformed
+
+    // 테이블에서 한 행 선택 후 삭제 버튼 클릭 시
+    private void UserDeleteButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserDeleteButtActionPerformed
+        reset();
+        UserManage_menuPanel.setVisible(true);
+        UserDeletePanel.setVisible(true);
+        
+        menuUserDelete.setBackground(Color.pink);
+        
+        // 테이블에서 선택한 행의 값 출력
+    }//GEN-LAST:event_UserDeleteButtActionPerformed
+
+    // 회원 정보 수정 버튼
+    private void ChangeButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeButtActionPerformed
+        // 입력된 값으로 db값 수정
+    }//GEN-LAST:event_ChangeButtActionPerformed
+
+    // 회원 정보 삭제 버튼
+    private void DeleteButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtActionPerformed
+        // db에서 회원 정보 삭제
+    }//GEN-LAST:event_DeleteButtActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2577,6 +2999,8 @@ public class AssistantMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ChangeButt;
+    private javax.swing.JButton DeleteButt;
     private javax.swing.JPanel LabManage_menuPanel;
     private javax.swing.JPanel LabStatusPanel;
     private javax.swing.JPanel ListCheckPanel;
@@ -2593,6 +3017,12 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JPanel TimeTableCheckPanel;
     private javax.swing.JPanel TimeTable_menuPanel;
     private javax.swing.JPanel TitlePanel;
+    private javax.swing.JButton UserChangeButt;
+    private javax.swing.JPanel UserChangePanel;
+    private javax.swing.JButton UserDeleteButt;
+    private javax.swing.JPanel UserDeletePanel;
+    private javax.swing.JPanel UserInfoPanel;
+    private javax.swing.JPanel UserManage_menuPanel;
     private javax.swing.JTextField date;
     private javax.swing.JTextField dateNum;
     private javax.swing.JButton jButton1;
@@ -2640,6 +3070,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
@@ -2648,7 +3079,17 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2660,14 +3101,23 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
+    private javax.swing.JTable jTable6;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField14;
+    private javax.swing.JTextField jTextField15;
+    private javax.swing.JTextField jTextField16;
+    private javax.swing.JTextField jTextField17;
+    private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -2690,6 +3140,8 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JPanel menuSeminarAdd;
     private javax.swing.JPanel menuTimeTableAdd;
     private javax.swing.JPanel menuTimeTableCheck;
+    private javax.swing.JPanel menuUserChange;
+    private javax.swing.JPanel menuUserDelete;
     private javax.swing.JPanel menuseatReserCheck;
     private javax.swing.JButton noticeManageButt;
     private javax.swing.JButton reservationManageButt;
