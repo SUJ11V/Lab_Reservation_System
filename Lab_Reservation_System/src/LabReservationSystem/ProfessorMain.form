@@ -407,7 +407,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="73" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="CancleButt" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="818" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
@@ -420,7 +420,7 @@
                   <EmptySpace pref="59" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="448" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="CancleButt" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -475,7 +475,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="CancleButt">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="14" style="0"/>
@@ -483,7 +483,7 @@
             <Property name="text" type="java.lang.String" value="&#xcde8;&#xc18c;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CancleButtActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

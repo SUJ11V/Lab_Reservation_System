@@ -83,7 +83,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         SeminarCanclePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        CancleButt = new javax.swing.JButton();
         SeminarReserPanel = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
@@ -357,11 +357,11 @@ public class ProfessorMain extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jButton1.setText("취소");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CancleButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        CancleButt.setText("취소");
+        CancleButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CancleButtActionPerformed(evt);
             }
         });
 
@@ -372,7 +372,7 @@ public class ProfessorMain extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SeminarCanclePanelLayout.createSequentialGroup()
                 .addContainerGap(73, Short.MAX_VALUE)
                 .addGroup(SeminarCanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                    .addComponent(CancleButt)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(69, 69, 69))
         );
@@ -382,7 +382,7 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addContainerGap(59, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CancleButt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
 
@@ -759,6 +759,8 @@ public class ProfessorMain extends javax.swing.JFrame {
         SeminarCanclePanel.setVisible(true);
 
         menuSeminarCancle.setBackground(Color.pink);
+        
+        // 테이블에 db에서 특강 예약 값 가져와서 띄우기
     }//GEN-LAST:event_menuSeminarCancleMouseClicked
 
     // 특강 및 세미나 메뉴바 - 특강 예약 선택 시
@@ -784,13 +786,16 @@ public class ProfessorMain extends javax.swing.JFrame {
         end.setText(endText.getText());
     }//GEN-LAST:event_seminarCheckButtActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    // 특강 조회 및 취소 - 취소 버튼 클릭 시
+    private void CancleButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancleButtActionPerformed
+        // 테이블에서 선택된 행 db에서 삭제
+    }//GEN-LAST:event_CancleButtActionPerformed
 
     // 실습실 선택 후 시간표 조회 클릭 시
     private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
         TT.setVisible(true);
+        
+        // 테이블에 db에서 시간표 값 가져와서 띄우기
     }//GEN-LAST:event_TTCheckButtActionPerformed
 
     // 시간표 조회 메뉴바 - 실습실 별 시간표 조회 선택 시
@@ -839,6 +844,7 @@ public class ProfessorMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancleButt;
     private javax.swing.JPanel SeminarCanclePanel;
     private javax.swing.JPanel SeminarReserCheckPanel;
     private javax.swing.JPanel SeminarReserPanel;
@@ -853,7 +859,6 @@ public class ProfessorMain extends javax.swing.JFrame {
     private javax.swing.JTextField dateText;
     private javax.swing.JTextField end;
     private javax.swing.JTextField endText;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
