@@ -34,6 +34,11 @@ public class ProfessorMain extends javax.swing.JFrame {
         
         TimeTableCheckPanel.setVisible(false);
         TT.setVisible(false);
+        
+        // 실습실 조회
+        LabCheck_menuPanel.setVisible(false);
+        
+        LabCheckPanel.setVisible(false);
     }
 
     // 화면에 띄우는 패널들 초기화하는 함수
@@ -56,6 +61,12 @@ public class ProfessorMain extends javax.swing.JFrame {
         
         TimeTableCheckPanel.setVisible(false);
         TT.setVisible(false);
+        
+        // 실습실 조회
+        LabCheck_menuPanel.setVisible(false);
+        menuLabCheck.setBackground(Color.WHITE);
+        
+        LabCheckPanel.setVisible(false);
     }
     
     
@@ -100,7 +111,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         jLabel33 = new javax.swing.JLabel();
         end = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
+        ReserButt = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
@@ -118,6 +129,14 @@ public class ProfessorMain extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
+        LabCheck_menuPanel = new javax.swing.JPanel();
+        menuLabCheck = new javax.swing.JPanel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        LabCheckPanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1120, 750));
@@ -483,8 +502,13 @@ public class ProfessorMain extends javax.swing.JFrame {
         jLabel34.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel34.setText("사용 가능한 강의실");
 
-        jButton9.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jButton9.setText("예약");
+        ReserButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        ReserButt.setText("예약");
+        ReserButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReserButtActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
@@ -531,7 +555,7 @@ public class ProfessorMain extends javax.swing.JFrame {
                                 .addGroup(SeminarReserCheckPanelLayout.createSequentialGroup()
                                     .addComponent(jRadioButton4)
                                     .addGap(119, 119, 119)
-                                    .addComponent(jButton9)))
+                                    .addComponent(ReserButt)))
                             .addGroup(SeminarReserCheckPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel34)
                                 .addGap(60, 60, 60)))))
@@ -558,7 +582,7 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addComponent(jRadioButton3)
                 .addGap(27, 27, 27)
                 .addGroup(SeminarReserCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ReserButt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jRadioButton4))
                 .addContainerGap(165, Short.MAX_VALUE))
         );
@@ -722,12 +746,111 @@ public class ProfessorMain extends javax.swing.JFrame {
 
         getContentPane().add(TTCheck_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
 
+        LabCheck_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
+        LabCheck_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        menuLabCheck.setBackground(new java.awt.Color(255, 255, 255));
+        menuLabCheck.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        menuLabCheck.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuLabCheck.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuLabCheckMouseClicked(evt);
+            }
+        });
+
+        jLabel49.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        jLabel49.setText("실습실");
+
+        jLabel50.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        jLabel50.setText("사용현황 조회");
+
+        javax.swing.GroupLayout menuLabCheckLayout = new javax.swing.GroupLayout(menuLabCheck);
+        menuLabCheck.setLayout(menuLabCheckLayout);
+        menuLabCheckLayout.setHorizontalGroup(
+            menuLabCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLabCheckLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(menuLabCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel50)
+                    .addGroup(menuLabCheckLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel49)))
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
+        menuLabCheckLayout.setVerticalGroup(
+            menuLabCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLabCheckLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
+
+        jLabel51.setFont(new java.awt.Font("맑은 고딕", 0, 36)); // NOI18N
+        jLabel51.setText("조회");
+
+        jLabel52.setFont(new java.awt.Font("맑은 고딕", 0, 36)); // NOI18N
+        jLabel52.setText("실습실");
+
+        javax.swing.GroupLayout LabCheck_menuPanelLayout = new javax.swing.GroupLayout(LabCheck_menuPanel);
+        LabCheck_menuPanel.setLayout(LabCheck_menuPanelLayout);
+        LabCheck_menuPanelLayout.setHorizontalGroup(
+            LabCheck_menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(menuLabCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(LabCheck_menuPanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(LabCheck_menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel52)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LabCheck_menuPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel51)
+                        .addGap(18, 18, 18)))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        LabCheck_menuPanelLayout.setVerticalGroup(
+            LabCheck_menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LabCheck_menuPanelLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jLabel52)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel51)
+                .addGap(18, 18, 18)
+                .addComponent(menuLabCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(381, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(LabCheck_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+
+        jLabel3.setText("실습실 사용현황 조회");
+
+        javax.swing.GroupLayout LabCheckPanelLayout = new javax.swing.GroupLayout(LabCheckPanel);
+        LabCheckPanel.setLayout(LabCheckPanelLayout);
+        LabCheckPanelLayout.setHorizontalGroup(
+            LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LabCheckPanelLayout.createSequentialGroup()
+                .addGap(320, 320, 320)
+                .addComponent(jLabel3)
+                .addContainerGap(524, Short.MAX_VALUE))
+        );
+        LabCheckPanelLayout.setVerticalGroup(
+            LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LabCheckPanelLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLabel3)
+                .addContainerGap(533, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(LabCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 600));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // 메인화면 - 실습실 조회 버튼
     private void labCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labCheckButtActionPerformed
-       
+       reset();
+       LabCheck_menuPanel.setVisible(true);
+       LabCheckPanel.setVisible(true);
+       menuLabCheck.setBackground(Color.pink);
     }//GEN-LAST:event_labCheckButtActionPerformed
 
     // 메인화면 - 특강 및 세미나 버튼
@@ -784,6 +907,8 @@ public class ProfessorMain extends javax.swing.JFrame {
         date.setText(dateText.getText());
         start.setText(startText.getText());
         end.setText(endText.getText());
+        
+        // 사용 불가능한 강의실 라디오 버튼 비활성화
     }//GEN-LAST:event_seminarCheckButtActionPerformed
 
     // 특강 조회 및 취소 - 취소 버튼 클릭 시
@@ -806,6 +931,20 @@ public class ProfessorMain extends javax.swing.JFrame {
 
         menuTTCheck.setBackground(Color.pink);
     }//GEN-LAST:event_menuTTCheckMouseClicked
+
+    // 특강 예약 버튼
+    private void ReserButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserButtActionPerformed
+        // db 값 추가 
+    }//GEN-LAST:event_ReserButtActionPerformed
+
+    // 실습실 조회 메뉴바 - 실습실 사용현황 조회 선택 시
+    private void menuLabCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLabCheckMouseClicked
+        reset();
+        LabCheck_menuPanel.setVisible(true);
+        LabCheckPanel.setVisible(true);
+
+        menuLabCheck.setBackground(Color.pink);
+    }//GEN-LAST:event_menuLabCheckMouseClicked
 
     /**
      * @param args the command line arguments
@@ -845,6 +984,9 @@ public class ProfessorMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancleButt;
+    private javax.swing.JPanel LabCheckPanel;
+    private javax.swing.JPanel LabCheck_menuPanel;
+    private javax.swing.JButton ReserButt;
     private javax.swing.JPanel SeminarCanclePanel;
     private javax.swing.JPanel SeminarReserCheckPanel;
     private javax.swing.JPanel SeminarReserPanel;
@@ -859,13 +1001,13 @@ public class ProfessorMain extends javax.swing.JFrame {
     private javax.swing.JTextField dateText;
     private javax.swing.JTextField end;
     private javax.swing.JTextField endText;
-    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -879,6 +1021,10 @@ public class ProfessorMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
@@ -890,6 +1036,7 @@ public class ProfessorMain extends javax.swing.JFrame {
     private javax.swing.JButton labCheckButt;
     private java.awt.Label label1;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel menuLabCheck;
     private javax.swing.JPanel menuSeminarCancle;
     private javax.swing.JPanel menuSeminarReser;
     private javax.swing.JPanel menuTTCheck;

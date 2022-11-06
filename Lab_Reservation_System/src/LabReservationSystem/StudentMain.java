@@ -161,7 +161,7 @@ public class StudentMain extends javax.swing.JFrame {
         seat58 = new javax.swing.JRadioButton();
         seat59 = new javax.swing.JRadioButton();
         seat60 = new javax.swing.JRadioButton();
-        jButton9 = new javax.swing.JButton();
+        BeforeReserButt = new javax.swing.JButton();
         afterReser = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -181,16 +181,16 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        MyReserCancleButt = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        MyReserCheckButt = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox<>();
         check = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton6 = new javax.swing.JButton();
+        AfterCheckButt = new javax.swing.JButton();
         afterSeatStatePanel = new javax.swing.JPanel();
         seat1 = new javax.swing.JRadioButton();
         seat2 = new javax.swing.JRadioButton();
@@ -222,7 +222,7 @@ public class StudentMain extends javax.swing.JFrame {
         seat28 = new javax.swing.JRadioButton();
         seat29 = new javax.swing.JRadioButton();
         seat30 = new javax.swing.JRadioButton();
-        jButton8 = new javax.swing.JButton();
+        AfterReserButt = new javax.swing.JButton();
         OverReser = new javax.swing.JPanel();
         teamRadio = new javax.swing.JRadioButton();
         soloRadio = new javax.swing.JRadioButton();
@@ -316,9 +316,9 @@ public class StudentMain extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
-        jButton11 = new javax.swing.JButton();
+        UserChangeButt = new javax.swing.JButton();
         UserDeletePanel = new javax.swing.JPanel();
-        jButton12 = new javax.swing.JButton();
+        UserDeleteButt = new javax.swing.JButton();
         jTextField9 = new javax.swing.JTextField();
         jLabel45 = new javax.swing.JLabel();
 
@@ -571,11 +571,6 @@ public class StudentMain extends javax.swing.JFrame {
         buttonGroup1.add(beforeReserRadio);
         beforeReserRadio.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
         beforeReserRadio.setText("5시 이전 실습실 사용 예약");
-        beforeReserRadio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                beforeReserRadioActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(afterReserRadio);
         afterReserRadio.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
@@ -775,11 +770,11 @@ public class StudentMain extends javax.swing.JFrame {
         seat60.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
         seat60.setText("30");
 
-        jButton9.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jButton9.setText("예약");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        BeforeReserButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        BeforeReserButt.setText("예약");
+        BeforeReserButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                BeforeReserButtActionPerformed(evt);
             }
         });
 
@@ -861,7 +856,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGap(52, 52, 52))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, beforeSeatStatePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton9)
+                .addComponent(BeforeReserButt)
                 .addContainerGap())
         );
         beforeSeatStatePanelLayout.setVerticalGroup(
@@ -909,7 +904,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(seat59)
                     .addComponent(seat60))
                 .addGap(33, 33, 33)
-                .addComponent(jButton9)
+                .addComponent(BeforeReserButt)
                 .addContainerGap())
         );
 
@@ -1126,8 +1121,13 @@ public class StudentMain extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jButton1.setText("예약취소");
+        MyReserCancleButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        MyReserCancleButt.setText("예약취소");
+        MyReserCancleButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MyReserCancleButtActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel13.setText("실습실 : ");
@@ -1138,8 +1138,13 @@ public class StudentMain extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jTextField2.setText("jTextField2");
 
-        jButton2.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jButton2.setText("조회");
+        MyReserCheckButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        MyReserCheckButt.setText("조회");
+        MyReserCheckButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MyReserCheckButtActionPerformed(evt);
+            }
+        });
 
         jComboBox2.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
@@ -1164,11 +1169,11 @@ public class StudentMain extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(jButton2)
+                        .addComponent(MyReserCheckButt)
                         .addGap(217, 217, 217))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CanclePanelLayout.createSequentialGroup()
                         .addGroup(CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                            .addComponent(MyReserCancleButt)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(166, 166, 166))))
         );
@@ -1179,7 +1184,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MyReserCheckButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
                         .addComponent(jLabel17)
@@ -1188,7 +1193,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MyReserCancleButt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
 
@@ -1200,11 +1205,11 @@ public class StudentMain extends javax.swing.JFrame {
         jComboBox1.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton6.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jButton6.setText("확인");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        AfterCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        AfterCheckButt.setText("확인");
+        AfterCheckButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                AfterCheckButtActionPerformed(evt);
             }
         });
 
@@ -1330,11 +1335,11 @@ public class StudentMain extends javax.swing.JFrame {
         seat30.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
         seat30.setText("30");
 
-        jButton8.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jButton8.setText("예약");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        AfterReserButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        AfterReserButt.setText("예약");
+        AfterReserButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                AfterReserButtActionPerformed(evt);
             }
         });
 
@@ -1414,7 +1419,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGap(52, 52, 52))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afterSeatStatePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton8)
+                .addComponent(AfterReserButt)
                 .addContainerGap())
         );
         afterSeatStatePanelLayout.setVerticalGroup(
@@ -1467,7 +1472,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(seat29)
                     .addComponent(seat30))
                 .addGap(33, 33, 33)
-                .addComponent(jButton8)
+                .addComponent(AfterReserButt)
                 .addContainerGap())
         );
 
@@ -1481,7 +1486,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
-                .addComponent(jButton6)
+                .addComponent(AfterCheckButt)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkLayout.createSequentialGroup()
                 .addContainerGap(124, Short.MAX_VALUE)
@@ -1495,7 +1500,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGroup(checkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6))
+                    .addComponent(AfterCheckButt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(afterSeatStatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84))
@@ -1873,7 +1878,7 @@ public class StudentMain extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LabCheckPanelLayout.createSequentialGroup()
                 .addGap(332, 332, 332)
                 .addComponent(jLabel28)
-                .addContainerGap(364, Short.MAX_VALUE))
+                .addContainerGap(318, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LabCheckPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1926,7 +1931,7 @@ public class StudentMain extends javax.swing.JFrame {
                         .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel33)
                             .addComponent(endTimeR1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
 
         getContentPane().add(LabCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
@@ -2351,11 +2356,11 @@ public class StudentMain extends javax.swing.JFrame {
         jTextField8.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jTextField8.setText("jTextField8");
 
-        jButton11.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jButton11.setText("수정");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        UserChangeButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        UserChangeButt.setText("수정");
+        UserChangeButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                UserChangeButtActionPerformed(evt);
             }
         });
 
@@ -2364,7 +2369,7 @@ public class StudentMain extends javax.swing.JFrame {
         UserChangePanelLayout.setHorizontalGroup(
             UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserChangePanelLayout.createSequentialGroup()
-                .addContainerGap(359, Short.MAX_VALUE)
+                .addContainerGap(358, Short.MAX_VALUE)
                 .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UserChangePanelLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
@@ -2385,13 +2390,13 @@ public class StudentMain extends javax.swing.JFrame {
                     .addGroup(UserChangePanelLayout.createSequentialGroup()
                         .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(116, 116, 116)
-                        .addComponent(jButton11)))
-                .addGap(267, 267, 267))
+                        .addComponent(UserChangeButt)))
+                .addGap(268, 268, 268))
         );
         UserChangePanelLayout.setVerticalGroup(
             UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserChangePanelLayout.createSequentialGroup()
-                .addGap(162, 162, 162)
+                .addGap(150, 150, 150)
                 .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2415,17 +2420,17 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel44)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11))
-                .addContainerGap(182, Short.MAX_VALUE))
+                    .addComponent(UserChangeButt))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
 
         getContentPane().add(UserChangePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
 
-        jButton12.setFont(new java.awt.Font("맑은 고딕", 0, 16)); // NOI18N
-        jButton12.setText("회원 정보 삭제");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        UserDeleteButt.setFont(new java.awt.Font("맑은 고딕", 0, 16)); // NOI18N
+        UserDeleteButt.setText("회원 정보 삭제");
+        UserDeleteButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                UserDeleteButtActionPerformed(evt);
             }
         });
 
@@ -2446,7 +2451,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGroup(UserDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel45)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDeletePanelLayout.createSequentialGroup()
-                        .addComponent(jButton12)
+                        .addComponent(UserDeleteButt)
                         .addGap(82, 82, 82)))
                 .addContainerGap(345, Short.MAX_VALUE))
         );
@@ -2458,7 +2463,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel45))
                 .addGap(62, 62, 62)
-                .addComponent(jButton12)
+                .addComponent(UserDeleteButt)
                 .addContainerGap(275, Short.MAX_VALUE))
         );
 
@@ -2539,13 +2544,13 @@ public class StudentMain extends javax.swing.JFrame {
     }//GEN-LAST:event_menuReserMouseClicked
 
     // (afterReser -> check) 강의실 선택 후 확인 버튼 클릭
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void AfterCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AfterCheckButtActionPerformed
         //reset();
         afterSeatStatePanel.setVisible(true);
         
         // 예약 중인 좌석이라면 라디오버튼 비활성화
         seat1.setEnabled(false);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_AfterCheckButtActionPerformed
 
     // 메인화면 - 회원정보 버튼
     private void userInformationButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userInformationButtActionPerformed
@@ -2572,17 +2577,15 @@ public class StudentMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_manageButtActionPerformed
 
-    private void beforeReserRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beforeReserRadioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_beforeReserRadioActionPerformed
+    // 5시 이후 좌석 선택 후 예약 버튼
+    private void AfterReserButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AfterReserButtActionPerformed
+        // DB에 예약 저장
+    }//GEN-LAST:event_AfterReserButtActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    //5시 이전 좌석 선택 후 예약 버튼
+    private void BeforeReserButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeforeReserButtActionPerformed
+        // DB에 예약 저장
+    }//GEN-LAST:event_BeforeReserButtActionPerformed
 
     // 5시 이전 좌석 조회
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -2631,6 +2634,8 @@ public class StudentMain extends javax.swing.JFrame {
     // 실습실 시간표 조회 버튼
     private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
         TT.setVisible(true);
+        
+        //테이블에 시간표 출력
     }//GEN-LAST:event_TTCheckButtActionPerformed
 
     // 날짜, 시간 입력 후 사용 가능한 실습실 조회 버튼
@@ -2647,6 +2652,8 @@ public class StudentMain extends javax.swing.JFrame {
     // 실습실 선택 후 확인 버튼 클릭
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         LabStatus.setVisible(true);
+        
+        // 사용 가능한 불가능한 좌석 비활성화
     }//GEN-LAST:event_jButton10ActionPerformed
 
     // 회원정보 메뉴바 -  회원 정보 삭제 선택 시 
@@ -2668,14 +2675,24 @@ public class StudentMain extends javax.swing.JFrame {
     }//GEN-LAST:event_menuUserChangeMouseClicked
 
     // 회원 정보 삭제 버튼
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void UserDeleteButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserDeleteButtActionPerformed
         // db에서 회원 정보 삭제
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_UserDeleteButtActionPerformed
 
     // 회원 정보 수정 버튼
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void UserChangeButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserChangeButtActionPerformed
         // 입력된 값으로 db값 수정
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_UserChangeButtActionPerformed
+
+    // 본인 예약 상황 조회 버튼
+    private void MyReserCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MyReserCheckButtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MyReserCheckButtActionPerformed
+
+    // 본인 예약 취소 버튼
+    private void MyReserCancleButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MyReserCancleButtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MyReserCancleButtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2714,6 +2731,9 @@ public class StudentMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AfterCheckButt;
+    private javax.swing.JButton AfterReserButt;
+    private javax.swing.JButton BeforeReserButt;
     private javax.swing.JPanel CanclePanel;
     private javax.swing.JPanel CheckPanel;
     private javax.swing.JTextField DD_Text;
@@ -2727,13 +2747,17 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JPanel Lab_menuPanel;
     private javax.swing.JTextField MM_Text;
     private javax.swing.JTextField MM_Text1;
+    private javax.swing.JButton MyReserCancleButt;
+    private javax.swing.JButton MyReserCheckButt;
     private javax.swing.JPanel OverReser;
     private javax.swing.JPanel ReserPanel;
     private javax.swing.JPanel Reser_menuPanel;
     private javax.swing.JPanel TT;
     private javax.swing.JButton TTCheckButt;
     private javax.swing.JPanel TitlePanel;
+    private javax.swing.JButton UserChangeButt;
     private javax.swing.JPanel UserChangePanel;
+    private javax.swing.JButton UserDeleteButt;
     private javax.swing.JPanel UserDeletePanel;
     private javax.swing.JPanel UserInfo_menuPanel;
     private javax.swing.JTextField YYYY_Text;
@@ -2752,18 +2776,11 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JButton checkButt1;
     private javax.swing.JComboBox<String> endTimeR;
     private javax.swing.JComboBox<String> endTimeR1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
