@@ -63,7 +63,6 @@ public class LoginMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1110, 760));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         TitlePanel.setBackground(new java.awt.Color(204, 204, 204));
