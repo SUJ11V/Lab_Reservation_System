@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="객프2 강의">
-            <file>file:/C:/Users/asdf0/Desktop/LabReservationSystem/Lab_Reservation_System/src/LabReservationSystem/LoginMain.java</file>
             <file>file:/C:/Users/asdf0/Desktop/LabReservationSystem/Lab_Reservation_System/src/LabReservationSystem/AssistantMain.java</file>
             <file>file:/C:/Users/asdf0/Desktop/LabReservationSystem/Lab_Reservation_System/src/LabReservationSystem/ProfessorMain.java</file>
             <file>file:/C:/Users/asdf0/Desktop/LabReservationSystem/Lab_Reservation_System/src/LabReservationSystem/StudentMain.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/Samsung/OneDrive%20-%20동의대학교/바탕%20화면/LabReservationSystem1/src/source/Permission.java</file>
+            <file>file:/C:/Users/Samsung/OneDrive%20-%20동의대학교/바탕%20화면/LabReservationSystem1/src/source/Reservation.java</file>
+            <file>file:/C:/Users/Samsung/OneDrive%20-%20동의대학교/바탕%20화면/LabReservationSystem1/src/source/Lab.java</file>
+            <file>file:/C:/Users/Samsung/OneDrive%20-%20동의대학교/바탕%20화면/LabReservationSystem1/src/LabReservationSystem/StudentMain.java</file>
         </group>
     </open-files>
 </project-private>

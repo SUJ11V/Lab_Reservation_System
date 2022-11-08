@@ -1,14 +1,35 @@
 
 package LabReservationSystem;
 
+import source.Reservation;
 import java.awt.Color;
+import java.sql.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 /**
  *
  * @author asdf0
  */
 public class StudentMain extends javax.swing.JFrame {
-
+    Connection conn =null;
+    PreparedStatement pstmt =null;
+    ResultSet rs = null;
+    String sql; //쿼리문 받을 변수
+    Reservation reservation; //사용자에게 입력받을 예약 정보 객체
+    
+    public int getDay(Reservation reservation){ //요일 구하기
+        //dateR은 "yyyy-mm-dd" 형식으로 된 string type으로 받는다.
+        int year=Integer.parseInt(reservation.dateR.substring(0,4));    //년
+        int month=Integer.parseInt(reservation.dateR.substring(5,7));   //월
+        int day=Integer.parseInt(reservation.dateR.substring(8,10));    //일
+        
+        LocalDate date =LocalDate.of(year,month,day);   //date에 날짜 저장
+        DayOfWeek dayOfWeek =date.getDayOfWeek();
+        int dayOfWeekNumber=dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
+        return dayOfWeekNumber;                   //1: 월, 2: 화, 3: 수, ....
+    }
+    
     /**
      * Creates new form NewJFrame
      */
@@ -19,7 +40,6 @@ public class StudentMain extends javax.swing.JFrame {
         
         Reser_menuPanel.setVisible(false);
         Lab_menuPanel.setVisible(false);
-        UserInfo_menuPanel.setVisible(false);
         
         ReserPanel.setVisible(false);
         beforeReser.setVisible(false);
@@ -30,19 +50,23 @@ public class StudentMain extends javax.swing.JFrame {
         afterSeatStatePanel.setVisible(false);
         beforeSeatStatePanel.setVisible(false);
         OverReser.setVisible(false);
-        OverLabCheckPanel.setVisible(false);
-        overSeatStatePanel.setVisible(false);
+        teamCheck.setVisible(false);
         
         LabCheckPanel.setVisible(false);
-        LabTTCheckPanel.setVisible(false);
-        TT.setVisible(false);
+        LabTTPanel.setVisible(false);
         LabNoticePanel.setVisible(false);
-        LabStatusPanel.setVisible(false);
-        LabStatus.setVisible(false);
         
-        UserChangePanel.setVisible(false);
-        UserDeletePanel.setVisible(false);
-
+        try{
+        //JDBC드라이버 로딩
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        //DB연결
+        String jdbcDriver="jdbc:mysql://211.213.95.123:3360/computer_resvation?serverTimeZone=UTC";
+        String dbId="20203128"; //MySQL 접속 아이디("20203132"도 가능)
+        String dbPw="20203128"; //접속 비밀번호(아이디를 20203132로 작성시, 비밀번호도 아이디와 같도록)
+        conn=DriverManager.getConnection(jdbcDriver,dbId,dbPw);
+        }catch(ClassNotFoundException | SQLException ex){   //예외처리
+            System.out.println(ex.getMessage());
+        }
     }
     
     // 화면에 띄우는 패널들 초기화하는 함수
@@ -52,7 +76,6 @@ public class StudentMain extends javax.swing.JFrame {
         
         Reser_menuPanel.setVisible(false);
         Lab_menuPanel.setVisible(false);
-        UserInfo_menuPanel.setVisible(false);
         
         ReserPanel.setVisible(false);
         beforeReser.setVisible(false);
@@ -63,19 +86,11 @@ public class StudentMain extends javax.swing.JFrame {
         afterSeatStatePanel.setVisible(false);
         beforeSeatStatePanel.setVisible(false);
         OverReser.setVisible(false);
-        OverLabCheckPanel.setVisible(false);
-        overSeatStatePanel.setVisible(false);
+        teamCheck.setVisible(false);
         
         LabCheckPanel.setVisible(false);
-        LabTTCheckPanel.setVisible(false);
-        TT.setVisible(false);
+        LabTTPanel.setVisible(false);
         LabNoticePanel.setVisible(false);
-        LabStatusPanel.setVisible(false);
-        LabStatus.setVisible(false);
-        
-        UserChangePanel.setVisible(false);
-        UserDeletePanel.setVisible(false);
-
         
         menuReser.setBackground(Color.WHITE);
         menuCheck.setBackground(Color.WHITE);
@@ -83,8 +98,6 @@ public class StudentMain extends javax.swing.JFrame {
         menuLabCheck.setBackground(Color.WHITE);
         menuTimeTable.setBackground(Color.WHITE);
         menuLabNotice.setBackground(Color.WHITE);
-        menuUserChange.setBackground(Color.WHITE);
-        menuUserDelete.setBackground(Color.WHITE);
     }
 
     /**
@@ -114,7 +127,6 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         menuCancle = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         menuReser = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -164,7 +176,7 @@ public class StudentMain extends javax.swing.JFrame {
         seat58 = new javax.swing.JRadioButton();
         seat59 = new javax.swing.JRadioButton();
         seat60 = new javax.swing.JRadioButton();
-        BeforeReserButt = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         afterReser = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -179,31 +191,21 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         CheckPanel = new javax.swing.JPanel();
-        jLabel46 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        startButt = new javax.swing.JButton();
-        endButt = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         CanclePanel = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        MyReserCancleButt = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        MyReserCheckButt = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox<>();
         check = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        AfterCheckButt = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         afterSeatStatePanel = new javax.swing.JPanel();
         seat1 = new javax.swing.JRadioButton();
         seat2 = new javax.swing.JRadioButton();
@@ -235,144 +237,34 @@ public class StudentMain extends javax.swing.JFrame {
         seat28 = new javax.swing.JRadioButton();
         seat29 = new javax.swing.JRadioButton();
         seat30 = new javax.swing.JRadioButton();
-        AfterReserButt = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         OverReser = new javax.swing.JPanel();
         teamRadio = new javax.swing.JRadioButton();
         soloRadio = new javax.swing.JRadioButton();
-        teamCheckButt = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        teamCheck = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jComboBox6 = new javax.swing.JComboBox<>();
-        OverLabCheckPanel = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jComboBox8 = new javax.swing.JComboBox<>();
-        overSeatCheckButt = new javax.swing.JButton();
-        overSeatStatePanel = new javax.swing.JPanel();
-        seat91 = new javax.swing.JRadioButton();
-        seat92 = new javax.swing.JRadioButton();
-        seat93 = new javax.swing.JRadioButton();
-        seat94 = new javax.swing.JRadioButton();
-        seat95 = new javax.swing.JRadioButton();
-        seat96 = new javax.swing.JRadioButton();
-        seat97 = new javax.swing.JRadioButton();
-        seat98 = new javax.swing.JRadioButton();
-        seat99 = new javax.swing.JRadioButton();
-        seat100 = new javax.swing.JRadioButton();
-        seat101 = new javax.swing.JRadioButton();
-        seat102 = new javax.swing.JRadioButton();
-        seat103 = new javax.swing.JRadioButton();
-        seat104 = new javax.swing.JRadioButton();
-        seat105 = new javax.swing.JRadioButton();
-        seat106 = new javax.swing.JRadioButton();
-        seat107 = new javax.swing.JRadioButton();
-        seat108 = new javax.swing.JRadioButton();
-        seat109 = new javax.swing.JRadioButton();
-        seat110 = new javax.swing.JRadioButton();
-        seat111 = new javax.swing.JRadioButton();
-        seat112 = new javax.swing.JRadioButton();
-        seat113 = new javax.swing.JRadioButton();
-        seat114 = new javax.swing.JRadioButton();
-        seat115 = new javax.swing.JRadioButton();
-        seat116 = new javax.swing.JRadioButton();
-        seat117 = new javax.swing.JRadioButton();
-        seat118 = new javax.swing.JRadioButton();
-        seat119 = new javax.swing.JRadioButton();
-        seat120 = new javax.swing.JRadioButton();
-        overReserButt = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         Lab_menuPanel = new javax.swing.JPanel();
         menuLabNotice = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
         menuTimeTable = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         menuLabCheck = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
+        LabCheckPanel = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        LabTTPanel = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
         LabNoticePanel = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
-        LabTTCheckPanel = new javax.swing.JPanel();
-        jComboBox7 = new javax.swing.JComboBox<>();
-        TTCheckButt = new javax.swing.JButton();
-        jLabel30 = new javax.swing.JLabel();
-        TT = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        LabCheckPanel = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        checkButt1 = new javax.swing.JButton();
-        startTimeR1 = new javax.swing.JComboBox<>();
-        endTimeR1 = new javax.swing.JComboBox<>();
-        YYYY_Text1 = new javax.swing.JTextField();
-        MM_Text1 = new javax.swing.JTextField();
-        DD_Text1 = new javax.swing.JTextField();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        LabStatusPanel = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        LabComboBox = new javax.swing.JComboBox<>();
-        jButton10 = new javax.swing.JButton();
-        LabStatus = new javax.swing.JPanel();
-        seat61 = new javax.swing.JRadioButton();
-        seat62 = new javax.swing.JRadioButton();
-        seat63 = new javax.swing.JRadioButton();
-        seat64 = new javax.swing.JRadioButton();
-        seat65 = new javax.swing.JRadioButton();
-        seat66 = new javax.swing.JRadioButton();
-        seat67 = new javax.swing.JRadioButton();
-        seat68 = new javax.swing.JRadioButton();
-        seat69 = new javax.swing.JRadioButton();
-        seat70 = new javax.swing.JRadioButton();
-        seat71 = new javax.swing.JRadioButton();
-        seat72 = new javax.swing.JRadioButton();
-        seat73 = new javax.swing.JRadioButton();
-        seat74 = new javax.swing.JRadioButton();
-        seat75 = new javax.swing.JRadioButton();
-        seat76 = new javax.swing.JRadioButton();
-        seat77 = new javax.swing.JRadioButton();
-        seat78 = new javax.swing.JRadioButton();
-        seat79 = new javax.swing.JRadioButton();
-        seat80 = new javax.swing.JRadioButton();
-        seat81 = new javax.swing.JRadioButton();
-        seat82 = new javax.swing.JRadioButton();
-        seat83 = new javax.swing.JRadioButton();
-        seat84 = new javax.swing.JRadioButton();
-        seat85 = new javax.swing.JRadioButton();
-        seat86 = new javax.swing.JRadioButton();
-        seat87 = new javax.swing.JRadioButton();
-        seat88 = new javax.swing.JRadioButton();
-        seat89 = new javax.swing.JRadioButton();
-        seat90 = new javax.swing.JRadioButton();
-        UserInfo_menuPanel = new javax.swing.JPanel();
-        menuUserDelete = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
-        menuUserChange = new javax.swing.JPanel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        UserChangePanel = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        UserChangeButt = new javax.swing.JButton();
-        UserDeletePanel = new javax.swing.JPanel();
-        UserDeleteButt = new javax.swing.JButton();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel45 = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1110, 725));
-        setPreferredSize(new java.awt.Dimension(1110, 725));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         TitlePanel.setBackground(new java.awt.Color(204, 204, 204));
@@ -538,29 +430,21 @@ public class StudentMain extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        jLabel5.setText("본인 예약 현황 ");
-
-        jLabel14.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        jLabel14.setText("조회 및 취소");
+        jLabel5.setText("본인 예약 현황 조회 및 취소");
 
         javax.swing.GroupLayout menuCancleLayout = new javax.swing.GroupLayout(menuCancle);
         menuCancle.setLayout(menuCancleLayout);
         menuCancleLayout.setHorizontalGroup(
             menuCancleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuCancleLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(menuCancleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel14))
-                .addContainerGap())
+                .addComponent(jLabel5)
+                .addGap(0, 0, 0))
         );
         menuCancleLayout.setVerticalGroup(
             menuCancleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuCancleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel14)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -619,7 +503,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addComponent(menuCancle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
         getContentPane().add(Reser_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
@@ -627,6 +511,11 @@ public class StudentMain extends javax.swing.JFrame {
         buttonGroup1.add(beforeReserRadio);
         beforeReserRadio.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
         beforeReserRadio.setText("5시 이전 실습실 사용 예약");
+        beforeReserRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                beforeReserRadioActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(afterReserRadio);
         afterReserRadio.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
@@ -645,18 +534,18 @@ public class StudentMain extends javax.swing.JFrame {
         ReserPanelLayout.setHorizontalGroup(
             ReserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReserPanelLayout.createSequentialGroup()
-                .addContainerGap(253, Short.MAX_VALUE)
+                .addContainerGap(232, Short.MAX_VALUE)
                 .addGroup(ReserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(beforeReserRadio)
                     .addComponent(afterReserRadio))
                 .addGap(83, 83, 83)
                 .addComponent(reserNextButt, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(204, 204, 204))
+                .addGap(225, 225, 225))
         );
         ReserPanelLayout.setVerticalGroup(
             ReserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReserPanelLayout.createSequentialGroup()
-                .addGap(198, 198, 198)
+                .addGap(218, 218, 218)
                 .addGroup(ReserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ReserPanelLayout.createSequentialGroup()
                         .addComponent(beforeReserRadio)
@@ -665,7 +554,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addGroup(ReserPanelLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(reserNextButt, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addContainerGap(245, Short.MAX_VALUE))
         );
 
         getContentPane().add(ReserPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
@@ -690,9 +579,19 @@ public class StudentMain extends javax.swing.JFrame {
 
         jComboBox4.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
 
         jComboBox5.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox5ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jTextField1.setText("2022-10-10");
@@ -826,11 +725,11 @@ public class StudentMain extends javax.swing.JFrame {
         seat60.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
         seat60.setText("30");
 
-        BeforeReserButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        BeforeReserButt.setText("예약");
-        BeforeReserButt.addActionListener(new java.awt.event.ActionListener() {
+        jButton9.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        jButton9.setText("예약");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BeforeReserButtActionPerformed(evt);
+                jButton9ActionPerformed(evt);
             }
         });
 
@@ -912,7 +811,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGap(52, 52, 52))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, beforeSeatStatePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BeforeReserButt)
+                .addComponent(jButton9)
                 .addContainerGap())
         );
         beforeSeatStatePanelLayout.setVerticalGroup(
@@ -960,7 +859,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(seat59)
                     .addComponent(seat60))
                 .addGap(33, 33, 33)
-                .addComponent(BeforeReserButt)
+                .addComponent(jButton9)
                 .addContainerGap())
         );
 
@@ -1047,6 +946,11 @@ public class StudentMain extends javax.swing.JFrame {
 
         startTimeR.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         startTimeR.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00" }));
+        startTimeR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startTimeRActionPerformed(evt);
+            }
+        });
 
         endTimeR.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         endTimeR.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00" }));
@@ -1131,119 +1035,30 @@ public class StudentMain extends javax.swing.JFrame {
 
         getContentPane().add(afterReser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
 
-        jLabel46.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jLabel46.setText("실습실 번호 : ");
-
-        jLabel47.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jLabel47.setText("좌석 번호 : ");
-
-        jLabel48.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jLabel48.setText("시작시간 : ");
-
-        jLabel49.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jLabel49.setText("종료시간 : ");
-
-        jLabel50.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jLabel50.setText("연장가능시간 : ");
-
-        jTextField10.setEditable(false);
-        jTextField10.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField10.setText("jTextField10");
-
-        jTextField11.setEditable(false);
-        jTextField11.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField11.setText("jTextField11");
-
-        jTextField12.setEditable(false);
-        jTextField12.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField12.setText("jTextField12");
-
-        jTextField13.setEditable(false);
-        jTextField13.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField13.setText("jTextField13");
-
-        jTextField14.setEditable(false);
-        jTextField14.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField14.setText("jTextField14");
-
-        startButt.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        startButt.setText("사용 시작");
-        startButt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startButtActionPerformed(evt);
-            }
-        });
-
-        endButt.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        endButt.setText("퇴실");
-        endButt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                endButtActionPerformed(evt);
-            }
-        });
+        jLabel8.setFont(new java.awt.Font("굴림", 0, 18)); // NOI18N
+        jLabel8.setText("실습실 이용 및 상황 조회");
 
         javax.swing.GroupLayout CheckPanelLayout = new javax.swing.GroupLayout(CheckPanel);
         CheckPanel.setLayout(CheckPanelLayout);
         CheckPanelLayout.setHorizontalGroup(
             CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CheckPanelLayout.createSequentialGroup()
-                .addGap(334, 334, 334)
-                .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CheckPanelLayout.createSequentialGroup()
-                            .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                                .addComponent(jTextField11)))
-                        .addGroup(CheckPanelLayout.createSequentialGroup()
-                            .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField14, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                .addComponent(jTextField13)
-                                .addComponent(jTextField12))))
-                    .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(startButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(endButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(342, Short.MAX_VALUE))
+                .addGap(363, 363, 363)
+                .addComponent(jLabel8)
+                .addContainerGap(393, Short.MAX_VALUE))
         );
         CheckPanelLayout.setVerticalGroup(
             CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CheckPanelLayout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel46)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel47)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel48)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel49)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel50)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addComponent(startButt)
-                .addGap(18, 18, 18)
-                .addComponent(endButt)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel8)
+                .addContainerGap(566, Short.MAX_VALUE))
         );
 
         getContentPane().add(CheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
+
+        jLabel14.setFont(new java.awt.Font("굴림", 0, 18)); // NOI18N
+        jLabel14.setText("본인 예약 현황 조회 및 취소");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1266,13 +1081,8 @@ public class StudentMain extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        MyReserCancleButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        MyReserCancleButt.setText("예약취소");
-        MyReserCancleButt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MyReserCancleButtActionPerformed(evt);
-            }
-        });
+        jButton1.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        jButton1.setText("예약취소");
 
         jLabel13.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel13.setText("실습실 : ");
@@ -1283,13 +1093,8 @@ public class StudentMain extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jTextField2.setText("jTextField2");
 
-        MyReserCheckButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        MyReserCheckButt.setText("조회");
-        MyReserCheckButt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MyReserCheckButtActionPerformed(evt);
-            }
-        });
+        jButton2.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        jButton2.setText("조회");
 
         jComboBox2.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
@@ -1299,7 +1104,11 @@ public class StudentMain extends javax.swing.JFrame {
         CanclePanelLayout.setHorizontalGroup(
             CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CanclePanelLayout.createSequentialGroup()
-                .addGap(149, 149, 149)
+                .addGap(360, 360, 360)
+                .addComponent(jLabel14)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CanclePanelLayout.createSequentialGroup()
+                .addContainerGap(157, Short.MAX_VALUE)
                 .addGroup(CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CanclePanelLayout.createSequentialGroup()
                         .addComponent(jLabel13)
@@ -1310,18 +1119,22 @@ public class StudentMain extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(MyReserCheckButt)
-                        .addGap(51, 51, 51))
-                    .addComponent(MyReserCancleButt, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(174, Short.MAX_VALUE))
+                        .addComponent(jButton2)
+                        .addGap(217, 217, 217))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CanclePanelLayout.createSequentialGroup()
+                        .addGroup(CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(166, 166, 166))))
         );
         CanclePanelLayout.setVerticalGroup(
             CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CanclePanelLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CanclePanelLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MyReserCheckButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
                         .addComponent(jLabel17)
@@ -1330,8 +1143,8 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(MyReserCancleButt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         getContentPane().add(CanclePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
@@ -1342,11 +1155,11 @@ public class StudentMain extends javax.swing.JFrame {
         jComboBox1.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        AfterCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        AfterCheckButt.setText("확인");
-        AfterCheckButt.addActionListener(new java.awt.event.ActionListener() {
+        jButton6.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jButton6.setText("확인");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AfterCheckButtActionPerformed(evt);
+                jButton6ActionPerformed(evt);
             }
         });
 
@@ -1472,11 +1285,11 @@ public class StudentMain extends javax.swing.JFrame {
         seat30.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
         seat30.setText("30");
 
-        AfterReserButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        AfterReserButt.setText("예약");
-        AfterReserButt.addActionListener(new java.awt.event.ActionListener() {
+        jButton8.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jButton8.setText("예약");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AfterReserButtActionPerformed(evt);
+                jButton8ActionPerformed(evt);
             }
         });
 
@@ -1556,7 +1369,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGap(52, 52, 52))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afterSeatStatePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(AfterReserButt)
+                .addComponent(jButton8)
                 .addContainerGap())
         );
         afterSeatStatePanelLayout.setVerticalGroup(
@@ -1609,7 +1422,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(seat29)
                     .addComponent(seat30))
                 .addGap(33, 33, 33)
-                .addComponent(AfterReserButt)
+                .addComponent(jButton8)
                 .addContainerGap())
         );
 
@@ -1623,7 +1436,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
-                .addComponent(AfterCheckButt)
+                .addComponent(jButton6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkLayout.createSequentialGroup()
                 .addContainerGap(124, Short.MAX_VALUE)
@@ -1637,7 +1450,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGroup(checkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AfterCheckButt))
+                    .addComponent(jButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(afterSeatStatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84))
@@ -1653,323 +1466,58 @@ public class StudentMain extends javax.swing.JFrame {
         soloRadio.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         soloRadio.setText("개인학습");
 
-        teamCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        teamCheckButt.setText("확인");
-        teamCheckButt.addActionListener(new java.awt.event.ActionListener() {
+        jButton4.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        jButton4.setText("확인");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teamCheckButtActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel23.setText("- 팀 인원수 : ");
+        teamCheck.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jComboBox6.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        jLabel23.setText("팀 인원수");
+
+        jComboBox6.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2", "3", "4", "5", "6", " " }));
 
-        jLabel8.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel8.setText("사용 가능한 강의실");
+        jButton5.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        jButton5.setText("현재 오픈된 강의실 사용");
 
-        jComboBox8.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jButton7.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        jButton7.setText("다음 강의실 사용");
 
-        overSeatCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        overSeatCheckButt.setText("좌석 조회");
-        overSeatCheckButt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                overSeatCheckButtActionPerformed(evt);
-            }
-        });
-
-        overSeatStatePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        buttonGroup2.add(seat91);
-        seat91.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat91.setText("1");
-
-        buttonGroup2.add(seat92);
-        seat92.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat92.setText("2");
-
-        buttonGroup2.add(seat93);
-        seat93.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat93.setText("3");
-
-        buttonGroup2.add(seat94);
-        seat94.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat94.setText("4");
-
-        buttonGroup2.add(seat95);
-        seat95.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat95.setText("5");
-
-        buttonGroup2.add(seat96);
-        seat96.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat96.setText("6");
-
-        buttonGroup2.add(seat97);
-        seat97.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat97.setText("7");
-
-        buttonGroup2.add(seat98);
-        seat98.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat98.setText("8");
-
-        buttonGroup2.add(seat99);
-        seat99.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat99.setText("9");
-
-        buttonGroup2.add(seat100);
-        seat100.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat100.setText("10");
-
-        buttonGroup2.add(seat101);
-        seat101.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat101.setText("11");
-
-        buttonGroup2.add(seat102);
-        seat102.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat102.setText("12");
-
-        buttonGroup2.add(seat103);
-        seat103.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat103.setText("13");
-
-        buttonGroup2.add(seat104);
-        seat104.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat104.setText("14");
-
-        buttonGroup2.add(seat105);
-        seat105.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat105.setText("15");
-
-        buttonGroup2.add(seat106);
-        seat106.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat106.setText("16");
-
-        buttonGroup2.add(seat107);
-        seat107.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat107.setText("17");
-
-        buttonGroup2.add(seat108);
-        seat108.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat108.setText("18");
-
-        buttonGroup2.add(seat109);
-        seat109.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat109.setText("19");
-
-        buttonGroup2.add(seat110);
-        seat110.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat110.setText("20");
-
-        buttonGroup2.add(seat111);
-        seat111.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat111.setText("21");
-
-        buttonGroup2.add(seat112);
-        seat112.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat112.setText("22");
-
-        buttonGroup2.add(seat113);
-        seat113.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat113.setText("23");
-
-        buttonGroup2.add(seat114);
-        seat114.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat114.setText("24");
-
-        buttonGroup2.add(seat115);
-        seat115.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat115.setText("25");
-
-        buttonGroup2.add(seat116);
-        seat116.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat116.setText("26");
-
-        buttonGroup2.add(seat117);
-        seat117.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat117.setText("27");
-
-        buttonGroup2.add(seat118);
-        seat118.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat118.setText("28");
-
-        buttonGroup2.add(seat119);
-        seat119.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat119.setText("29");
-
-        buttonGroup2.add(seat120);
-        seat120.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat120.setText("30");
-
-        overReserButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        overReserButt.setText("예약");
-        overReserButt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                overReserButtActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout overSeatStatePanelLayout = new javax.swing.GroupLayout(overSeatStatePanel);
-        overSeatStatePanel.setLayout(overSeatStatePanelLayout);
-        overSeatStatePanelLayout.setHorizontalGroup(
-            overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                        .addComponent(seat91, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(seat92, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(seat93, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(seat94, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                        .addGap(155, 155, 155)
-                        .addComponent(seat95, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                        .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(seat108)
-                                .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                                    .addComponent(seat99, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(seat100)))
-                            .addComponent(seat107)
-                            .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                                .addComponent(seat115)
-                                .addGap(18, 18, 18)
-                                .addComponent(seat116)))
-                        .addGap(18, 18, 18)
-                        .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                                .addComponent(seat101)
-                                .addGap(18, 18, 18)
-                                .addComponent(seat102)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(seat103))
-                            .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                                .addComponent(seat109)
-                                .addGap(18, 18, 18)
-                                .addComponent(seat110)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(seat111))
-                            .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                                .addComponent(seat117)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(seat118)))))
-                .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(seat96, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(seat104)))
-                    .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(seat112)
-                            .addComponent(seat119))))
-                .addGap(25, 25, 25)
-                .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(seat120)
-                    .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                        .addComponent(seat113)
-                        .addGap(18, 18, 18)
-                        .addComponent(seat114))
-                    .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, overSeatStatePanelLayout.createSequentialGroup()
-                            .addComponent(seat97, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(seat98))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, overSeatStatePanelLayout.createSequentialGroup()
-                            .addComponent(seat105)
-                            .addGap(18, 18, 18)
-                            .addComponent(seat106))))
-                .addGap(52, 52, 52))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, overSeatStatePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(overReserButt)
-                .addContainerGap())
+        javax.swing.GroupLayout teamCheckLayout = new javax.swing.GroupLayout(teamCheck);
+        teamCheck.setLayout(teamCheckLayout);
+        teamCheckLayout.setHorizontalGroup(
+            teamCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(teamCheckLayout.createSequentialGroup()
+                .addGroup(teamCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(teamCheckLayout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(jButton5)
+                        .addGap(74, 74, 74)
+                        .addComponent(jButton7))
+                    .addGroup(teamCheckLayout.createSequentialGroup()
+                        .addGap(211, 211, 211)
+                        .addComponent(jLabel23)
+                        .addGap(30, 30, 30)
+                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
-        overSeatStatePanelLayout.setVerticalGroup(
-            overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(seat91)
-                    .addComponent(seat92)
-                    .addComponent(seat93)
-                    .addComponent(seat94)
-                    .addComponent(seat95)
-                    .addComponent(seat96)
-                    .addComponent(seat97)
-                    .addComponent(seat98))
-                .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(seat99)
-                            .addComponent(seat100)
-                            .addComponent(seat101)
-                            .addComponent(seat102)
-                            .addComponent(seat103)
-                            .addComponent(seat104)
-                            .addComponent(seat105)
-                            .addComponent(seat106)))
-                    .addGroup(overSeatStatePanelLayout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(seat109)
-                            .addComponent(seat110)
-                            .addComponent(seat108)
-                            .addComponent(seat107)
-                            .addComponent(seat111)
-                            .addComponent(seat112)
-                            .addComponent(seat113)
-                            .addComponent(seat114))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addGroup(overSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(seat116)
-                    .addComponent(seat115)
-                    .addComponent(seat117)
-                    .addComponent(seat118)
-                    .addComponent(seat119)
-                    .addComponent(seat120))
-                .addGap(33, 33, 33)
-                .addComponent(overReserButt)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout OverLabCheckPanelLayout = new javax.swing.GroupLayout(OverLabCheckPanel);
-        OverLabCheckPanel.setLayout(OverLabCheckPanelLayout);
-        OverLabCheckPanelLayout.setHorizontalGroup(
-            OverLabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OverLabCheckPanelLayout.createSequentialGroup()
-                .addGroup(OverLabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(OverLabCheckPanelLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(overSeatStatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(OverLabCheckPanelLayout.createSequentialGroup()
-                        .addGap(214, 214, 214)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(overSeatCheckButt)))
-                .addContainerGap(50, Short.MAX_VALUE))
-        );
-        OverLabCheckPanelLayout.setVerticalGroup(
-            OverLabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OverLabCheckPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(OverLabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(overSeatCheckButt))
-                .addGap(18, 18, 18)
-                .addComponent(overSeatStatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+        teamCheckLayout.setVerticalGroup(
+            teamCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(teamCheckLayout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addGroup(teamCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
+                .addGap(59, 59, 59)
+                .addGroup(teamCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout OverReserLayout = new javax.swing.GroupLayout(OverReser);
@@ -1977,36 +1525,29 @@ public class StudentMain extends javax.swing.JFrame {
         OverReserLayout.setHorizontalGroup(
             OverReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OverReserLayout.createSequentialGroup()
-                .addGroup(OverReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(OverReserLayout.createSequentialGroup()
-                        .addGap(253, 253, 253)
-                        .addComponent(soloRadio)
-                        .addGap(35, 35, 35)
-                        .addComponent(teamRadio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel23)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(teamCheckButt))
-                    .addGroup(OverReserLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(OverLabCheckPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(184, 184, 184)
+                .addComponent(teamCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(201, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OverReserLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(soloRadio)
+                .addGap(35, 35, 35)
+                .addComponent(teamRadio)
+                .addGap(36, 36, 36)
+                .addComponent(jButton4)
+                .addGap(332, 332, 332))
         );
         OverReserLayout.setVerticalGroup(
             OverReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OverReserLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(87, 87, 87)
                 .addGroup(OverReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(soloRadio)
-                    .addComponent(teamRadio)
-                    .addComponent(jLabel23)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(teamCheckButt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(OverLabCheckPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(teamRadio))
+                .addGap(59, 59, 59)
+                .addComponent(teamCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         getContentPane().add(OverReser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
@@ -2025,33 +1566,22 @@ public class StudentMain extends javax.swing.JFrame {
         });
 
         jLabel22.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        jLabel22.setText("실습실 공지사항 및");
-
-        jLabel51.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        jLabel51.setText("규칙 조회");
+        jLabel22.setText("실습실 공지사항 및 규칙 조회");
 
         javax.swing.GroupLayout menuLabNoticeLayout = new javax.swing.GroupLayout(menuLabNotice);
         menuLabNotice.setLayout(menuLabNoticeLayout);
         menuLabNoticeLayout.setHorizontalGroup(
             menuLabNoticeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLabNoticeLayout.createSequentialGroup()
-                .addGroup(menuLabNoticeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(menuLabNoticeLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel22))
-                    .addGroup(menuLabNoticeLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel51)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel22)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         menuLabNoticeLayout.setVerticalGroup(
             menuLabNoticeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuLabNoticeLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLabNoticeLayout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel51)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         menuTimeTable.setBackground(new java.awt.Color(255, 255, 255));
@@ -2138,10 +1668,52 @@ public class StudentMain extends javax.swing.JFrame {
                 .addComponent(menuTimeTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuLabNotice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
         getContentPane().add(Lab_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+
+        jLabel27.setText("사용 가능한 실습실 확인");
+
+        javax.swing.GroupLayout LabCheckPanelLayout = new javax.swing.GroupLayout(LabCheckPanel);
+        LabCheckPanel.setLayout(LabCheckPanelLayout);
+        LabCheckPanelLayout.setHorizontalGroup(
+            LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LabCheckPanelLayout.createSequentialGroup()
+                .addGap(392, 392, 392)
+                .addComponent(jLabel27)
+                .addContainerGap(436, Short.MAX_VALUE))
+        );
+        LabCheckPanelLayout.setVerticalGroup(
+            LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LabCheckPanelLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel27)
+                .addContainerGap(568, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(LabCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
+
+        jLabel28.setText("실습실 시간표 조회");
+
+        javax.swing.GroupLayout LabTTPanelLayout = new javax.swing.GroupLayout(LabTTPanel);
+        LabTTPanel.setLayout(LabTTPanelLayout);
+        LabTTPanelLayout.setHorizontalGroup(
+            LabTTPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LabTTPanelLayout.createSequentialGroup()
+                .addGap(415, 415, 415)
+                .addComponent(jLabel28)
+                .addContainerGap(441, Short.MAX_VALUE))
+        );
+        LabTTPanelLayout.setVerticalGroup(
+            LabTTPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LabTTPanelLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jLabel28)
+                .addContainerGap(554, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(LabTTPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
 
         jLabel29.setText("실습실 공지사항 및 규칙 조회");
 
@@ -2163,721 +1735,6 @@ public class StudentMain extends javax.swing.JFrame {
         );
 
         getContentPane().add(LabNoticePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
-
-        jComboBox7.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
-
-        TTCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        TTCheckButt.setText("조회");
-        TTCheckButt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TTCheckButtActionPerformed(evt);
-            }
-        });
-
-        jLabel30.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel30.setText("실습실 : ");
-
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(jTable4);
-
-        javax.swing.GroupLayout TTLayout = new javax.swing.GroupLayout(TT);
-        TT.setLayout(TTLayout);
-        TTLayout.setHorizontalGroup(
-            TTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TTLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        TTLayout.setVerticalGroup(
-            TTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TTLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout LabTTCheckPanelLayout = new javax.swing.GroupLayout(LabTTCheckPanel);
-        LabTTCheckPanel.setLayout(LabTTCheckPanelLayout);
-        LabTTCheckPanelLayout.setHorizontalGroup(
-            LabTTCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LabTTCheckPanelLayout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(82, 82, 82)
-                .addComponent(TTCheckButt)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LabTTCheckPanelLayout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
-                .addComponent(TT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
-        );
-        LabTTCheckPanelLayout.setVerticalGroup(
-            LabTTCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LabTTCheckPanelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(LabTTCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TTCheckButt)
-                    .addComponent(jLabel30))
-                .addGap(18, 18, 18)
-                .addComponent(TT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(LabTTCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
-
-        LabCheckPanel.setPreferredSize(new java.awt.Dimension(914, 507));
-
-        jLabel31.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        jLabel31.setText("시작시간");
-
-        jLabel32.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        jLabel32.setText("날짜");
-
-        jLabel33.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        jLabel33.setText("종료시간");
-
-        checkButt1.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        checkButt1.setText("조회");
-        checkButt1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkButt1ActionPerformed(evt);
-            }
-        });
-
-        startTimeR1.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        startTimeR1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00" }));
-
-        endTimeR1.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        endTimeR1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00" }));
-
-        YYYY_Text1.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        YYYY_Text1.setText("2022");
-
-        MM_Text1.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        MM_Text1.setText("10");
-
-        DD_Text1.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        DD_Text1.setText("10");
-
-        jLabel34.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        jLabel34.setText("-");
-
-        jLabel35.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
-        jLabel35.setText("-");
-
-        javax.swing.GroupLayout LabCheckPanelLayout = new javax.swing.GroupLayout(LabCheckPanel);
-        LabCheckPanel.setLayout(LabCheckPanelLayout);
-        LabCheckPanelLayout.setHorizontalGroup(
-            LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LabCheckPanelLayout.createSequentialGroup()
-                .addContainerGap(273, Short.MAX_VALUE)
-                .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel31)
-                    .addComponent(jLabel32)
-                    .addComponent(jLabel33))
-                .addGap(37, 37, 37)
-                .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(YYYY_Text1)
-                    .addComponent(endTimeR1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(startTimeR1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LabCheckPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MM_Text1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DD_Text1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122))
-                    .addComponent(checkButt1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(206, 206, 206))
-        );
-        LabCheckPanelLayout.setVerticalGroup(
-            LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LabCheckPanelLayout.createSequentialGroup()
-                .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LabCheckPanelLayout.createSequentialGroup()
-                        .addGap(246, 246, 246)
-                        .addComponent(checkButt1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(LabCheckPanelLayout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel32)
-                            .addComponent(DD_Text1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel35)
-                            .addComponent(YYYY_Text1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel34)
-                            .addComponent(MM_Text1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel31)
-                            .addComponent(startTimeR1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel33)
-                            .addComponent(endTimeR1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(301, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(LabCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
-
-        jLabel27.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel27.setText("강의실");
-
-        LabComboBox.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        LabComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButton10.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jButton10.setText("확인");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-
-        LabStatus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        buttonGroup2.add(seat61);
-        seat61.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat61.setText("1");
-
-        buttonGroup2.add(seat62);
-        seat62.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat62.setText("2");
-
-        buttonGroup2.add(seat63);
-        seat63.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat63.setText("3");
-
-        buttonGroup2.add(seat64);
-        seat64.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat64.setText("4");
-
-        buttonGroup2.add(seat65);
-        seat65.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat65.setText("5");
-
-        buttonGroup2.add(seat66);
-        seat66.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat66.setText("6");
-
-        buttonGroup2.add(seat67);
-        seat67.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat67.setText("7");
-
-        buttonGroup2.add(seat68);
-        seat68.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat68.setText("8");
-
-        buttonGroup2.add(seat69);
-        seat69.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat69.setText("9");
-
-        buttonGroup2.add(seat70);
-        seat70.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat70.setText("10");
-
-        buttonGroup2.add(seat71);
-        seat71.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat71.setText("11");
-
-        buttonGroup2.add(seat72);
-        seat72.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat72.setText("12");
-
-        buttonGroup2.add(seat73);
-        seat73.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat73.setText("13");
-
-        buttonGroup2.add(seat74);
-        seat74.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat74.setText("14");
-
-        buttonGroup2.add(seat75);
-        seat75.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat75.setText("15");
-
-        buttonGroup2.add(seat76);
-        seat76.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat76.setText("16");
-
-        buttonGroup2.add(seat77);
-        seat77.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat77.setText("17");
-
-        buttonGroup2.add(seat78);
-        seat78.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat78.setText("18");
-
-        buttonGroup2.add(seat79);
-        seat79.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat79.setText("19");
-
-        buttonGroup2.add(seat80);
-        seat80.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat80.setText("20");
-
-        buttonGroup2.add(seat81);
-        seat81.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat81.setText("21");
-
-        buttonGroup2.add(seat82);
-        seat82.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat82.setText("22");
-
-        buttonGroup2.add(seat83);
-        seat83.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat83.setText("23");
-
-        buttonGroup2.add(seat84);
-        seat84.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat84.setText("24");
-
-        buttonGroup2.add(seat85);
-        seat85.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat85.setText("25");
-
-        buttonGroup2.add(seat86);
-        seat86.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat86.setText("26");
-
-        buttonGroup2.add(seat87);
-        seat87.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat87.setText("27");
-
-        buttonGroup2.add(seat88);
-        seat88.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat88.setText("28");
-
-        buttonGroup2.add(seat89);
-        seat89.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat89.setText("29");
-
-        buttonGroup2.add(seat90);
-        seat90.setFont(new java.awt.Font("굴림", 0, 16)); // NOI18N
-        seat90.setText("30");
-
-        javax.swing.GroupLayout LabStatusLayout = new javax.swing.GroupLayout(LabStatus);
-        LabStatus.setLayout(LabStatusLayout);
-        LabStatusLayout.setHorizontalGroup(
-            LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LabStatusLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(LabStatusLayout.createSequentialGroup()
-                        .addComponent(seat61, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(seat62, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(seat63, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(seat64, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                        .addGap(170, 170, 170))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, LabStatusLayout.createSequentialGroup()
-                        .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(seat78)
-                                .addGroup(LabStatusLayout.createSequentialGroup()
-                                    .addComponent(seat69, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(seat70)))
-                            .addComponent(seat77)
-                            .addGroup(LabStatusLayout.createSequentialGroup()
-                                .addComponent(seat85)
-                                .addGap(18, 18, 18)
-                                .addComponent(seat86)))
-                        .addGap(18, 18, 18)
-                        .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(LabStatusLayout.createSequentialGroup()
-                                .addComponent(seat79)
-                                .addGap(18, 18, 18)
-                                .addComponent(seat80))
-                            .addComponent(seat87)
-                            .addGroup(LabStatusLayout.createSequentialGroup()
-                                .addComponent(seat71)
-                                .addGap(18, 18, 18)
-                                .addComponent(seat72)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(seat65, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seat88, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(seat73, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(seat81, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(18, 18, 18)
-                .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LabStatusLayout.createSequentialGroup()
-                        .addComponent(seat82)
-                        .addGap(18, 18, 18)
-                        .addComponent(seat83))
-                    .addGroup(LabStatusLayout.createSequentialGroup()
-                        .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(seat66, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(seat74))
-                        .addGap(23, 23, 23)
-                        .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(LabStatusLayout.createSequentialGroup()
-                                .addComponent(seat67, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(seat68))
-                            .addGroup(LabStatusLayout.createSequentialGroup()
-                                .addComponent(seat75)
-                                .addGap(18, 18, 18)
-                                .addComponent(seat76))
-                            .addGroup(LabStatusLayout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(seat84))))
-                    .addGroup(LabStatusLayout.createSequentialGroup()
-                        .addComponent(seat89)
-                        .addGap(18, 18, 18)
-                        .addComponent(seat90)))
-                .addGap(52, 52, 52))
-        );
-        LabStatusLayout.setVerticalGroup(
-            LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LabStatusLayout.createSequentialGroup()
-                .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LabStatusLayout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(seat73)
-                            .addComponent(seat74)
-                            .addComponent(seat75)
-                            .addComponent(seat76)))
-                    .addGroup(LabStatusLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(seat61)
-                            .addComponent(seat62)
-                            .addComponent(seat63)
-                            .addComponent(seat64)
-                            .addComponent(seat65)
-                            .addComponent(seat66)
-                            .addComponent(seat67)
-                            .addComponent(seat68))
-                        .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(LabStatusLayout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(seat69)
-                                    .addComponent(seat70)
-                                    .addComponent(seat71)
-                                    .addComponent(seat72)))
-                            .addGroup(LabStatusLayout.createSequentialGroup()
-                                .addGap(139, 139, 139)
-                                .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(seat79)
-                                    .addComponent(seat80)
-                                    .addComponent(seat78)
-                                    .addComponent(seat77)
-                                    .addComponent(seat81)
-                                    .addComponent(seat82)
-                                    .addComponent(seat83)
-                                    .addComponent(seat84))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addGroup(LabStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(seat86)
-                    .addComponent(seat85)
-                    .addComponent(seat87)
-                    .addComponent(seat88)
-                    .addComponent(seat89)
-                    .addComponent(seat90))
-                .addGap(72, 72, 72))
-        );
-
-        javax.swing.GroupLayout LabStatusPanelLayout = new javax.swing.GroupLayout(LabStatusPanel);
-        LabStatusPanel.setLayout(LabStatusPanelLayout);
-        LabStatusPanelLayout.setHorizontalGroup(
-            LabStatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LabStatusPanelLayout.createSequentialGroup()
-                .addGap(302, 302, 302)
-                .addComponent(jLabel27)
-                .addGap(62, 62, 62)
-                .addComponent(LabComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
-                .addComponent(jButton10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LabStatusPanelLayout.createSequentialGroup()
-                .addContainerGap(124, Short.MAX_VALUE)
-                .addComponent(LabStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106))
-        );
-        LabStatusPanelLayout.setVerticalGroup(
-            LabStatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LabStatusPanelLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(LabStatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
-                    .addComponent(LabComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(LabStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84))
-        );
-
-        getContentPane().add(LabStatusPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 108, 960, 610));
-
-        UserInfo_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
-        UserInfo_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        menuUserDelete.setBackground(new java.awt.Color(255, 255, 255));
-        menuUserDelete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        menuUserDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menuUserDelete.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuUserDeleteMouseClicked(evt);
-            }
-        });
-
-        jLabel37.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        jLabel37.setText("회원 정보 삭제");
-
-        javax.swing.GroupLayout menuUserDeleteLayout = new javax.swing.GroupLayout(menuUserDelete);
-        menuUserDelete.setLayout(menuUserDeleteLayout);
-        menuUserDeleteLayout.setHorizontalGroup(
-            menuUserDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuUserDeleteLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel37)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        menuUserDeleteLayout.setVerticalGroup(
-            menuUserDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuUserDeleteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        menuUserChange.setBackground(new java.awt.Color(255, 255, 255));
-        menuUserChange.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        menuUserChange.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menuUserChange.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuUserChangeMouseClicked(evt);
-            }
-        });
-
-        jLabel38.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        jLabel38.setText("회원 정보 수정");
-
-        javax.swing.GroupLayout menuUserChangeLayout = new javax.swing.GroupLayout(menuUserChange);
-        menuUserChange.setLayout(menuUserChangeLayout);
-        menuUserChangeLayout.setHorizontalGroup(
-            menuUserChangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuUserChangeLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel38)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        menuUserChangeLayout.setVerticalGroup(
-            menuUserChangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuUserChangeLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel38)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        jLabel39.setFont(new java.awt.Font("맑은 고딕", 0, 36)); // NOI18N
-        jLabel39.setText("회원정보");
-
-        javax.swing.GroupLayout UserInfo_menuPanelLayout = new javax.swing.GroupLayout(UserInfo_menuPanel);
-        UserInfo_menuPanel.setLayout(UserInfo_menuPanelLayout);
-        UserInfo_menuPanelLayout.setHorizontalGroup(
-            UserInfo_menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menuUserDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(menuUserChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserInfo_menuPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel39)
-                .addContainerGap())
-        );
-        UserInfo_menuPanelLayout.setVerticalGroup(
-            UserInfo_menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(UserInfo_menuPanelLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel39)
-                .addGap(32, 32, 32)
-                .addComponent(menuUserChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(menuUserDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(343, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(UserInfo_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
-
-        jLabel36.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel36.setText("ID : ");
-
-        jLabel40.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel40.setText("PW : ");
-
-        jLabel41.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel41.setText("이름 : ");
-
-        jLabel42.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel42.setText("전화번호 : ");
-
-        jLabel43.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel43.setText("이메일 : ");
-
-        jLabel44.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel44.setText("비고 : ");
-
-        jTextField3.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jTextField4.setText("jTextField4");
-
-        jTextField5.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jTextField5.setText("jTextField5");
-
-        jTextField6.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jTextField6.setText("jTextField6");
-
-        jTextField7.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jTextField7.setText("jTextField7");
-
-        jTextField8.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jTextField8.setText("jTextField8");
-
-        UserChangeButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        UserChangeButt.setText("수정");
-        UserChangeButt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserChangeButtActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout UserChangePanelLayout = new javax.swing.GroupLayout(UserChangePanel);
-        UserChangePanel.setLayout(UserChangePanelLayout);
-        UserChangePanelLayout.setHorizontalGroup(
-            UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserChangePanelLayout.createSequentialGroup()
-                .addContainerGap(358, Short.MAX_VALUE)
-                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UserChangePanelLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel42)))
-                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(UserChangePanelLayout.createSequentialGroup()
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(116, 116, 116)
-                        .addComponent(UserChangeButt)))
-                .addGap(268, 268, 268))
-        );
-        UserChangePanelLayout.setVerticalGroup(
-            UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(UserChangePanelLayout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel36)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel40))
-                .addGap(21, 21, 21)
-                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel41)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel42)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel43)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel44)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UserChangeButt))
-                .addContainerGap(194, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(UserChangePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
-
-        UserDeleteButt.setFont(new java.awt.Font("맑은 고딕", 0, 16)); // NOI18N
-        UserDeleteButt.setText("회원 정보 삭제");
-        UserDeleteButt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserDeleteButtActionPerformed(evt);
-            }
-        });
-
-        jTextField9.setFont(new java.awt.Font("맑은 고딕", 0, 16)); // NOI18N
-        jTextField9.setText("홍길동");
-
-        jLabel45.setFont(new java.awt.Font("맑은 고딕", 0, 16)); // NOI18N
-        jLabel45.setText("님 회원 정보 삭제하시겠습니까?");
-
-        javax.swing.GroupLayout UserDeletePanelLayout = new javax.swing.GroupLayout(UserDeletePanel);
-        UserDeletePanel.setLayout(UserDeletePanelLayout);
-        UserDeletePanelLayout.setHorizontalGroup(
-            UserDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(UserDeletePanelLayout.createSequentialGroup()
-                .addGap(315, 315, 315)
-                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(UserDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel45)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDeletePanelLayout.createSequentialGroup()
-                        .addComponent(UserDeleteButt)
-                        .addGap(82, 82, 82)))
-                .addContainerGap(345, Short.MAX_VALUE))
-        );
-        UserDeletePanelLayout.setVerticalGroup(
-            UserDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(UserDeletePanelLayout.createSequentialGroup()
-                .addGap(214, 214, 214)
-                .addGroup(UserDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel45))
-                .addGap(62, 62, 62)
-                .addComponent(UserDeleteButt)
-                .addContainerGap(275, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(UserDeletePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -2904,12 +1761,13 @@ public class StudentMain extends javax.swing.JFrame {
             Reser_menuPanel.setVisible(true);
             menuReser.setBackground(Color.RED);
             beforeReser.setVisible(true);
+                
         } else if(afterReserRadio.isSelected() == true) {
             reset();
             Reser_menuPanel.setVisible(true);
             menuReser.setBackground(Color.RED);
             afterReser.setVisible(true);
-        } 
+        }
         // else 아무것도 선택하지 않고 버튼 눌렀을 경우 
     }//GEN-LAST:event_reserNextButtActionPerformed
 
@@ -2920,9 +1778,6 @@ public class StudentMain extends javax.swing.JFrame {
         Reser_menuPanel.setVisible(true);
         
         menuCheck.setBackground(Color.red);
-        
-         // 현재 사용할 수 있는 실습실 번호, 좌석번호, 시작시간, 종료시간, 연장가능시간 출력
-         
     }//GEN-LAST:event_menuCheckMouseClicked
 
     // 예약 메뉴바 - 본인 예약 현황 조회 및 취소 선택 시
@@ -2940,13 +1795,11 @@ public class StudentMain extends javax.swing.JFrame {
         Reser_menuPanel.setVisible(true);
         menuReser.setBackground(Color.RED);
         
+        // 학생 수 20명 이하이면
+        //check.setVisible(true);
         
-        // if 현재 강의실에 학생 수 20명 이하이면 
-        check.setVisible(true);
-        // check패널의 콤보박스에 사용가능한 실습실 아이템 값으로 넣기
-        
-        // else if 학생 수 카운트해서 20명 이상이면 (개인, 조별 학습 확인)
-        //OverReser.setVisible(true);
+        // 학생 수 카운트해서 20명 이상이면
+        OverReser.setVisible(true);
     }//GEN-LAST:event_checkButtActionPerformed
 
     // 예약 메뉴바 - 실습실 예약 선택 시 
@@ -2958,24 +1811,17 @@ public class StudentMain extends javax.swing.JFrame {
         menuReser.setBackground(Color.RED);
     }//GEN-LAST:event_menuReserMouseClicked
 
-    // (afterReser -> check) 강의실 선택 후 확인 버튼 클릭
-    private void AfterCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AfterCheckButtActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         //reset();
         afterSeatStatePanel.setVisible(true);
         
         // 예약 중인 좌석이라면 라디오버튼 비활성화
         seat1.setEnabled(false);
-    }//GEN-LAST:event_AfterCheckButtActionPerformed
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     // 메인화면 - 회원정보 버튼
     private void userInformationButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userInformationButtActionPerformed
-        reset();
-        UserChangePanel.setVisible(true);
-        UserInfo_menuPanel.setVisible(true);
-        
-        menuUserChange.setBackground(Color.yellow);
-        
-        // 회원 정보 db에서 가져와서 UserChangePanel에 띄우기
+        // TODO add your handling code here:
     }//GEN-LAST:event_userInformationButtActionPerformed
 
     // 메인화면 - 실습실 버튼
@@ -2992,42 +1838,64 @@ public class StudentMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_manageButtActionPerformed
 
-    // 5시 이후 좌석 선택 후 예약 버튼
-    private void AfterReserButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AfterReserButtActionPerformed
-        // DB에 예약 저장
-    }//GEN-LAST:event_AfterReserButtActionPerformed
+    private void beforeReserRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beforeReserRadioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_beforeReserRadioActionPerformed
 
-    //5시 이전 좌석 선택 후 예약 버튼
-    private void BeforeReserButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeforeReserButtActionPerformed
-        // DB에 예약 저장
-    }//GEN-LAST:event_BeforeReserButtActionPerformed
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     // 5시 이전 좌석 조회
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         beforeSeatStatePanel.setVisible(true);
+        //사용자에게 입력받은 정보를 저장하는 객체
+        reservation = new Reservation(jTextField1.getText(),jComboBox3.getSelectedItem().toString(),jComboBox4.getSelectedItem().toString(),jComboBox5.getSelectedItem().toString());   
         
+        try{
+            /*
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,jTextField1.getText());   //날짜
+            pstmt.setString(2,jComboBox3.getSelectedItem().toString());   //실습실 번호
+            pstmt.setString(3, jComboBox4.getSelectedItem().toString());   //시작 시간
+            pstmt.setString(4, jComboBox5.getSelectedItem().toString());   //종료 시간
+            rs = pstmt.executeQuery();
+            */
+            //기존의 강의와 겹치는지 조회
+            sql="select * from class where day=? and labId=? and ((startTime<=? and endTime>=?) or (startTime>=? and startTime<=?) or (endTime>=? and endTime<=?))";
+            pstmt.setInt(1,getDay(reservation));
+            pstmt.setString(2, reservation.labId);
+            pstmt.setString(3, reservation.startTimeR);
+            pstmt.setString(4, reservation.endTimeR);
+            
+            //기존의 세미나(혹은 특강)과 겹치는지 조회
+            sql="select * from seminar where dateS=? and labId=? "; //시간 추가 해야 함!!!
+            
+            //기존의 예약과 겹치는지 조회
+            sql="select * from reservation where dateR=? and labId=? "; //시간 추가 해야 함!!    
+                
+            }catch(SQLException ex){
+                System.out.println(ex.getMessage());
+            }
         // 예약 중인 좌석이라면 라디오버튼 비활성화
         seat31.setEnabled(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    // 개인, 조별학습 선택받아서 확인 버튼
-    private void teamCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teamCheckButtActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if(soloRadio.isSelected() == true) {  //개인학습
             reset();
             Reser_menuPanel.setVisible(true);
             menuReser.setBackground(Color.RED);
             
             check.setVisible(true);
-            
-            // check의 콤보박스에 사용 가능한 실습실 값 아이템으로 넣기
-            
         } else if (teamRadio.isSelected() == true) {  // 조별학습
-            OverLabCheckPanel.setVisible(true);
-            
-            // OverLabCheckPanel의 사용 가능한 강의실 콤보 박스에 사용 가능한 실습실 값 아이템으로 넣기
-            
+            teamCheck.setVisible(true);
         }
-    }//GEN-LAST:event_teamCheckButtActionPerformed
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     // 실습실 메뉴바 -  실습실 공지사항 및 규칙 조회 선택 시 
     private void menuLabNoticeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLabNoticeMouseClicked
@@ -3042,7 +1910,7 @@ public class StudentMain extends javax.swing.JFrame {
         reset();
         Lab_menuPanel.setVisible(true);
         menuTimeTable.setBackground(Color.yellow);
-        LabTTCheckPanel.setVisible(true);
+        LabTTPanel.setVisible(true);
     }//GEN-LAST:event_menuTimeTableMouseClicked
 
     // 실습실 메뉴바 -  사용가능한 실습실 확인 선택 시 
@@ -3053,97 +1921,17 @@ public class StudentMain extends javax.swing.JFrame {
         LabCheckPanel.setVisible(true);
     }//GEN-LAST:event_menuLabCheckMouseClicked
 
-    // 실습실 시간표 조회 버튼
-    private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
-        TT.setVisible(true);
-        
-        //테이블에 시간표 출력
-    }//GEN-LAST:event_TTCheckButtActionPerformed
-
-    // 날짜, 시간 입력 후 사용 가능한 실습실 조회 버튼
-    private void checkButt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkButt1ActionPerformed
-        reset();
-        Lab_menuPanel.setVisible(true);
-        menuLabCheck.setBackground(Color.yellow);
-        LabStatusPanel.setVisible(true);
-    
-        // 날짜, 시간 입력 후 사용 가능한 실습실만 콤보박스 아이템으로 넣기 (LabStatusPanel)
-        
-    }//GEN-LAST:event_checkButt1ActionPerformed
-
-    // 실습실 선택 후 확인 버튼 클릭
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        LabStatus.setVisible(true);
-        
-        // 사용 가능한 불가능한 좌석 비활성화
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    // 회원정보 메뉴바 -  회원 정보 삭제 선택 시 
-    private void menuUserDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuUserDeleteMouseClicked
-        reset();
-        UserInfo_menuPanel.setVisible(true);
-        menuUserDelete.setBackground(Color.yellow);
-        UserDeletePanel.setVisible(true);
-    }//GEN-LAST:event_menuUserDeleteMouseClicked
-
-    // 회원정보 메뉴바 -  회원 정보 수정 선택 시 
-    private void menuUserChangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuUserChangeMouseClicked
-        reset();
-        UserInfo_menuPanel.setVisible(true);
-        menuUserChange.setBackground(Color.yellow);
-        UserChangePanel.setVisible(true);
-        
-        // 회원 정보 db에서 가져와서 UserChangePanel에 띄우기
-    }//GEN-LAST:event_menuUserChangeMouseClicked
-
-    // 회원 정보 삭제 버튼
-    private void UserDeleteButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserDeleteButtActionPerformed
-        // db에서 회원 정보 삭제
-    }//GEN-LAST:event_UserDeleteButtActionPerformed
-
-    // 회원 정보 수정 버튼
-    private void UserChangeButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserChangeButtActionPerformed
-        // 입력된 값으로 db값 수정
-    }//GEN-LAST:event_UserChangeButtActionPerformed
-
-    // 본인 예약 상황 조회 버튼
-    private void MyReserCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MyReserCheckButtActionPerformed
+    private void startTimeRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startTimeRActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_MyReserCheckButtActionPerformed
+    }//GEN-LAST:event_startTimeRActionPerformed
 
-    // 본인 예약 취소 버튼
-    private void MyReserCancleButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MyReserCancleButtActionPerformed
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_MyReserCancleButtActionPerformed
+    }//GEN-LAST:event_jComboBox4ActionPerformed
 
-    // 예약 사용 시작 버튼
-    private void startButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtActionPerformed
-        // 예약 사용 시작 버튼 클릭 시 사용시작버튼 비활성화
-        startButt.setEnabled(false);
-        
-        // 사용 시작 상태 디비에 저장 
-    }//GEN-LAST:event_startButtActionPerformed
-
-    //예약 퇴실 버튼
-    private void endButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endButtActionPerformed
-        if(startButt.isEnabled() == true) {  // 예약 사용 시작을 안했다면 
-            System.out.printf("No end!!");  // 퇴실 불가능
-        }
-
-        // 퇴실 상태 디비에 저장
-    }//GEN-LAST:event_endButtActionPerformed
-
-    // 좌석 선택후 예약 버튼 (5시 이후, 20명 이상, 팀별 학습)
-    private void overReserButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overReserButtActionPerformed
-        // 예약 디비에 넣기
-    }//GEN-LAST:event_overReserButtActionPerformed
-
-    // 강의실 선택 후 좌석조회 버튼(5시 이후, 20명 이상, 팀별학습)
-    private void overSeatCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overSeatCheckButtActionPerformed
-        overSeatStatePanel.setVisible(true);
-        
-        // 사용 불가능한 좌석 비활성화
-    }//GEN-LAST:event_overSeatCheckButtActionPerformed
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3182,38 +1970,19 @@ public class StudentMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AfterCheckButt;
-    private javax.swing.JButton AfterReserButt;
-    private javax.swing.JButton BeforeReserButt;
     private javax.swing.JPanel CanclePanel;
     private javax.swing.JPanel CheckPanel;
     private javax.swing.JTextField DD_Text;
-    private javax.swing.JTextField DD_Text1;
     private javax.swing.JPanel LabCheckPanel;
-    private javax.swing.JComboBox<String> LabComboBox;
     private javax.swing.JPanel LabNoticePanel;
-    private javax.swing.JPanel LabStatus;
-    private javax.swing.JPanel LabStatusPanel;
-    private javax.swing.JPanel LabTTCheckPanel;
+    private javax.swing.JPanel LabTTPanel;
     private javax.swing.JPanel Lab_menuPanel;
     private javax.swing.JTextField MM_Text;
-    private javax.swing.JTextField MM_Text1;
-    private javax.swing.JButton MyReserCancleButt;
-    private javax.swing.JButton MyReserCheckButt;
-    private javax.swing.JPanel OverLabCheckPanel;
     private javax.swing.JPanel OverReser;
     private javax.swing.JPanel ReserPanel;
     private javax.swing.JPanel Reser_menuPanel;
-    private javax.swing.JPanel TT;
-    private javax.swing.JButton TTCheckButt;
     private javax.swing.JPanel TitlePanel;
-    private javax.swing.JButton UserChangeButt;
-    private javax.swing.JPanel UserChangePanel;
-    private javax.swing.JButton UserDeleteButt;
-    private javax.swing.JPanel UserDeletePanel;
-    private javax.swing.JPanel UserInfo_menuPanel;
     private javax.swing.JTextField YYYY_Text;
-    private javax.swing.JTextField YYYY_Text1;
     private javax.swing.JPanel afterReser;
     private javax.swing.JRadioButton afterReserRadio;
     private javax.swing.JPanel afterSeatStatePanel;
@@ -3225,20 +1994,22 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JPanel check;
     private javax.swing.JButton checkButt;
-    private javax.swing.JButton checkButt1;
-    private javax.swing.JButton endButt;
     private javax.swing.JComboBox<String> endTimeR;
-    private javax.swing.JComboBox<String> endTimeR1;
-    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
-    private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -3259,55 +2030,20 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JButton labButt;
     private javax.swing.JButton labReserButt;
     private java.awt.Label label1;
@@ -3319,37 +2055,11 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JPanel menuLabNotice;
     private javax.swing.JPanel menuReser;
     private javax.swing.JPanel menuTimeTable;
-    private javax.swing.JPanel menuUserChange;
-    private javax.swing.JPanel menuUserDelete;
-    private javax.swing.JButton overReserButt;
-    private javax.swing.JButton overSeatCheckButt;
-    private javax.swing.JPanel overSeatStatePanel;
     private javax.swing.JButton reserNextButt;
     private javax.swing.JRadioButton seat1;
     private javax.swing.JRadioButton seat10;
-    private javax.swing.JRadioButton seat100;
-    private javax.swing.JRadioButton seat101;
-    private javax.swing.JRadioButton seat102;
-    private javax.swing.JRadioButton seat103;
-    private javax.swing.JRadioButton seat104;
-    private javax.swing.JRadioButton seat105;
-    private javax.swing.JRadioButton seat106;
-    private javax.swing.JRadioButton seat107;
-    private javax.swing.JRadioButton seat108;
-    private javax.swing.JRadioButton seat109;
     private javax.swing.JRadioButton seat11;
-    private javax.swing.JRadioButton seat110;
-    private javax.swing.JRadioButton seat111;
-    private javax.swing.JRadioButton seat112;
-    private javax.swing.JRadioButton seat113;
-    private javax.swing.JRadioButton seat114;
-    private javax.swing.JRadioButton seat115;
-    private javax.swing.JRadioButton seat116;
-    private javax.swing.JRadioButton seat117;
-    private javax.swing.JRadioButton seat118;
-    private javax.swing.JRadioButton seat119;
     private javax.swing.JRadioButton seat12;
-    private javax.swing.JRadioButton seat120;
     private javax.swing.JRadioButton seat13;
     private javax.swing.JRadioButton seat14;
     private javax.swing.JRadioButton seat15;
@@ -3403,53 +2113,12 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JRadioButton seat59;
     private javax.swing.JRadioButton seat6;
     private javax.swing.JRadioButton seat60;
-    private javax.swing.JRadioButton seat61;
-    private javax.swing.JRadioButton seat62;
-    private javax.swing.JRadioButton seat63;
-    private javax.swing.JRadioButton seat64;
-    private javax.swing.JRadioButton seat65;
-    private javax.swing.JRadioButton seat66;
-    private javax.swing.JRadioButton seat67;
-    private javax.swing.JRadioButton seat68;
-    private javax.swing.JRadioButton seat69;
     private javax.swing.JRadioButton seat7;
-    private javax.swing.JRadioButton seat70;
-    private javax.swing.JRadioButton seat71;
-    private javax.swing.JRadioButton seat72;
-    private javax.swing.JRadioButton seat73;
-    private javax.swing.JRadioButton seat74;
-    private javax.swing.JRadioButton seat75;
-    private javax.swing.JRadioButton seat76;
-    private javax.swing.JRadioButton seat77;
-    private javax.swing.JRadioButton seat78;
-    private javax.swing.JRadioButton seat79;
     private javax.swing.JRadioButton seat8;
-    private javax.swing.JRadioButton seat80;
-    private javax.swing.JRadioButton seat81;
-    private javax.swing.JRadioButton seat82;
-    private javax.swing.JRadioButton seat83;
-    private javax.swing.JRadioButton seat84;
-    private javax.swing.JRadioButton seat85;
-    private javax.swing.JRadioButton seat86;
-    private javax.swing.JRadioButton seat87;
-    private javax.swing.JRadioButton seat88;
-    private javax.swing.JRadioButton seat89;
     private javax.swing.JRadioButton seat9;
-    private javax.swing.JRadioButton seat90;
-    private javax.swing.JRadioButton seat91;
-    private javax.swing.JRadioButton seat92;
-    private javax.swing.JRadioButton seat93;
-    private javax.swing.JRadioButton seat94;
-    private javax.swing.JRadioButton seat95;
-    private javax.swing.JRadioButton seat96;
-    private javax.swing.JRadioButton seat97;
-    private javax.swing.JRadioButton seat98;
-    private javax.swing.JRadioButton seat99;
     private javax.swing.JRadioButton soloRadio;
-    private javax.swing.JButton startButt;
     private javax.swing.JComboBox<String> startTimeR;
-    private javax.swing.JComboBox<String> startTimeR1;
-    private javax.swing.JButton teamCheckButt;
+    private javax.swing.JPanel teamCheck;
     private javax.swing.JRadioButton teamRadio;
     private java.awt.TextField textField1;
     private javax.swing.JButton userInformationButt;
