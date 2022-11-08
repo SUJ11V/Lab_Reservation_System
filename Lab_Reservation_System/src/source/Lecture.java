@@ -1,6 +1,6 @@
 package source;
 
-class Class {
+public class Lecture {
   public Lab lab;
 
   public int startTimeC;
@@ -8,7 +8,11 @@ class Class {
   public int endTimeC;
 
   public String lecName;
-
+  
+  public Lecture(String lecName){
+      lecName=this.lecName;
+  }
+  
   public void inputClass() {
     // Bouml preserved body begin 0001F502
     // Bouml preserved body end 0001F502
