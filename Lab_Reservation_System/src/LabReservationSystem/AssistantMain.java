@@ -477,7 +477,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1100, 620));
+        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1120, 620));
 
         TitlePanel.setBackground(new java.awt.Color(204, 204, 204));
         TitlePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -510,7 +510,7 @@ public class AssistantMain extends javax.swing.JFrame {
         TitlePanelLayout.setHorizontalGroup(
             TitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TitlePanelLayout.createSequentialGroup()
-                .addContainerGap(235, Short.MAX_VALUE)
+                .addContainerGap(255, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(137, 137, 137)
                 .addComponent(jLabel2)
@@ -538,7 +538,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(TitlePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 110));
+        getContentPane().add(TitlePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1120, 110));
 
         ReserManage_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
         ReserManage_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -666,10 +666,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(menuListCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuseatReserCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addContainerGap(273, Short.MAX_VALUE))
         );
 
-        getContentPane().add(ReserManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(ReserManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1326,6 +1326,7 @@ public class AssistantMain extends javax.swing.JFrame {
         date.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         date.setText("2022 - 11 - 06");
 
+        seatNum.setEditable(false);
         seatNum.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         seatNum.setText("seat2");
 
@@ -1500,10 +1501,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(menuSeminarAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuTimeTableCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
-        getContentPane().add(TimeTable_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(TimeTable_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
 
         jLabel17.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel17.setText("실습실 : ");
@@ -1985,10 +1986,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(menuManageRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuNoticeAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
 
-        getContentPane().add(LabManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(LabManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
 
         jLabel39.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel39.setText("강의실 : ");
@@ -2341,10 +2342,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(menuUserDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuUserChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addContainerGap(322, Short.MAX_VALUE))
         );
 
-        getContentPane().add(UserManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(UserManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
 
         DeleteButt.setFont(new java.awt.Font("맑은 고딕", 0, 16)); // NOI18N
         DeleteButt.setText("회원 정보 삭제");
@@ -2728,10 +2729,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(menuUserReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuTTReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Manage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(Manage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
 
         jLabel38.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
         jLabel38.setText("토큰값");

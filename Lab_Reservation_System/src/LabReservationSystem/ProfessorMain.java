@@ -176,7 +176,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         seat30 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1120, 750));
+        setMinimumSize(new java.awt.Dimension(1120, 730));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -235,7 +235,7 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addGap(194, 194, 194))
         );
 
-        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1110, 600));
+        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1110, 630));
 
         TitlePanel.setBackground(new java.awt.Color(204, 204, 204));
         TitlePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -386,10 +386,10 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addComponent(menuSeminarReser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuSeminarCancle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Seminar_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(Seminar_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 630));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -777,10 +777,10 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addComponent(jLabel47)
                 .addGap(18, 18, 18)
                 .addComponent(menuTTCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(381, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
 
-        getContentPane().add(TTCheck_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(TTCheck_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 630));
 
         LabCheck_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
         LabCheck_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -852,10 +852,10 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addComponent(jLabel51)
                 .addGap(18, 18, 18)
                 .addComponent(menuLabCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(381, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
 
-        getContentPane().add(LabCheck_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(LabCheck_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 630));
 
         jLabel4.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel4.setText("강의실 : ");
