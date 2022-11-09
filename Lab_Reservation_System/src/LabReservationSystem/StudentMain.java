@@ -19,28 +19,9 @@ public class StudentMain extends javax.swing.JFrame {
     String sql; //쿼리문 받을 변수
     
     Reservation reservation; //사용자에게 입력받을 예약 정보 객체
+    Reservation reservationList[];  //db에서 예약정보를 저장할 객체
     Lecture lecture;    //강의 객체
     Seminar seminar;    //세미나(또는 특강) 객체
-    
-    //디비 연결 용 변수
-    String jdbcDriver="jdbc:mysql://211.213.95.123:3360/computer_reservation?serverTimeZone=UTC";
-    String dbId="20203132"; //MySQL 접속 아이디("20203132"도 가능)
-    String dbPw="20203132"; //접속 비밀번호(아이디를 20203132로 작성시, 비밀번호도 아이디와 같도록)
-    /*
-    try{
-        try {
-            //JDBC드라이버 로딩
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //DB연결
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(StudentMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        conn=DriverManager.getConnection(jdbcDriver,dbId,dbPw);
-    }catch(ClassNotFoundException | SQLException ex){   //예외처리
-            System.out.println(ex.getMessage());
-    }
-      */
     
     public int getDay(Reservation reservation){ //요일 구하기
         //dateR은 "yyyy-mm-dd" 형식으로 된 string type으로 받는다.
@@ -52,6 +33,22 @@ public class StudentMain extends javax.swing.JFrame {
         DayOfWeek dayOfWeek =date.getDayOfWeek();
         int dayOfWeekNumber=dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
         return dayOfWeekNumber;                   //1: 월, 2: 화, 3: 수, ....
+    }
+    
+    public void connect(){  //DB연결 함수
+        try{
+            //JDBC드라이버 로딩
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //디비 연결 용 변수
+            String jdbcDriver="jdbc:mysql://211.213.95.123:3360/labmanagement?serverTimeZone=UTC";
+            String dbId="20203128"; //MySQL 접속 아이디("20203132"도 가능)
+            String dbPw="20203128"; //접속 비밀번호(아이디를 20203132로 작성시, 비밀번호도 아이디와 같도록
+            conn=DriverManager.getConnection(jdbcDriver,dbId,dbPw);
+        }catch(ClassNotFoundException ex ){
+            System.out.println(ex.getMessage());
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
     }
     
     public StudentMain() {
@@ -84,7 +81,8 @@ public class StudentMain extends javax.swing.JFrame {
         
         UserChangePanel.setVisible(false);
         UserDeletePanel.setVisible(false);
-
+        
+        
     }
     
     // 화면에 띄우는 패널들 초기화하는 함수
@@ -730,10 +728,10 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel21.setText("종료시간");
 
         jComboBox4.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
 
         jComboBox5.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00" }));
 
         jTextField1.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jTextField1.setText("2022-10-10");
@@ -3046,19 +3044,18 @@ public class StudentMain extends javax.swing.JFrame {
     // 5시 이전 좌석 조회
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //사용자에게 입력받은 정보를 저장하는 객체
-        reservation = new Reservation(jTextField1.getText(),jComboBox3.getSelectedItem().toString(),jComboBox4.getSelectedItem().toString().substring(0,1),jComboBox5.getSelectedItem().toString().substring(0,1));   
-        System.out.println(reservation);
+        connect(); //디비 연결
+        reservation = new Reservation(jTextField1.getText(),jComboBox3.getSelectedItem().toString(),jComboBox4.getSelectedItem().toString().substring(0,1),jComboBox5.getSelectedItem().toString().substring(0,2));   
+        System.out.println(jTextField1.getText());
+        System.out.println(jComboBox3.getSelectedItem().toString());
+        System.out.println(jComboBox4.getSelectedItem().toString().substring(0,1));
+        System.out.println(jComboBox5.getSelectedItem().toString().substring(0,2));
+        System.out.println(getDay(reservation));
         try{
-            /*
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,jTextField1.getText());   //날짜
-            pstmt.setString(2,jComboBox3.getSelectedItem().toString());   //실습실 번호
-            pstmt.setString(3, jComboBox4.getSelectedItem().toString());   //시작 시간
-            pstmt.setString(4, jComboBox5.getSelectedItem().toString());   //종료 시간
-            rs = pstmt.executeQuery();
-            */
             //기존의 강의와 겹치는지 조회
-            sql="select * from class where day=? and labId=? and ((startTime<=? and endTime>=?) or (startTime>=? and startTime<=?) or (endTime>=? and endTime<=?))";
+            sql="select * from lecture where day=? and labId=? and ((startTime<=? and endTime>=?) or (startTime>=? and startTime<=?) or (endTime>=? and endTime<=?))";
+            pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+            
             pstmt.setInt(1,getDay(reservation));    //요일
             pstmt.setString(2, reservation.labId);  //실습실 번호
             pstmt.setString(3, reservation.startTimeR); //시작시간
@@ -3067,14 +3064,16 @@ public class StudentMain extends javax.swing.JFrame {
             pstmt.setString(6, reservation.startTimeR); //시작시간
             pstmt.setString(7, reservation.endTimeR);   //종료시간
             pstmt.setString(8, reservation.endTimeR);   //종료시간
-            rs=pstmt.executeQuery();
             
+            rs=pstmt.executeQuery();
             if(rs.next()){ //해당 예약 정보와 겹치는 강의가 존재한다면
-                lecture=new Lecture(rs.getString("lectureName"));   //lecture 테이블에 lectureName 속성에서 값 가져오기
-                JOptionPane.showMessageDialog(this, lecture.lecName+" 강의 시간입니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
+                lecture=new Lecture(rs.getString("lectureName"));   //lecture 테이블에 lectureName 속성에서 값 가져오기 //값 안들어감.. 왜지
+                JOptionPane.showMessageDialog(this, rs.getString("lectureName") +" 강의 시간입니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
             }else{
                 //기존의 세미나(혹은 특강)과 겹치는지 조회
-                sql="select * from seminar where dateS=? and labId=? and ((startTime<=? and endTime>=?) or (startTime>=? and startTime<=?) or (endTime>=? and endTime<=?))";
+                sql="select * from seminar where dateS=? and labId=? and ((startTimeS<=? and endTimeS>=?) or (startTimeS>=? and startTimeS<=?) or (endTimeS>=? and endTimeS<=?))";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+                
                 pstmt.setString(1, reservation.dateR);      //날짜
                 pstmt.setString(2, reservation.labId);      //실습실 번호
                 pstmt.setString(3, reservation.startTimeR); //시작시간
@@ -3083,15 +3082,15 @@ public class StudentMain extends javax.swing.JFrame {
                 pstmt.setString(6, reservation.startTimeR); //시작시간
                 pstmt.setString(7, reservation.endTimeR);   //종료시간
                 pstmt.setString(8, reservation.endTimeR);   //종료시간
+                
                 rs=pstmt.executeQuery();
-            
                 if(rs.next()){
-                    seminar=new Seminar(rs.getString("seminarName"));   //seminar 테이블에 seminarName 속성에서 값 가져오기
-                    
-                    //세미나명 띄워주는 팝업창 띄우기
-                    
-                }else{
+                    seminar=new Seminar(rs.getString("seminarName"));   //seminar 테이블에 seminarName 속성에서 값 가져오기 //값 안들어감.. 왜지
+                    JOptionPane.showMessageDialog(this, rs.getString("seminarName")+" 강의 시간입니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
+                }/*
+                else{
                     //기존의 예약과 겹치는지 조회
+                //시작 시간 종료시간 디비 속성명 확인
                     sql="select * from reservation where dateR=? and labId=? and ((startTime<=? and endTime>=?) or (startTime>=? and startTime<=?) or (endTime>=? and endTime<=?))";
                     pstmt.setString(1, reservation.dateR);      //날짜
                     pstmt.setString(2, reservation.labId);      //실습실 번호
@@ -3103,11 +3102,12 @@ public class StudentMain extends javax.swing.JFrame {
                     pstmt.setString(8, reservation.endTimeR);   //종료시간
                     rs=pstmt.executeQuery();
                     
-                    //if(rs.next())
+                    if(rs.next()){
+                        
+                    }
                     
-                }
+                }*/
             }
-            beforeSeatStatePanel.setVisible(true);
             }catch(SQLException ex){
                 System.out.println(ex.getMessage());
             }finally {
@@ -3115,6 +3115,9 @@ public class StudentMain extends javax.swing.JFrame {
                 if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
                 if(conn != null) try {conn.close();} catch (SQLException ex) {}
         }
+        
+        // 좌석 출력
+        beforeSeatStatePanel.setVisible(true);
         // 예약 중인 좌석이라면 라디오버튼 비활성화
         seat31.setEnabled(false);
     }//GEN-LAST:event_jButton3ActionPerformed

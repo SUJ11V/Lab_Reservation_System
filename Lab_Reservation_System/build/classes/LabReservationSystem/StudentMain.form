@@ -679,11 +679,15 @@
               <Font name="&#xad74;&#xb9bc;" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="8">
+                <StringItem index="0" value="9:00"/>
+                <StringItem index="1" value="10:00"/>
+                <StringItem index="2" value="11:00"/>
+                <StringItem index="3" value="12:00"/>
+                <StringItem index="4" value="13:00"/>
+                <StringItem index="5" value="14:00"/>
+                <StringItem index="6" value="15:00"/>
+                <StringItem index="7" value="16:00"/>
               </StringArray>
             </Property>
           </Properties>
@@ -697,11 +701,15 @@
               <Font name="&#xad74;&#xb9bc;" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="8">
+                <StringItem index="0" value="10:00"/>
+                <StringItem index="1" value="11:00"/>
+                <StringItem index="2" value="12:00"/>
+                <StringItem index="3" value="13:00"/>
+                <StringItem index="4" value="14:00"/>
+                <StringItem index="5" value="15:00"/>
+                <StringItem index="6" value="16:00"/>
+                <StringItem index="7" value="17:00"/>
               </StringArray>
             </Property>
           </Properties>
