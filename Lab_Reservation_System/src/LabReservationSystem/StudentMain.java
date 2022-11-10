@@ -241,6 +241,7 @@ public class StudentMain extends javax.swing.JFrame {
         seat59 = new javax.swing.JRadioButton();
         seat60 = new javax.swing.JRadioButton();
         BeforeReserButt = new javax.swing.JButton();
+        resetRadio = new javax.swing.JRadioButton();
         afterReser = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -914,6 +915,9 @@ public class StudentMain extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup2.add(resetRadio);
+        resetRadio.setSelected(true);
+
         javax.swing.GroupLayout beforeSeatStatePanelLayout = new javax.swing.GroupLayout(beforeSeatStatePanel);
         beforeSeatStatePanel.setLayout(beforeSeatStatePanelLayout);
         beforeSeatStatePanelLayout.setHorizontalGroup(
@@ -994,6 +998,10 @@ public class StudentMain extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BeforeReserButt)
                 .addContainerGap())
+            .addGroup(beforeSeatStatePanelLayout.createSequentialGroup()
+                .addGap(290, 290, 290)
+                .addComponent(resetRadio)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         beforeSeatStatePanelLayout.setVerticalGroup(
             beforeSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1039,7 +1047,9 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(seat58)
                     .addComponent(seat59)
                     .addComponent(seat60))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(resetRadio)
+                .addGap(9, 9, 9)
                 .addComponent(BeforeReserButt)
                 .addContainerGap())
         );
@@ -1066,7 +1076,7 @@ public class StudentMain extends javax.swing.JFrame {
                         .addGroup(beforeReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                         .addGroup(beforeReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel18)
                             .addComponent(jLabel21))
@@ -1098,7 +1108,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addComponent(beforeSeatStatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         getContentPane().add(beforeReser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
@@ -3092,9 +3102,9 @@ public class StudentMain extends javax.swing.JFrame {
                     sql="insert into reservation (sId,labId,seatId,dateR,startTimeR,endTimeR,reserPermission,authority,useCheck) values (?,?,?,?,?,?,?,?,?)";               
                     pstmt = conn.prepareStatement(sql); //디비 구문과 연결
             
-                    pstmt.setString(1,"stu_test");         //학생아이디 
+                    pstmt.setString(1,"stu1");         //학생아이디 
                     pstmt.setString(2, reservation.labId);   //예약날짜
-                    pstmt.setInt(3, reservation.seatId);    //좌석번호
+                    pstmt.setInt(3, i+1);    //좌석번호
                     pstmt.setString(4, reservation.dateR);   //예약날짜
                     pstmt.setString(5, reservation.startTimeR); //시작시간
                     pstmt.setString(6, reservation.endTimeR); //종료시간
@@ -3112,13 +3122,16 @@ public class StudentMain extends javax.swing.JFrame {
                     if(conn != null) try {conn.close();} catch (SQLException ex) {}
                 }
             }
-        }   
+        }  
+        reset();
+        mainPanel.setVisible(true);//메인 패널로 이동
     }//GEN-LAST:event_BeforeReserButtActionPerformed
 
     // 5시 이전 좌석 조회
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         connect(); //디비 연결
-        
+        resetRadio.setVisible(false); //라디오 버튼 하나 안보이게 설정
+        resetRadio.setSelected(true); //안보이는 라디오 버튼 선택되도록
         //모든 좌석 활성화
         for(int i=0;i<30;i++){
             seat.get(i).setEnabled(true);
@@ -3135,16 +3148,16 @@ public class StudentMain extends javax.swing.JFrame {
         
         try{
             //기존의 강의와 겹치는지 조회
-            sql="select * from lecture where day=? and labId=? and ((startTime>=? and endTime<=?) or (startTime>=? and startTime<?) or (endTime>? and endTime<=?))";
+            sql="select * from lecture where day=? and labId=? and ((startTime <=? and endTime>?) or (startTime<? and endTime>=?) or (startTime>=? and endTime<=?))";
             pstmt = conn.prepareStatement(sql); //디비 구문과 연결
             
-            pstmt.setInt(1,getDay(reservation));    //요일
-            pstmt.setString(2, reservation.labId);  //실습실 번호
+            pstmt.setString(1, reservation.dateR);      //날짜
+            pstmt.setString(2, reservation.labId);      //실습실 번호
             pstmt.setString(3, reservation.startTimeR); //시작시간
-            pstmt.setString(4, reservation.endTimeR);   //종료시간
-            pstmt.setString(5, reservation.startTimeR); //시작시간
-            pstmt.setString(6, reservation.startTimeR); //시작시간
-            pstmt.setString(7, reservation.endTimeR);   //종료시간
+            pstmt.setString(4, reservation.startTimeR); //시작시간
+            pstmt.setString(5, reservation.endTimeR);   //종료시간
+            pstmt.setString(6, reservation.endTimeR);   //종료시간
+            pstmt.setString(7, reservation.startTimeR); //시작시간
             pstmt.setString(8, reservation.endTimeR);   //종료시간
             
             rs=pstmt.executeQuery();
@@ -3153,16 +3166,16 @@ public class StudentMain extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, rs.getString("lectureName") +" 강의 시간입니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
             }else{
                 //기존의 세미나(혹은 특강)과 겹치는지 조회
-                sql="select * from seminar where dateS=? and labId=? and ((startTimeS>=? and endTimeS<=?) or (startTimeS>=? and startTimeS<?) or (endTimeS>? and endTimeS<=?))";
+                sql="select * from seminar where dateS=? and labId=? and ((startTimeS <=? and endTimeS>?) or (startTimeS<? and endTimeS>=?) or (startTimeS>=? and endTimeS<=?))";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
                 
                 pstmt.setString(1, reservation.dateR);      //날짜
                 pstmt.setString(2, reservation.labId);      //실습실 번호
                 pstmt.setString(3, reservation.startTimeR); //시작시간
-                pstmt.setString(4, reservation.endTimeR);   //종료시간
-                pstmt.setString(5, reservation.startTimeR); //시작시간
-                pstmt.setString(6, reservation.startTimeR); //시작시간
-                pstmt.setString(7, reservation.endTimeR);   //종료시간
+                pstmt.setString(4, reservation.startTimeR); //시작시간
+                pstmt.setString(5, reservation.endTimeR);   //종료시간
+                pstmt.setString(6, reservation.endTimeR);   //종료시간
+                pstmt.setString(7, reservation.startTimeR); //시작시간
                 pstmt.setString(8, reservation.endTimeR);   //종료시간
                 
                 rs=pstmt.executeQuery();
@@ -3172,16 +3185,16 @@ public class StudentMain extends javax.swing.JFrame {
                 }
                 else{
                     //기존의 예약과 겹치는지 조회
-                    sql="select * from reservation where dateR=? and labId=? and ((startTimeR>=? and endTimeR<=?) or (startTimeR>=? and startTimeR<?) or (endTimeR>? and endTimeR<=?))";
+                    sql="select * from reservation where dateR=? and labId=? and ((startTimeR <=? and endTimeR>?) or (startTimeR<? and endTimeR>=?) or (startTimeR>=? and endTimeR<=?))";
                     pstmt = conn.prepareStatement(sql); //디비 구문과 연결
                     
                     pstmt.setString(1, reservation.dateR);      //날짜
                     pstmt.setString(2, reservation.labId);      //실습실 번호
                     pstmt.setString(3, reservation.startTimeR); //시작시간
-                    pstmt.setString(4, reservation.endTimeR);   //종료시간
-                    pstmt.setString(5, reservation.startTimeR); //시작시간
-                    pstmt.setString(6, reservation.startTimeR); //시작시간
-                    pstmt.setString(7, reservation.endTimeR);   //종료시간
+                    pstmt.setString(4, reservation.startTimeR); //시작시간
+                    pstmt.setString(5, reservation.endTimeR);   //종료시간
+                    pstmt.setString(6, reservation.endTimeR);   //종료시간
+                    pstmt.setString(7, reservation.startTimeR); //시작시간
                     pstmt.setString(8, reservation.endTimeR);   //종료시간
                     
                     rs=pstmt.executeQuery();
@@ -3526,6 +3539,7 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JButton overSeatCheckButt;
     private javax.swing.JPanel overSeatStatePanel;
     private javax.swing.JButton reserNextButt;
+    private javax.swing.JRadioButton resetRadio;
     private javax.swing.JRadioButton seat1;
     private javax.swing.JRadioButton seat10;
     private javax.swing.JRadioButton seat100;
