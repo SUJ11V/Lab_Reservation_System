@@ -722,7 +722,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="&#xad74;&#xb9bc;" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="2022-10-10"/>
+            <Property name="text" type="java.lang.String" value="2022/10/10"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
@@ -915,6 +915,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="1"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seat31ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="seat32">
               <Properties>

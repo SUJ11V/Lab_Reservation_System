@@ -7,12 +7,14 @@ public class Reservation {
   public String labId;
   public String startTimeR;
   public String endTimeR;
+  public int seatId;
   
-  public Reservation(String date, String labId, String startTime, String endTime){
+  public Reservation(String date, String labId, String startTime, String endTime,int seatId){
       this.dateR=date;
       this.labId=labId;
       this.startTimeR=startTime;
       this.endTimeR=endTime;
+      this.seatId=seatId;
  };
   
   public void possible() {
@@ -31,8 +33,6 @@ public class Reservation {
     // Bouml preserved body begin 0001F702
     // Bouml preserved body end 0001F702
   }
-
-  public int seatId;
 
   public int right;
 
