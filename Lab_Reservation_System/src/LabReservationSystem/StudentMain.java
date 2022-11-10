@@ -3027,6 +3027,8 @@ public class StudentMain extends javax.swing.JFrame {
         
         // else if 학생 수 카운트해서 20명 이상이면 (개인, 조별 학습 확인)
         //OverReser.setVisible(true);
+        
+        System.out.println("test...");
     }//GEN-LAST:event_checkButtActionPerformed
 
     // 예약 메뉴바 - 실습실 예약 선택 시 
