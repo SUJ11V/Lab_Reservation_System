@@ -3039,6 +3039,7 @@ public class StudentMain extends javax.swing.JFrame {
         //OverReser.setVisible(true);
         
         System.out.println("test...");
+        System.out.println("fdfdf");
     }//GEN-LAST:event_checkButtActionPerformed
 
     // 예약 메뉴바 - 실습실 예약 선택 시 
