@@ -9,8 +9,9 @@ public class Lecture {
 
   public String lecName;
   
-  public Lecture(String lecName){
+  public Lecture(String lecName,String lecId){
       lecName=this.lecName;
+      lecId=this.lecId;
   }
   
   public void inputClass() {
@@ -28,7 +29,7 @@ public class Lecture {
     // Bouml preserved body end 0001F602
   }
 
-  public int lecId;
+  public String lecId;
 
   public manager ma;
 
