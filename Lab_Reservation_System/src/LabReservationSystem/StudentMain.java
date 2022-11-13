@@ -640,10 +640,10 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(manageButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labReserButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
 
-        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1110, 610));
+        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1110, 620));
 
         Reser_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
         Reser_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -769,10 +769,10 @@ public class StudentMain extends javax.swing.JFrame {
                 .addComponent(menuCancle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addContainerGap(275, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Reser_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(Reser_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
 
         buttonGroup1.add(beforeReserRadio);
         beforeReserRadio.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
@@ -1182,7 +1182,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addComponent(beforeSeatStatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         getContentPane().add(beforeReser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
@@ -1225,7 +1225,7 @@ public class StudentMain extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afterReserLayout.createSequentialGroup()
                 .addGap(332, 332, 332)
                 .addComponent(jLabel2)
-                .addContainerGap(343, Short.MAX_VALUE))
+                .addContainerGap(297, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afterReserLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(afterReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2273,10 +2273,10 @@ public class StudentMain extends javax.swing.JFrame {
                 .addComponent(menuTimeTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuLabNotice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addContainerGap(273, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Lab_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(Lab_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
 
         jLabel29.setText("실습실 공지사항 및 규칙 조회");
 
@@ -2860,10 +2860,10 @@ public class StudentMain extends javax.swing.JFrame {
                 .addComponent(menuUserChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuUserDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(343, Short.MAX_VALUE))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
 
-        getContentPane().add(UserInfo_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(UserInfo_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
 
         jLabel36.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel36.setText("ID : ");
