@@ -60,21 +60,19 @@ public class StudentMain extends javax.swing.JFrame {
         seat.add(seat60);
     }
 
-    
-    public int getDay(Reservation reservation){ //요일 구하기
+    public int getDay(Reservation reservation) { //요일 구하기
         //dateR은 "yyyy/mm/dd" 형식으로 된 string type으로 받는다.
-        int year=Integer.parseInt(reservation.dateR.substring(0,4));    //년
-        int month=Integer.parseInt(reservation.dateR.substring(5,7));   //월
-        int day=Integer.parseInt(reservation.dateR.substring(8,10));    //일
-        
-        LocalDate date =LocalDate.of(year,month,day);   //date에 날짜 저장
-        DayOfWeek dayOfWeek =date.getDayOfWeek();
-        int dayOfWeekNumber=dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
+        int year = Integer.parseInt(reservation.dateR.substring(0, 4));    //년
+        int month = Integer.parseInt(reservation.dateR.substring(5, 7));   //월
+        int day = Integer.parseInt(reservation.dateR.substring(8, 10));    //일
+
+        LocalDate date = LocalDate.of(year, month, day);   //date에 날짜 저장
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        int dayOfWeekNumber = dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
         return dayOfWeekNumber;                   //1: 월, 2: 화, 3: 수, ....
     }
     ArrayList<JRadioButton> afterseatS = new ArrayList<>();  // 5시 이후 개인 좌석
 
-    
     public void setafterSeatS() {
         afterseatS.add(seat1);
         afterseatS.add(seat2);
@@ -3084,7 +3082,6 @@ public class StudentMain extends javax.swing.JFrame {
         Reser_menuPanel.setVisible(true);
         menuReser.setBackground(Color.RED);
 
-
         connect(); //디비 연결
 
         String date = DATE_Text.getText();  // 날짜 값 받아오기
@@ -3097,89 +3094,133 @@ public class StudentMain extends javax.swing.JFrame {
         int eTimeRIndex = eTimeR.indexOf(":");
         String endTime = eTimeR.substring(0, eTimeRIndex);  // ':' 위치 이전까지 자르기
 
-        System.out.println("date : " + date);
-        System.out.println("startTime : " + startTime);
-        System.out.println("endTime : " + endTime);
+        if (Integer.parseInt(sTimeR.substring(0, sTimeRIndex)) >= Integer.parseInt(eTimeR.substring(0, eTimeRIndex))) {  // 시작시간이 종료시간보다 같거나 늦으면 안됨
+            JOptionPane.showMessageDialog(this, "예약 시작시간이 종료시간보다 빨라야합니다.");
+            afterReser.setVisible(true);
+        } else {
 
-        // 예약 정보 저장 - 강의실과 좌석 번호 값 0으로 임의저장 
-        reservation = new Reservation(date, "0", startTime, endTime, 0);
+            try {
+                // 해당 사용자, 날짜, 시간에 대한 예약 카운트
+                sql = "select count(case when sId = ? and dateR = ? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as reserCount from reservation";
+                pstmt = conn.prepareStatement(sql);
 
-        try {
-            // 해당 날짜, 시간에 강의실 별 예약 카운트
-            sql = "select count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab915Count, "
-                    + "count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab916Count, "
-                    + "count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab918Count, "
-                    + "count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab911Count from reservation";
+                pstmt.setString(1, "stu1");  // 학생 아이디
+                pstmt.setString(2, date);  // 날짜
+                pstmt.setString(3, startTime);  // 시작시간
+                pstmt.setString(4, endTime);  // 종료시간
+                pstmt.setString(5, startTime);  // 시작시간
+                pstmt.setString(6, startTime);  // 시작시간
 
-            pstmt = conn.prepareStatement(sql);
+                rs = pstmt.executeQuery();
 
-            pstmt.setString(1, reservation.dateR);  // 날짜
-            pstmt.setString(2, "915");  // 915 강의실
-            pstmt.setString(3, reservation.startTimeR);  // 시작 시간
-            pstmt.setString(4, reservation.endTimeR);  // 종료 시간
-            pstmt.setString(5, reservation.startTimeR);  // 시작 시간
-            pstmt.setString(6, reservation.startTimeR);  // 종료 시간
+                if (rs.next()) {
+                    
+                    if (!rs.getString(1).equals("0")) {  // 예약 카운트가 0이 아니면 예약이 이미 존재 
+                        JOptionPane.showMessageDialog(this, "이미 예약이 존재하는 시간입니다.");
+                        afterReser.setVisible(true);
+                    } else { // 예약 카운트가 0이면 예약이 없으므로 예약 가능
+                        System.out.println("date : " + date);
+                        System.out.println("startTime : " + startTime);
+                        System.out.println("endTime : " + endTime);
 
-            pstmt.setString(7, reservation.dateR);  // 날짜
-            pstmt.setString(8, "916");  // 916 강의실
-            pstmt.setString(9, reservation.startTimeR);  // 시작 시간
-            pstmt.setString(10, reservation.endTimeR);  // 종료 시간
-            pstmt.setString(11, reservation.startTimeR);  // 시작 시간
-            pstmt.setString(12, reservation.startTimeR);  // 시작 시간
+                        // 예약 정보 저장 - 강의실과 좌석 번호 값 0으로 임의저장 
+                        reservation = new Reservation(date, "0", startTime, endTime, 0);
 
-            pstmt.setString(13, reservation.dateR);  // 날짜
-            pstmt.setString(14, "918");  // 918 강의실
-            pstmt.setString(15, reservation.startTimeR);  // 시작 시간
-            pstmt.setString(16, reservation.endTimeR);  // 종료 시간
-            pstmt.setString(17, reservation.startTimeR);  // 시작 시간
-            pstmt.setString(18, reservation.startTimeR);  // 종료 시간
+                        try {
+                            // 해당 날짜, 시간에 강의실 별 예약 카운트
+                            sql = "select count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab915Count, "
+                                    + "count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab916Count, "
+                                    + "count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab918Count, "
+                                    + "count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab911Count from reservation";
 
-            pstmt.setString(19, reservation.dateR);  // 날짜
-            pstmt.setString(20, "911");  // 911 강의실
-            pstmt.setString(21, reservation.startTimeR);  // 시작 시간
-            pstmt.setString(22, reservation.endTimeR);  // 종료 시간
-            pstmt.setString(23, reservation.startTimeR);  // 시작 시간
-            pstmt.setString(24, reservation.startTimeR);  // 종료 시간
+                            pstmt = conn.prepareStatement(sql);
 
-            rs = pstmt.executeQuery();
+                            pstmt.setString(1, reservation.dateR);  // 날짜
+                            pstmt.setString(2, "915");  // 915 강의실
+                            pstmt.setString(3, reservation.startTimeR);  // 시작 시간
+                            pstmt.setString(4, reservation.endTimeR);  // 종료 시간
+                            pstmt.setString(5, reservation.startTimeR);  // 시작 시간
+                            pstmt.setString(6, reservation.startTimeR);  // 종료 시간
 
-            while (rs.next()) {
-                System.out.println("lab915 reserCount : " + rs.getString(1));
-                System.out.println("lab916 reserCount : " + rs.getString(2));
-                System.out.println("lab918 reserCount : " + rs.getString(3));
-                System.out.println("lab911 reserCount : " + rs.getString(4));
+                            pstmt.setString(7, reservation.dateR);  // 날짜
+                            pstmt.setString(8, "916");  // 916 강의실
+                            pstmt.setString(9, reservation.startTimeR);  // 시작 시간
+                            pstmt.setString(10, reservation.endTimeR);  // 종료 시간
+                            pstmt.setString(11, reservation.startTimeR);  // 시작 시간
+                            pstmt.setString(12, reservation.startTimeR);  // 시작 시간
 
-                // 915, 916, 918, 911 강의실 별 해당 시간에 대한 예약 인원 수 저장
-                lab915Num = rs.getString(1);
-                lab916Num = rs.getString(2);
-                lab918Num = rs.getString(3);
-                lab911Num = rs.getString(4);
-            }
+                            pstmt.setString(13, reservation.dateR);  // 날짜
+                            pstmt.setString(14, "918");  // 918 강의실
+                            pstmt.setString(15, reservation.startTimeR);  // 시작 시간
+                            pstmt.setString(16, reservation.endTimeR);  // 종료 시간
+                            pstmt.setString(17, reservation.startTimeR);  // 시작 시간
+                            pstmt.setString(18, reservation.startTimeR);  // 종료 시간
 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } finally {
-            if (rs != null) try {
-                rs.close();
+                            pstmt.setString(19, reservation.dateR);  // 날짜
+                            pstmt.setString(20, "911");  // 911 강의실
+                            pstmt.setString(21, reservation.startTimeR);  // 시작 시간
+                            pstmt.setString(22, reservation.endTimeR);  // 종료 시간
+                            pstmt.setString(23, reservation.startTimeR);  // 시작 시간
+                            pstmt.setString(24, reservation.startTimeR);  // 종료 시간
+
+                            rs = pstmt.executeQuery();
+
+                            while (rs.next()) {
+                                System.out.println("lab915 reserCount : " + rs.getString(1));
+                                System.out.println("lab916 reserCount : " + rs.getString(2));
+                                System.out.println("lab918 reserCount : " + rs.getString(3));
+                                System.out.println("lab911 reserCount : " + rs.getString(4));
+
+                                // 915, 916, 918, 911 강의실 별 해당 시간에 대한 예약 인원 수 저장
+                                lab915Num = rs.getString(1);
+                                lab916Num = rs.getString(2);
+                                lab918Num = rs.getString(3);
+                                lab911Num = rs.getString(4);
+                            }
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        } finally {
+                            if (rs != null) try {
+                                rs.close();
+                            } catch (SQLException ex) {
+                            }
+                            if (pstmt != null) try {
+                                pstmt.close();
+                            } catch (SQLException ex) {
+                            }
+                            if (conn != null) try {
+                                conn.close();
+                            } catch (SQLException ex) {
+                            }
+                        }
+
+                        if (Integer.parseInt(lab915Num) < 2) {  // if 현재 강의실에 학생 수 20명 미만이면 
+                            check.setVisible(true);  // 개인 예약 패널로 이동
+                            jComboBox1.addItem("915");  // 현재 강의실 915 추가
+                        } else if (Integer.parseInt(lab915Num) >= 2) {  // else if 학생 수 20명 이상이면 (개인, 조별 학습 확인)
+                            OverReser.setVisible(true);  // 팀 학습 예약 패널로 이동
+                        }
+                    }
+                }
+
             } catch (SQLException ex) {
-            }
-            if (pstmt != null) try {
-                pstmt.close();
-            } catch (SQLException ex) {
-            }
-            if (conn != null) try {
-                conn.close();
-            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
             }
         }
-
-        if (Integer.parseInt(lab915Num) < 2) {  // if 현재 강의실에 학생 수 20명 미만이면 
-            check.setVisible(true);  // 개인 예약 패널로 이동
-            jComboBox1.addItem("915");  // 현재 강의실 915 추가
-        } else if (Integer.parseInt(lab915Num) >= 2) {  // else if 학생 수 20명 이상이면 (개인, 조별 학습 확인)
-            OverReser.setVisible(true);  // 팀 학습 예약 패널로 이동
-        }
-
     }//GEN-LAST:event_checkButtActionPerformed
 
     // 예약 메뉴바 - 실습실 예약 선택 시 
@@ -3196,6 +3237,11 @@ public class StudentMain extends javax.swing.JFrame {
         afterSeatStatePanel.setVisible(true);
 
         String lab = jComboBox1.getSelectedItem().toString();   // 선택한 강의실 값 받아오기
+
+        // 5시 이후 개인 예약 좌석 활성화
+        for (int i = 0; i < 30; i++) {
+            afterseatS.get(i).setEnabled(true);
+        }
 
         // 예약 정보 저장 - 좌석 번호 0으로 임의 저장
         reservation = new Reservation(reservation.dateR, lab, reservation.startTimeR, reservation.endTimeR, 0);
@@ -3343,7 +3389,7 @@ public class StudentMain extends javax.swing.JFrame {
                     //로그인 시 학생 정보 객체에 저장해서 아이디 가져와야 함
                     pstmt.setString(1,"stu1");         //학생아이디 
                     pstmt.setString(2, reservation.labId);   //예약날짜
-                    pstmt.setInt(3, i+1);    //좌석번호
+                    pstmt.setInt(3, i + 1);    //좌석번호
                     pstmt.setString(4, reservation.dateR);   //예약날짜
                     pstmt.setString(5, reservation.startTimeR); //시작시간
                     pstmt.setString(6, reservation.endTimeR); //종료시간
@@ -4099,6 +4145,11 @@ public class StudentMain extends javax.swing.JFrame {
 
         // 선택한 강의실 값 가져오기
         String lab = (String) jComboBox8.getSelectedItem();
+
+        // 5시 이후 팀 예약 좌석 활성화
+        for (int i = 0; i < 30; i++) {
+            afterseatT.get(i).setEnabled(true);
+        }
 
         if (jComboBox8.getSelectedIndex() == -1) {  // 강의실이 선택되지 않았을 경우
             JOptionPane.showMessageDialog(this, "강의실이 선택되지 않았습니다.");
