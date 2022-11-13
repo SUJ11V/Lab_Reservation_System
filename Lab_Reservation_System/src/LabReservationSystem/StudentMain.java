@@ -1,4 +1,3 @@
-
 package LabReservationSystem;
 
 import source.Lecture;
@@ -12,21 +11,23 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class StudentMain extends javax.swing.JFrame {
-    Connection conn =null;
-    PreparedStatement pstmt =null;
+
+    Connection conn = null;
+    PreparedStatement pstmt = null;
     ResultSet rs = null;
     String sql; //쿼리문 받을 변수
-    int num=1;
-    
-    ArrayList<JRadioButton> seat=new ArrayList<>();
+    int num = 1;
+
+    ArrayList<JRadioButton> seat = new ArrayList<>();
     Reservation reservation; //사용자에게 입력받을 예약 정보 객체
     //Reservation reservationList[]=new Reservation[31];  //db에서 예약정보를 저장할 객체
     Lecture lecture;    //강의 객체
     Seminar seminar;    //세미나(또는 특강) 객체
-    
-    public void setSeat(){
+
+    public void setSeat() {
         seat.add(seat31);
         seat.add(seat32);
         seat.add(seat33);
@@ -58,44 +59,120 @@ public class StudentMain extends javax.swing.JFrame {
         seat.add(seat59);
         seat.add(seat60);
     }
-    
-    public int getDay(Reservation reservation){ //요일 구하기
+
+    ArrayList<JRadioButton> afterseatS = new ArrayList<>();  // 5시 이후 개인 좌석
+
+    public void setafterSeatS() {
+        afterseatS.add(seat1);
+        afterseatS.add(seat2);
+        afterseatS.add(seat3);
+        afterseatS.add(seat4);
+        afterseatS.add(seat5);
+        afterseatS.add(seat6);
+        afterseatS.add(seat7);
+        afterseatS.add(seat8);
+        afterseatS.add(seat9);
+        afterseatS.add(seat10);
+        afterseatS.add(seat11);
+        afterseatS.add(seat12);
+        afterseatS.add(seat13);
+        afterseatS.add(seat14);
+        afterseatS.add(seat15);
+        afterseatS.add(seat16);
+        afterseatS.add(seat17);
+        afterseatS.add(seat18);
+        afterseatS.add(seat19);
+        afterseatS.add(seat20);
+        afterseatS.add(seat21);
+        afterseatS.add(seat22);
+        afterseatS.add(seat23);
+        afterseatS.add(seat24);
+        afterseatS.add(seat25);
+        afterseatS.add(seat26);
+        afterseatS.add(seat27);
+        afterseatS.add(seat28);
+        afterseatS.add(seat29);
+        afterseatS.add(seat30);
+    }
+
+    ArrayList<JRadioButton> afterseatT = new ArrayList<>();  // 5시 이후 팀 좌석
+
+    public void setafterSeatT() {
+        afterseatT.add(seat91);
+        afterseatT.add(seat92);
+        afterseatT.add(seat93);
+        afterseatT.add(seat94);
+        afterseatT.add(seat95);
+        afterseatT.add(seat96);
+        afterseatT.add(seat97);
+        afterseatT.add(seat98);
+        afterseatT.add(seat99);
+        afterseatT.add(seat100);
+        afterseatT.add(seat101);
+        afterseatT.add(seat102);
+        afterseatT.add(seat103);
+        afterseatT.add(seat104);
+        afterseatT.add(seat105);
+        afterseatT.add(seat106);
+        afterseatT.add(seat107);
+        afterseatT.add(seat108);
+        afterseatT.add(seat109);
+        afterseatT.add(seat110);
+        afterseatT.add(seat111);
+        afterseatT.add(seat112);
+        afterseatT.add(seat113);
+        afterseatT.add(seat114);
+        afterseatT.add(seat115);
+        afterseatT.add(seat116);
+        afterseatT.add(seat117);
+        afterseatT.add(seat118);
+        afterseatT.add(seat119);
+        afterseatT.add(seat120);
+    }
+
+    public int getDay(Reservation reservation) { //요일 구하기
         //dateR은 "yyyy-mm-dd" 형식으로 된 string type으로 받는다.
-        int year=Integer.parseInt(reservation.dateR.substring(0,4));    //년
-        int month=Integer.parseInt(reservation.dateR.substring(5,7));   //월
-        int day=Integer.parseInt(reservation.dateR.substring(8,10));    //일
-        
-        LocalDate date =LocalDate.of(year,month,day);   //date에 날짜 저장
-        DayOfWeek dayOfWeek =date.getDayOfWeek();
-        int dayOfWeekNumber=dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
+        int year = Integer.parseInt(reservation.dateR.substring(0, 4));    //년
+        int month = Integer.parseInt(reservation.dateR.substring(5, 7));   //월
+        int day = Integer.parseInt(reservation.dateR.substring(8, 10));    //일
+
+        LocalDate date = LocalDate.of(year, month, day);   //date에 날짜 저장
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        int dayOfWeekNumber = dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
         return dayOfWeekNumber;                   //1: 월, 2: 화, 3: 수, ....
     }
-    
-    public void connect(){  //DB연결 함수
-        try{
+
+    public void connect() {  //DB연결 함수
+        try {
             //JDBC드라이버 로딩
             Class.forName("com.mysql.cj.jdbc.Driver");
             //디비 연결 용 변수
-            String jdbcDriver="jdbc:mysql://211.213.95.123:3360/labmanagement?serverTimeZone=UTC";
-            String dbId="20203128"; //MySQL 접속 아이디("20203132"도 가능)
-            String dbPw="20203128"; //접속 비밀번호(아이디를 20203132로 작성시, 비밀번호도 아이디와 같도록
-            conn=DriverManager.getConnection(jdbcDriver,dbId,dbPw);
-        }catch(ClassNotFoundException ex ){
+            String jdbcDriver = "jdbc:mysql://211.213.95.123:3360/labmanagement?serverTimeZone=UTC";
+            String dbId = "20203128"; //MySQL 접속 아이디("20203132"도 가능)
+            String dbPw = "20203128"; //접속 비밀번호(아이디를 20203132로 작성시, 비밀번호도 아이디와 같도록
+            conn = DriverManager.getConnection(jdbcDriver, dbId, dbPw);
+        } catch (ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    
+
+    // 강의실별 인원수
+    String lab915Num = null;
+    String lab916Num = null;
+    String lab918Num = null;
+    String lab911Num = null;
+
     public StudentMain() {
         initComponents();
         TitlePanel.setVisible(true);
         mainPanel.setVisible(true);
-        
+
         Reser_menuPanel.setVisible(false);
         Lab_menuPanel.setVisible(false);
         UserInfo_menuPanel.setVisible(false);
-        
+
         ReserPanel.setVisible(false);
         beforeReser.setVisible(false);
         afterReser.setVisible(false);
@@ -107,29 +184,31 @@ public class StudentMain extends javax.swing.JFrame {
         OverReser.setVisible(false);
         OverLabCheckPanel.setVisible(false);
         overSeatStatePanel.setVisible(false);
-        
+
         LabCheckPanel.setVisible(false);
         LabTTCheckPanel.setVisible(false);
         TT.setVisible(false);
         LabNoticePanel.setVisible(false);
         LabStatusPanel.setVisible(false);
         LabStatus.setVisible(false);
-        
+
         UserChangePanel.setVisible(false);
         UserDeletePanel.setVisible(false);
-        
+
         setSeat();
+        setafterSeatS();
+        setafterSeatT();
     }
-    
+
     // 화면에 띄우는 패널들 초기화하는 함수
     public void reset() {
         TitlePanel.setVisible(true);
         mainPanel.setVisible(false);
-        
+
         Reser_menuPanel.setVisible(false);
         Lab_menuPanel.setVisible(false);
         UserInfo_menuPanel.setVisible(false);
-        
+
         ReserPanel.setVisible(false);
         beforeReser.setVisible(false);
         afterReser.setVisible(false);
@@ -141,18 +220,17 @@ public class StudentMain extends javax.swing.JFrame {
         OverReser.setVisible(false);
         OverLabCheckPanel.setVisible(false);
         overSeatStatePanel.setVisible(false);
-        
+
         LabCheckPanel.setVisible(false);
         LabTTCheckPanel.setVisible(false);
         TT.setVisible(false);
         LabNoticePanel.setVisible(false);
         LabStatusPanel.setVisible(false);
         LabStatus.setVisible(false);
-        
+
         UserChangePanel.setVisible(false);
         UserDeletePanel.setVisible(false);
 
-        
         menuReser.setBackground(Color.WHITE);
         menuCheck.setBackground(Color.WHITE);
         menuCancle.setBackground(Color.WHITE);
@@ -250,11 +328,7 @@ public class StudentMain extends javax.swing.JFrame {
         checkButt = new javax.swing.JButton();
         startTimeR = new javax.swing.JComboBox<>();
         endTimeR = new javax.swing.JComboBox<>();
-        YYYY_Text = new javax.swing.JTextField();
-        MM_Text = new javax.swing.JTextField();
-        DD_Text = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        DATE_Text = new javax.swing.JTextField();
         CheckPanel = new javax.swing.JPanel();
         jLabel46 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
@@ -1141,20 +1215,8 @@ public class StudentMain extends javax.swing.JFrame {
         endTimeR.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         endTimeR.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00" }));
 
-        YYYY_Text.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        YYYY_Text.setText("2022");
-
-        MM_Text.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        MM_Text.setText("10");
-
-        DD_Text.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        DD_Text.setText("10");
-
-        jLabel15.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jLabel15.setText("-");
-
-        jLabel16.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jLabel16.setText("-");
+        DATE_Text.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        DATE_Text.setText("2022/11/10");
 
         javax.swing.GroupLayout afterReserLayout = new javax.swing.GroupLayout(afterReser);
         afterReser.setLayout(afterReserLayout);
@@ -1172,23 +1234,12 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(jLabel12))
                 .addGap(37, 37, 37)
                 .addGroup(afterReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(YYYY_Text)
+                    .addComponent(DATE_Text)
                     .addComponent(endTimeR, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(startTimeR, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(afterReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(afterReserLayout.createSequentialGroup()
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MM_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DD_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(314, 314, 314))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afterReserLayout.createSequentialGroup()
-                        .addComponent(checkButt, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(192, 192, 192))))
+                .addGap(216, 216, 216)
+                .addComponent(checkButt, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(192, 192, 192))
         );
         afterReserLayout.setVerticalGroup(
             afterReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1200,11 +1251,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addGroup(afterReserLayout.createSequentialGroup()
                         .addGroup(afterReserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(DD_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16)
-                            .addComponent(YYYY_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(MM_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(DATE_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(40, 40, 40)
                         .addComponent(checkButt, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(afterReserLayout.createSequentialGroup()
@@ -1430,7 +1477,6 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel9.setText("강의실");
 
         jComboBox1.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         AfterCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         AfterCheckButt.setText("확인");
@@ -1755,13 +1801,12 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel23.setText("- 팀 인원수 : ");
 
         jComboBox6.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2", "3", "4", "5", "6", " " }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2", "3", "4", "5", "6" }));
 
         jLabel8.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel8.setText("사용 가능한 강의실");
 
         jComboBox8.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         overSeatCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         overSeatCheckButt.setText("좌석 조회");
@@ -2977,7 +3022,7 @@ public class StudentMain extends javax.swing.JFrame {
         reset();
         ReserPanel.setVisible(true);
         Reser_menuPanel.setVisible(true);
-        
+
         menuReser.setBackground(Color.red);
     }//GEN-LAST:event_labReserButtActionPerformed
 
@@ -2986,20 +3031,23 @@ public class StudentMain extends javax.swing.JFrame {
         reset();
         mainPanel.setVisible(true);
     }//GEN-LAST:event_TitlePanelMouseClicked
-    
+
     // 5시 이전 or 이후 예약 선택 후 next 버튼
     private void reserNextButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reserNextButtActionPerformed
-        if(beforeReserRadio.isSelected() == true) {
+        if (beforeReserRadio.isSelected() == true) {  // 5시 이전
             reset();
             Reser_menuPanel.setVisible(true);
             menuReser.setBackground(Color.RED);
             beforeReser.setVisible(true);
-        } else if(afterReserRadio.isSelected() == true) {
+        } else if (afterReserRadio.isSelected() == true) {  // 5시 이후
             reset();
             Reser_menuPanel.setVisible(true);
             menuReser.setBackground(Color.RED);
             afterReser.setVisible(true);
-        } 
+
+            jComboBox1.removeAllItems();  // 5시 이후 개인 학습 강의실 콤보박스 아이템 초기화
+            jComboBox8.removeAllItems();  // 5시 이후 팀 학습 강의실 콤보박스 아이템 초기화
+        }
         // else 아무것도 선택하지 않고 버튼 눌렀을 경우 
     }//GEN-LAST:event_reserNextButtActionPerformed
 
@@ -3008,11 +3056,11 @@ public class StudentMain extends javax.swing.JFrame {
         reset();
         CheckPanel.setVisible(true);
         Reser_menuPanel.setVisible(true);
-        
+
         menuCheck.setBackground(Color.red);
-        
-         // 현재 사용할 수 있는 실습실 번호, 좌석번호, 시작시간, 종료시간, 연장가능시간 출력
-         
+
+        // 현재 사용할 수 있는 실습실 번호, 좌석번호, 시작시간, 종료시간, 연장가능시간 출력
+
     }//GEN-LAST:event_menuCheckMouseClicked
 
     // 예약 메뉴바 - 본인 예약 현황 조회 및 취소 선택 시
@@ -3029,17 +3077,103 @@ public class StudentMain extends javax.swing.JFrame {
         reset();
         Reser_menuPanel.setVisible(true);
         menuReser.setBackground(Color.RED);
-        
-        
-        // if 현재 강의실에 학생 수 20명 이하이면 
-        check.setVisible(true);
-        // check패널의 콤보박스에 사용가능한 실습실 아이템 값으로 넣기
-        
-        // else if 학생 수 카운트해서 20명 이상이면 (개인, 조별 학습 확인)
-        //OverReser.setVisible(true);
-        
-        System.out.println("test...");
-        System.out.println("fdfdf");
+
+
+        connect(); //디비 연결
+
+        String date = DATE_Text.getText();  // 날짜 값 받아오기
+
+        String sTimeR = startTimeR.getSelectedItem().toString();  // 시작 시간 값 받아오기
+        int sTimeRIndex = sTimeR.indexOf(":");
+        String startTime = sTimeR.substring(0, sTimeRIndex);  // ':' 위치 이전까지 자르기
+
+        String eTimeR = endTimeR.getSelectedItem().toString();  // 종료 시간 값 받아오기
+        int eTimeRIndex = eTimeR.indexOf(":");
+        String endTime = eTimeR.substring(0, eTimeRIndex);  // ':' 위치 이전까지 자르기
+
+        System.out.println("date : " + date);
+        System.out.println("startTime : " + startTime);
+        System.out.println("endTime : " + endTime);
+
+        // 예약 정보 저장 - 강의실과 좌석 번호 값 0으로 임의저장 
+        reservation = new Reservation(date, "0", startTime, endTime, 0);
+
+        try {
+            // 해당 날짜, 시간에 강의실 별 예약 카운트
+            sql = "select count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab915Count, "
+                    + "count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab916Count, "
+                    + "count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab918Count, "
+                    + "count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab911Count from reservation";
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, reservation.dateR);  // 날짜
+            pstmt.setString(2, "915");  // 915 강의실
+            pstmt.setString(3, reservation.startTimeR);  // 시작 시간
+            pstmt.setString(4, reservation.endTimeR);  // 종료 시간
+            pstmt.setString(5, reservation.startTimeR);  // 시작 시간
+            pstmt.setString(6, reservation.startTimeR);  // 종료 시간
+
+            pstmt.setString(7, reservation.dateR);  // 날짜
+            pstmt.setString(8, "916");  // 916 강의실
+            pstmt.setString(9, reservation.startTimeR);  // 시작 시간
+            pstmt.setString(10, reservation.endTimeR);  // 종료 시간
+            pstmt.setString(11, reservation.startTimeR);  // 시작 시간
+            pstmt.setString(12, reservation.startTimeR);  // 시작 시간
+
+            pstmt.setString(13, reservation.dateR);  // 날짜
+            pstmt.setString(14, "918");  // 918 강의실
+            pstmt.setString(15, reservation.startTimeR);  // 시작 시간
+            pstmt.setString(16, reservation.endTimeR);  // 종료 시간
+            pstmt.setString(17, reservation.startTimeR);  // 시작 시간
+            pstmt.setString(18, reservation.startTimeR);  // 종료 시간
+
+            pstmt.setString(19, reservation.dateR);  // 날짜
+            pstmt.setString(20, "911");  // 911 강의실
+            pstmt.setString(21, reservation.startTimeR);  // 시작 시간
+            pstmt.setString(22, reservation.endTimeR);  // 종료 시간
+            pstmt.setString(23, reservation.startTimeR);  // 시작 시간
+            pstmt.setString(24, reservation.startTimeR);  // 종료 시간
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                System.out.println("lab915 reserCount : " + rs.getString(1));
+                System.out.println("lab916 reserCount : " + rs.getString(2));
+                System.out.println("lab918 reserCount : " + rs.getString(3));
+                System.out.println("lab911 reserCount : " + rs.getString(4));
+
+                // 915, 916, 918, 911 강의실 별 해당 시간에 대한 예약 인원 수 저장
+                lab915Num = rs.getString(1);
+                lab916Num = rs.getString(2);
+                lab918Num = rs.getString(3);
+                lab911Num = rs.getString(4);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
+
+        if (Integer.parseInt(lab915Num) < 2) {  // if 현재 강의실에 학생 수 20명 미만이면 
+            check.setVisible(true);  // 개인 예약 패널로 이동
+            jComboBox1.addItem("915");  // 현재 강의실 915 추가
+        } else if (Integer.parseInt(lab915Num) >= 2) {  // else if 학생 수 20명 이상이면 (개인, 조별 학습 확인)
+            OverReser.setVisible(true);  // 팀 학습 예약 패널로 이동
+        }
+
     }//GEN-LAST:event_checkButtActionPerformed
 
     // 예약 메뉴바 - 실습실 예약 선택 시 
@@ -3047,17 +3181,60 @@ public class StudentMain extends javax.swing.JFrame {
         reset();
         Reser_menuPanel.setVisible(true);
         ReserPanel.setVisible(true);
-        
+
         menuReser.setBackground(Color.RED);
     }//GEN-LAST:event_menuReserMouseClicked
 
     // (afterReser -> check) 강의실 선택 후 확인 버튼 클릭
     private void AfterCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AfterCheckButtActionPerformed
-        //reset();
         afterSeatStatePanel.setVisible(true);
-        
-        // 예약 중인 좌석이라면 라디오버튼 비활성화
-        seat1.setEnabled(false);
+
+        String lab = jComboBox1.getSelectedItem().toString();   // 선택한 강의실 값 받아오기
+
+        // 예약 정보 저장 - 좌석 번호 0으로 임의 저장
+        reservation = new Reservation(reservation.dateR, lab, reservation.startTimeR, reservation.endTimeR, 0);
+
+        connect();  // DB 연결
+
+        try {
+            // 예약 있는 좌석 찾기
+            sql = "select seatId from reservation where dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?))";
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, reservation.dateR);  // 날짜
+            pstmt.setString(2, lab);  // 강의실
+            pstmt.setString(3, reservation.startTimeR);  // 시작시간
+            pstmt.setString(4, reservation.endTimeR);  // 종료시간
+            pstmt.setString(5, reservation.startTimeR);  // 시작시간
+            pstmt.setString(6, reservation.startTimeR);  // 시작시간
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                //System.out.println("seatNum : " + rs.getString(1));
+
+                // 예약 있는 자리 비활성화
+                afterseatS.get(rs.getInt("seatId") - 1).setEnabled(false);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
+
     }//GEN-LAST:event_AfterCheckButtActionPerformed
 
     // 메인화면 - 회원정보 버튼
@@ -3065,9 +3242,9 @@ public class StudentMain extends javax.swing.JFrame {
         reset();
         UserChangePanel.setVisible(true);
         UserInfo_menuPanel.setVisible(true);
-        
+
         menuUserChange.setBackground(Color.yellow);
-        
+
         // 회원 정보 db에서 가져와서 UserChangePanel에 띄우기
     }//GEN-LAST:event_userInformationButtActionPerformed
 
@@ -3076,7 +3253,7 @@ public class StudentMain extends javax.swing.JFrame {
         reset();
         LabCheckPanel.setVisible(true);
         Lab_menuPanel.setVisible(true);
-        
+
         menuLabCheck.setBackground(Color.yellow);
     }//GEN-LAST:event_labButtActionPerformed
 
@@ -3085,23 +3262,78 @@ public class StudentMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_manageButtActionPerformed
 
-    // 5시 이후 좌석 선택 후 예약 버튼
+    // 5시 이후 개인 좌석 선택 후 예약 버튼
     private void AfterReserButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AfterReserButtActionPerformed
-        // DB에 예약 저장
+        connect();  // DB 연결
+
+        for (int i = 0; i < 30; i++) {
+
+            if (afterseatS.get(i).isSelected()) {  // 선택된 좌석이 있으면
+
+                // 예약 정보 저장
+                reservation = new Reservation(reservation.dateR, reservation.labId, reservation.startTimeR, reservation.endTimeR, i + 1);
+
+                try {
+                    // 예약 정보 db에 저장
+                    sql = "insert into reservation (sId, labId, seatId, dateR, startTimeR, endTimeR, reserPermission, authority, useCheck) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                    pstmt = conn.prepareStatement(sql);
+
+                    pstmt.setString(1, "stu1");  // 아이디 
+                    pstmt.setString(2, reservation.labId);  // 강의실
+                    pstmt.setInt(3, reservation.seatId);  // 좌석
+                    pstmt.setString(4, reservation.dateR);  // 날짜
+                    pstmt.setString(5, reservation.startTimeR);  //시작 시간
+                    pstmt.setString(6, reservation.endTimeR);  //종료 시간
+                    pstmt.setInt(7, 0);  //예약 승인
+                    pstmt.setInt(8, 0);  //권한 여부
+                    pstmt.setInt(9, 0);  //사용 여부
+
+                    pstmt.executeUpdate();
+
+                    JOptionPane.showMessageDialog(this, "예약이 완료되었습니다.");
+
+                    // 메인화면으로 이동
+                    reset();
+                    mainPanel.setVisible(true);
+
+                    // 라디오버튼 선택 초기화
+                    buttonGroup2.clearSelection();
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                } finally {
+                    if (rs != null) try {
+                        rs.close();
+                    } catch (SQLException ex) {
+                    }
+                    if (pstmt != null) try {
+                        pstmt.close();
+                    } catch (SQLException ex) {
+                    }
+                    if (conn != null) try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                    }
+                }
+            }
+        }
+
     }//GEN-LAST:event_AfterReserButtActionPerformed
 
     //5시 이전 좌석 선택 후 예약 버튼
     private void BeforeReserButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeforeReserButtActionPerformed
         connect(); //디비 연결
-        
+
         // DB에 예약 저장
-        for(int i=0;i<30;i++){
-           if(seat.get(i).isSelected()){
-               //디비에 예약 정보 저장
-                try{
+        for (int i = 0; i < 30; i++) {
+            if (seat.get(i).isSelected()) {
+                //디비에 예약 정보 저장
+                try {
                     //데이터 삽입을 위한 sql문
-                    sql="insert into reservation (sId,labId,seatId,dateR,startTimeR,endTimeR,reserPermission,authority,useCheck) values (?,?,?,?,?,?,?,?,?)";               
+                    sql = "insert into reservation (sId,labId,seatId,dateR,startTimeR,endTimeR,reserPermission,authority,useCheck) values (?,?,?,?,?,?,?,?,?)";
                     pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+
             
                     pstmt.setString(1,"stu1");         //학생아이디 
                     pstmt.setString(2, reservation.labId);   //예약날짜
@@ -3112,18 +3344,27 @@ public class StudentMain extends javax.swing.JFrame {
                     pstmt.setInt(7, 0);   //예약승인
                     pstmt.setInt(8, 0);   //권한여부
                     pstmt.setInt(9, 0);   //사용여부
-                    
+
                     pstmt.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "예약 완료되었습니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
-                }catch(SQLException ex){
+                    JOptionPane.showMessageDialog(this, "예약 완료되었습니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
-                }finally {
-                    if(rs != null) try {rs.close();} catch (SQLException ex) {}
-                    if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
-                    if(conn != null) try {conn.close();} catch (SQLException ex) {}
+                } finally {
+                    if (rs != null) try {
+                        rs.close();
+                    } catch (SQLException ex) {
+                    }
+                    if (pstmt != null) try {
+                        pstmt.close();
+                    } catch (SQLException ex) {
+                    }
+                    if (conn != null) try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                    }
                 }
             }
-        }  
+        }
         reset();
         mainPanel.setVisible(true);//메인 패널로 이동
     }//GEN-LAST:event_BeforeReserButtActionPerformed
@@ -3134,20 +3375,20 @@ public class StudentMain extends javax.swing.JFrame {
         resetRadio.setVisible(false); //라디오 버튼 하나 안보이게 설정
         resetRadio.setSelected(true); //안보이는 라디오 버튼 선택되도록
         //모든 좌석 활성화
-        for(int i=0;i<30;i++){
+        for (int i = 0; i < 30; i++) {
             seat.get(i).setEnabled(true);
         }
-        
-        String sText=jComboBox4.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
-        int sNum=sText.indexOf(":");    //":"위치 저장
-        String eText=jComboBox5.getSelectedItem().toString();   //종료 시간 가져와서 문자열로 변수에 저장
-        int eNum=eText.indexOf(":");    //":" 위치 저장
-        
+
+        String sText = jComboBox4.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
+        int sNum = sText.indexOf(":");    //":"위치 저장
+        String eText = jComboBox5.getSelectedItem().toString();   //종료 시간 가져와서 문자열로 변수에 저장
+        int eNum = eText.indexOf(":");    //":" 위치 저장
+
         //사용자에게 입력받은 정보를 저장하는 객체
         //아직 자리를 지정하지 않아서 자리번호는 0으로 설정
-        reservation = new Reservation(jTextField1.getText(),jComboBox3.getSelectedItem().toString(),sText.substring(0,sNum),eText.substring(0,eNum),0);
-        
-        try{
+        reservation = new Reservation(jTextField1.getText(), jComboBox3.getSelectedItem().toString(), sText.substring(0, sNum), eText.substring(0, eNum), 0);
+
+        try {
             //기존의 강의와 겹치는지 조회
             sql="select * from lecture where day=? and labId=? and ((startTime <=? and endTime>?) or (startTime<? and endTime>=?) or (startTime>=? and endTime<=?))";
             pstmt = conn.prepareStatement(sql); //디비 구문과 연결
@@ -3160,16 +3401,16 @@ public class StudentMain extends javax.swing.JFrame {
             pstmt.setString(6, reservation.endTimeR);   //종료시간
             pstmt.setString(7, reservation.startTimeR); //시작시간
             pstmt.setString(8, reservation.endTimeR);   //종료시간
-            
-            rs=pstmt.executeQuery();
-            if(rs.next()){ //해당 예약 정보와 겹치는 강의가 존재한다면
+
+            rs = pstmt.executeQuery();
+            if (rs.next()) { //해당 예약 정보와 겹치는 강의가 존재한다면
                 //lecture=new Lecture(rs.getString("lectureName"));   //lecture 테이블에 lectureName 속성에서 값 가져오기 //값 안들어감.. 왜지
-                JOptionPane.showMessageDialog(this, rs.getString("lectureName") +" 강의 시간입니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
-            }else{
+                JOptionPane.showMessageDialog(this, rs.getString("lectureName") + " 강의 시간입니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
+            } else {
                 //기존의 세미나(혹은 특강)과 겹치는지 조회
                 sql="select * from seminar where dateS=? and labId=? and ((startTimeS <=? and endTimeS>?) or (startTimeS<? and endTimeS>=?) or (startTimeS>=? and endTimeS<=?))";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
-                
+
                 pstmt.setString(1, reservation.dateR);      //날짜
                 pstmt.setString(2, reservation.labId);      //실습실 번호
                 pstmt.setString(3, reservation.startTimeR); //시작시간
@@ -3178,17 +3419,16 @@ public class StudentMain extends javax.swing.JFrame {
                 pstmt.setString(6, reservation.endTimeR);   //종료시간
                 pstmt.setString(7, reservation.startTimeR); //시작시간
                 pstmt.setString(8, reservation.endTimeR);   //종료시간
-                
-                rs=pstmt.executeQuery();
-                if(rs.next()){
+
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
                     //seminar=new Seminar(rs.getString("seminarName"));   //seminar 테이블에 seminarName 속성에서 값 가져오기 //값 안들어감.. 왜지
-                    JOptionPane.showMessageDialog(this, rs.getString("seminarName")+" 강의 시간입니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
-                }
-                else{
+                    JOptionPane.showMessageDialog(this, rs.getString("seminarName") + " 강의 시간입니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
+                } else {
                     //기존의 예약과 겹치는지 조회
                     sql="select * from reservation where dateR=? and labId=? and ((startTimeR <=? and endTimeR>?) or (startTimeR<? and endTimeR>=?) or (startTimeR>=? and endTimeR<=?))";
                     pstmt = conn.prepareStatement(sql); //디비 구문과 연결
-                    
+
                     pstmt.setString(1, reservation.dateR);      //날짜
                     pstmt.setString(2, reservation.labId);      //실습실 번호
                     pstmt.setString(3, reservation.startTimeR); //시작시간
@@ -3197,46 +3437,385 @@ public class StudentMain extends javax.swing.JFrame {
                     pstmt.setString(6, reservation.endTimeR);   //종료시간
                     pstmt.setString(7, reservation.startTimeR); //시작시간
                     pstmt.setString(8, reservation.endTimeR);   //종료시간
-                    
-                    rs=pstmt.executeQuery();
-                    while(rs.next()){
+
+                    rs = pstmt.executeQuery();
+                    while (rs.next()) {
                         //reservation = new Reservation(rs.getString("dateR"),rs.getString("labId"),rs.getString("startTimeR"),rs.getString("endTimeR"),rs.getInt("seatId"));
                         //reservationList[num] = reservation;
                         // 예약 중인 좌석이라면 라디오버튼 비활성화
-                        seat.get(rs.getInt("seatId")-1).setEnabled(false);
+                        seat.get(rs.getInt("seatId") - 1).setEnabled(false);
                     }
                     // 좌석 출력
                     beforeSeatStatePanel.setVisible(true);
                     //좌석 선택 후 예약 클릭
-                    
+
                 }
             }
-            }catch(SQLException ex){
-                System.out.println(ex.getMessage());
-            }finally {
-                if(rs != null) try {rs.close();} catch (SQLException ex) {}
-                if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
-                if(conn != null) try {conn.close();} catch (SQLException ex) {}
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
         }
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     // 개인, 조별학습 선택받아서 확인 버튼
     private void teamCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teamCheckButtActionPerformed
-        if(soloRadio.isSelected() == true) {  //개인학습
+        OverLabCheckPanel.setVisible(false);
+        overSeatStatePanel.setVisible(false);
+
+        // 개인 학습 선택된 경우
+        if (soloRadio.isSelected() == true) {
             reset();
             Reser_menuPanel.setVisible(true);
             menuReser.setBackground(Color.RED);
-            
+
             check.setVisible(true);
-            
+
             // check의 콤보박스에 사용 가능한 실습실 값 아이템으로 넣기
-            
-        } else if (teamRadio.isSelected() == true) {  // 조별학습
+            if (Integer.parseInt(lab915Num) < 6) {  // 915 - 30명 미만이면 915 추가
+                jComboBox1.addItem("915");
+            } else if (Integer.parseInt(lab915Num) >= 6) {  // 915 - 30명 이상이면 다음 강의실(916) 확인
+                if (Integer.parseInt(lab916Num) < 6) {  //916 - 30명 미만이면 916 추가
+                    jComboBox1.addItem("916");
+                } else if (Integer.parseInt(lab916Num) >= 6) {  // 916 - 30명 이상이면 다음 강의실(918) 확인
+                    if (Integer.parseInt(lab918Num) < 6) {  // 918 - 30명 미만이면 918 추가
+                        jComboBox1.addItem("918");
+                    } else if (Integer.parseInt(lab918Num) >= 6) {  // 918 - 30명 이상이면 다음 강의실(911) 확인
+                        if (Integer.parseInt(lab911Num) < 6) {  // 911 - 30명 미만이면 911 추가
+                            jComboBox1.addItem("911");
+                        } else if (Integer.parseInt(lab911Num) >= 6) {  // 911 - 30명 이상이면 다음 강의실 없음
+                            System.out.println("no lab");
+                        }
+                    }
+                }
+            }
+
+            // 조별학습 선택된 경우
+        } else if (teamRadio.isSelected() == true) {
             OverLabCheckPanel.setVisible(true);
-            
+
             // OverLabCheckPanel의 사용 가능한 강의실 콤보 박스에 사용 가능한 실습실 값 아이템으로 넣기
-            
+            jComboBox8.removeAllItems();  // 5시 이후 팀 학습 강의실 콤보박스 아이템 초기화
+
+            // 강의실 20명 이상 30명 미만이면 현재, 다음 강의실 선택 가능
+            // 팀별 학습인 경우 팀원 수 + 강의실 인원 수가 30명 미만이면 현재 강의실 추가 / 30명 이상이면 다음 강의실
+            // 현재 강의실이 20명 미만 -> 현재 강의실 추가
+            // 현재 강의실이 20명 이상 30명 미만 -> 팀원 수 + 강의실 인원 수가 30명 미만인지 (30명 미만이면 현재 강의실 추가) / 30명 이상인지 (30명 이상이면 다음 강의실이 20명 미만인지 / 20명이상 30명미만인지 / 30명 이상인지) 상태 확인 
+            // 현재 강의실이 30명 이상 -> 다음 강의실이 20명 미만인지 / 20명 이상 30명 미만인지 / 30명 이상 인지 상태 확인
+            if (Integer.parseInt(lab915Num) >= 2 && Integer.parseInt(lab915Num) < 6) { // 915 - 20명 이상 30명 미만 (현재, 다음 강의실 선택 할 수 있음)
+
+                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab915Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 915 추가
+                    jComboBox8.addItem("915");  // 현재 강의실
+
+                    if (Integer.parseInt(lab916Num) < 2) {  // 다음 강의실 916 - 20명 미만
+                        jComboBox8.addItem("916");
+                    } else if (Integer.parseInt(lab916Num) >= 2 && Integer.parseInt(lab916Num) < 6) {  // 다음 강의실 916 - 20명 이상 30명 미만
+                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab916Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 916 추가
+                            jComboBox8.addItem("916");
+                        } else {   // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실(918) 확인
+                            if (Integer.parseInt(lab918Num) < 2) {  // 다음 강의실 918 - 20명 미만
+                                jComboBox8.addItem("918");
+                            } else if (Integer.parseInt(lab918Num) >= 2 && Integer.parseInt(lab918Num) < 6) {  // 다음 강의실 918 - 20명 이상 30명 미만
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab918Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 918 추가
+                                    jComboBox8.addItem("918");
+                                } else {   // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실(911) 확인
+                                    if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                        jComboBox8.addItem("911");
+                                    } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                            jComboBox8.addItem("911");
+                                        } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                            System.out.println("no labs");
+                                        }
+                                    } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        System.out.println("no labs");
+                                    }
+                                }
+                            } else if (Integer.parseInt(lab918Num) >= 6) {  // 다음 강의실 918 - 30명 이상
+                                if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                    jComboBox8.addItem("911");
+                                } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                        jComboBox8.addItem("911");
+                                    } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        System.out.println("no labs");
+                                    }
+                                } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    System.out.println("no labs");
+                                }
+                            }
+                        }
+                    } else if (Integer.parseInt(lab916Num) >= 6) {  // 다음 강의실 916 - 30명 이상
+                        if (Integer.parseInt(lab918Num) < 2) {  // 다음 강의실 918 - 20명 미만
+                            jComboBox8.addItem("918");
+                        } else if (Integer.parseInt(lab918Num) >= 2 && Integer.parseInt(lab918Num) < 6) {  // 다음 강의실 918 - 20명 이상 30명 미만
+                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab918Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 918 추가
+                                jComboBox8.addItem("918");
+                            } else {   // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실(911) 확인
+                                if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                    jComboBox8.addItem("911");
+                                } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                        jComboBox8.addItem("911");
+                                    } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        System.out.println("no labs");
+                                    }
+                                } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    System.out.println("no labs");
+                                }
+                            }
+                        }
+                    }
+                } else {  // 입력받은 팀원 수 + 현재 강의실 인원수가 30명 이상이면 다음 강의실(916) 확인
+                    // 916이 20명 미만이면 916 추가, 20명 이상이면 30명 미만이면 916 추가와 다음 강의실(918) 확인, 30명 이상이면 다음 강의실(918)확인
+
+                    if (Integer.parseInt(lab916Num) < 2) {  // 다음 강의실 916 - 20명 미만
+                        jComboBox8.addItem("916");
+                    } else if (Integer.parseInt(lab916Num) >= 2 && Integer.parseInt(lab916Num) < 6) {  // 다음 강의실 916 - 20명 이상 30명 미만 (현재, 다음 선택)
+
+                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab916Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 916 추가
+                            jComboBox8.addItem("916");
+                            if (Integer.parseInt(lab918Num) < 2) {  // 다음 강의실 918 - 20명 미만
+                                jComboBox8.addItem("918");
+                            } else if (Integer.parseInt(lab918Num) >= 2 && Integer.parseInt(lab918Num) < 6) {  // 다음 강의실 918 - 20명 이상 30명 미만
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab918Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 918 추가
+                                    jComboBox8.addItem("918");
+                                } else {
+                                    if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                        jComboBox8.addItem("911");
+                                    } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                            jComboBox8.addItem("911");
+                                        } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                            System.out.println("add no labs");
+                                        }
+                                    } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        System.out.println("add no labs");
+                                    }
+                                }
+                            }
+
+                        } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실(918) 확인
+                            if (Integer.parseInt(lab918Num) < 2) {  // 다음 강의실 918 - 20명 미만
+                                jComboBox8.addItem("918");
+                            } else if (Integer.parseInt(lab918Num) >= 2 && Integer.parseInt(lab918Num) < 6) {  // 다음 강의실 918 - 20명 이상 30명 미만 (현재, 다음 선택)
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab918Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 918 추가
+                                    jComboBox8.addItem("918");
+                                    if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                        jComboBox8.addItem("911");
+                                    } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                            jComboBox8.addItem("911");
+                                        } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                            System.out.println("no add labs");
+                                        }
+                                    } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        System.out.println("no add labs");
+                                    }
+                                } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실(911) 확인
+                                    if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                        jComboBox8.addItem("911");
+                                    } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 (현재, 다음 선택)
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                            jComboBox8.addItem("911");
+                                        } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                            JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                        }
+                                    } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                    }
+                                }
+                            } else if (Integer.parseInt(lab918Num) >= 6) {  // 다음 강의실 918 - 30명 이상이면 다음 강의실 (911) 확인
+                                if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                    jComboBox8.addItem("911");
+                                } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                        jComboBox8.addItem("911");
+                                    } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                    }
+                                } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                }
+                            }
+                        }
+                    } else if (Integer.parseInt(lab916Num) >= 6) {  // 다음 강의실 916 - 30명 이상 다음 강의실(918) 확인
+                        if (Integer.parseInt(lab918Num) < 2) {  // 다음 강의실 918 - 20명 미만
+                            jComboBox8.addItem("918");
+                        } else if (Integer.parseInt(lab918Num) >= 2 && Integer.parseInt(lab918Num) < 6) {  // 다음 강의실 918- 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab918Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 918 추가
+                                jComboBox8.addItem("918");
+                                if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                    jComboBox8.addItem("911");
+                                } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                        jComboBox8.addItem("911");
+                                    } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        System.out.println("no add labs");
+                                    }
+                                } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    System.out.println("no add labs");
+                                }
+                            } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 20명 이상이면 다음 강의실(911) 확인 
+                                if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                    jComboBox8.addItem("911");
+                                } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                        jComboBox8.addItem("911");
+                                    } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                    }
+                                } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                }
+                            }
+                        } else if (Integer.parseInt(lab918Num) >= 6) {  // 다음 강의실 918 - 30명 이상이면 다음 강의실 확인
+                            if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만 
+                                jComboBox8.addItem("911");
+                            } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                    jComboBox8.addItem("911");
+                                } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                }
+                            } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                            }
+                        }
+                    }
+
+                }
+
+            } else if (Integer.parseInt(lab915Num) >= 6) { // 915 - 30명 이상 (다음 강의실 확인)
+
+                if (Integer.parseInt(lab916Num) < 2) {  // 다음 강의실 916 - 20명 미만
+                    jComboBox8.addItem("916");
+                } else if (Integer.parseInt(lab916Num) >= 2 && Integer.parseInt(lab916Num) < 6) {  // 다음 강의실 916 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab916Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 916 추가
+                        jComboBox8.addItem("916");
+                        if (Integer.parseInt(lab918Num) < 2) {  // 다음 강의실 918 - 20명 미만
+                            jComboBox8.addItem("918");
+                        } else if (Integer.parseInt(lab918Num) >= 2 && Integer.parseInt(lab918Num) < 6) {    // 다음 강의실 918 - 20명 이상 30명 미만
+                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab918Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 918 추가
+                                jComboBox8.addItem("918");
+                            } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실(911) 확인
+                                if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                    jComboBox8.addItem("911");
+                                } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                        jComboBox8.addItem("911");
+                                    } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        System.out.println("add no labs");
+                                    }
+                                } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    System.out.println("add no labs");
+                                }
+                            }
+                        }
+                    } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실(918) 확인
+                        if (Integer.parseInt(lab918Num) < 2) {  // 다음 강의실 918 - 20명 미만
+                            jComboBox8.addItem("918");
+                        } else if (Integer.parseInt(lab918Num) >= 2 && Integer.parseInt(lab918Num) < 6) {  // 다음 강의실 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab918Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 918 추가
+                                jComboBox8.addItem("918");
+                                if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                    jComboBox8.addItem("911");
+                                } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                        jComboBox8.addItem("911");
+                                    } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        System.out.println("add no labs");
+                                    }
+                                } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    System.out.println("add no labs");
+                                }
+                            } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실(911) 확인
+                                if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                    jComboBox8.addItem("911");
+                                } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                        jComboBox8.addItem("911");
+                                    } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                        JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                    }
+                                } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                }
+                            }
+                        } else if (Integer.parseInt(lab918Num) >= 6) {  // 다음 강의실 918 - 30명 이상이면 다음 강의실(911) 확인
+                            if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                jComboBox8.addItem("911");
+                            } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                    jComboBox8.addItem("911");
+                                } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                }
+                            } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                            }
+                        }
+                    }
+                } else if (Integer.parseInt(lab916Num) >= 6) {  // 다음 강의실 916 - 30명 이상이면 다음 강의실(918) 확인
+                    if (Integer.parseInt(lab918Num) < 2) {  // 다음 강의실 918 - 20명 미만 
+                        jComboBox8.addItem("918");
+                    } else if (Integer.parseInt(lab918Num) >= 2 && Integer.parseInt(lab918Num) < 6) {  // 다음 강의실 918 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab918Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 918 추가
+                            jComboBox8.addItem("918");
+                            if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                jComboBox8.addItem("911");
+                            } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                    jComboBox8.addItem("911");
+                                } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    System.out.println("add no labs");
+                                }
+                            } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                System.out.println("add no labs");
+                            }
+                        } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실(911) 확인
+                            if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                                jComboBox8.addItem("911");
+                            } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                    jComboBox8.addItem("911");
+                                } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                    JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                                }
+                            } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                            }
+                        }
+                    } else if (Integer.parseInt(lab918Num) >= 6) {  // 다음 강의실 918 - 30명 이상이면 다음 강의실(911) 확인
+                        if (Integer.parseInt(lab911Num) < 2) {  // 다음 강의실 911 - 20명 미만
+                            jComboBox8.addItem("911");
+                        } else if (Integer.parseInt(lab911Num) >= 2 && Integer.parseInt(lab911Num) < 6) {  // 다음 강의실 911 - 20명 이상 30명 미만 (현재, 다음 강의실 선택)
+                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(lab911Num) < 6) {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 미만이면 911 추가
+                                jComboBox8.addItem("911");
+                            } else {  // 입력받은 팀원 수 + 현재 강의실 인원 수가 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                                JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                            }
+                        } else if (Integer.parseInt(lab911Num) >= 6) {  // 다음 강의실 911 - 30명 이상이면 다음 강의실 확인 -> 911 다음 강의실 없음
+                            JOptionPane.showMessageDialog(this, "빈 강의실이 없습니다.");
+                        }
+                    }
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "학습 유형을 선택해주세요.");
         }
     }//GEN-LAST:event_teamCheckButtActionPerformed
 
@@ -3267,7 +3846,7 @@ public class StudentMain extends javax.swing.JFrame {
     // 실습실 시간표 조회 버튼
     private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
         TT.setVisible(true);
-        
+
         //테이블에 시간표 출력
     }//GEN-LAST:event_TTCheckButtActionPerformed
 
@@ -3277,15 +3856,15 @@ public class StudentMain extends javax.swing.JFrame {
         Lab_menuPanel.setVisible(true);
         menuLabCheck.setBackground(Color.yellow);
         LabStatusPanel.setVisible(true);
-    
+
         // 날짜, 시간 입력 후 사용 가능한 실습실만 콤보박스 아이템으로 넣기 (LabStatusPanel)
-        
+
     }//GEN-LAST:event_checkButt1ActionPerformed
 
     // 실습실 선택 후 확인 버튼 클릭
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         LabStatus.setVisible(true);
-        
+
         // 사용 가능한 불가능한 좌석 비활성화
     }//GEN-LAST:event_jButton10ActionPerformed
 
@@ -3303,7 +3882,7 @@ public class StudentMain extends javax.swing.JFrame {
         UserInfo_menuPanel.setVisible(true);
         menuUserChange.setBackground(Color.yellow);
         UserChangePanel.setVisible(true);
-        
+
         // 회원 정보 db에서 가져와서 UserChangePanel에 띄우기
     }//GEN-LAST:event_menuUserChangeMouseClicked
 
@@ -3331,13 +3910,13 @@ public class StudentMain extends javax.swing.JFrame {
     private void startButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtActionPerformed
         // 예약 사용 시작 버튼 클릭 시 사용시작버튼 비활성화
         startButt.setEnabled(false);
-        
+
         // 사용 시작 상태 디비에 저장 
     }//GEN-LAST:event_startButtActionPerformed
 
     //예약 퇴실 버튼
     private void endButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endButtActionPerformed
-        if(startButt.isEnabled() == true) {  // 예약 사용 시작을 안했다면 
+        if (startButt.isEnabled() == true) {  // 예약 사용 시작을 안했다면 
             System.out.printf("No end!!");  // 퇴실 불가능
         }
 
@@ -3347,13 +3926,119 @@ public class StudentMain extends javax.swing.JFrame {
     // 좌석 선택후 예약 버튼 (5시 이후, 20명 이상, 팀별 학습)
     private void overReserButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overReserButtActionPerformed
         // 예약 디비에 넣기
+
+        connect();  // DB 연결
+
+        for (int i = 0; i < 30; i++) {
+
+            if (afterseatT.get(i).isSelected()) {  // 5시 이후, 20명 이상, 팀별 학습 -> 선택된 좌석이 있으면
+
+                // 예약 정보 저장
+                reservation = new Reservation(reservation.dateR, reservation.labId, reservation.startTimeR, reservation.endTimeR, i + 1);
+
+                try {
+                    // 예약 정보 db에 저장
+                    sql = "insert into reservation (sId, labId, seatId, dateR, startTimeR, endTimeR, reserPermission, authority, useCheck) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                    pstmt = conn.prepareStatement(sql);
+
+                    pstmt.setString(1, "stu1");  // 아이디 
+                    pstmt.setString(2, reservation.labId);  // 강의실
+                    pstmt.setInt(3, reservation.seatId);  // 좌석
+                    pstmt.setString(4, reservation.dateR);  // 날짜
+                    pstmt.setString(5, reservation.startTimeR);  //시작 시간
+                    pstmt.setString(6, reservation.endTimeR);  //종료 시간
+                    pstmt.setInt(7, 0);  //예약 승인
+                    pstmt.setInt(8, 0);  //권한 여부
+                    pstmt.setInt(9, 0);  //사용 여부
+
+                    pstmt.executeUpdate();
+
+                    JOptionPane.showMessageDialog(this, "예약이 완료되었습니다.");
+
+                    // 메인화면으로 이동
+                    reset();
+                    mainPanel.setVisible(true);
+
+                    // 라디오버튼 선택 초기화
+                    buttonGroup2.clearSelection();
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                } finally {
+                    if (rs != null) try {
+                        rs.close();
+                    } catch (SQLException ex) {
+                    }
+                    if (pstmt != null) try {
+                        pstmt.close();
+                    } catch (SQLException ex) {
+                    }
+                    if (conn != null) try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                    }
+                }
+            }
+        }
+
     }//GEN-LAST:event_overReserButtActionPerformed
 
     // 강의실 선택 후 좌석조회 버튼(5시 이후, 20명 이상, 팀별학습)
     private void overSeatCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overSeatCheckButtActionPerformed
-        overSeatStatePanel.setVisible(true);
-        
-        // 사용 불가능한 좌석 비활성화
+
+        // 선택한 강의실 값 가져오기
+        String lab = (String) jComboBox8.getSelectedItem();
+
+        if (jComboBox8.getSelectedIndex() == -1) {  // 강의실이 선택되지 않았을 경우
+            JOptionPane.showMessageDialog(this, "강의실이 선택되지 않았습니다.");
+        } else {  // 강의실이 선택된 경우
+            overSeatStatePanel.setVisible(true);  // 좌석 상태 패널 띄우기
+
+            // 예약 정보 저장 - 좌석 번호 0으로 임의 저장
+            reservation = new Reservation(reservation.dateR, lab, reservation.startTimeR, reservation.endTimeR, 0);
+            connect();  // DB 연결
+
+            try {
+                // 예약 있는 좌석 찾기
+                sql = "select seatId from reservation where dateR = ? and labId = ? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?))";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, reservation.dateR);  // 날짜
+                pstmt.setString(2, lab);  // 강의실
+                pstmt.setString(3, reservation.startTimeR);  // 시작시간
+                pstmt.setString(4, reservation.endTimeR);  // 종료시간
+                pstmt.setString(5, reservation.startTimeR);  // 시작시간
+                pstmt.setString(6, reservation.startTimeR);  // 시작시간
+
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    System.out.println("seatNum : " + rs.getString(1));
+
+                    // 예약 있는 자리 비활성화
+                    afterseatT.get(rs.getInt("seatId") - 1).setEnabled(false);
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+        }
+
     }//GEN-LAST:event_overSeatCheckButtActionPerformed
 
     private void seat31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat31ActionPerformed
@@ -3402,7 +4087,7 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JButton BeforeReserButt;
     private javax.swing.JPanel CanclePanel;
     private javax.swing.JPanel CheckPanel;
-    private javax.swing.JTextField DD_Text;
+    private javax.swing.JTextField DATE_Text;
     private javax.swing.JTextField DD_Text1;
     private javax.swing.JPanel LabCheckPanel;
     private javax.swing.JComboBox<String> LabComboBox;
@@ -3411,7 +4096,6 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JPanel LabStatusPanel;
     private javax.swing.JPanel LabTTCheckPanel;
     private javax.swing.JPanel Lab_menuPanel;
-    private javax.swing.JTextField MM_Text;
     private javax.swing.JTextField MM_Text1;
     private javax.swing.JButton MyReserCancleButt;
     private javax.swing.JButton MyReserCheckButt;
@@ -3427,7 +4111,6 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JButton UserDeleteButt;
     private javax.swing.JPanel UserDeletePanel;
     private javax.swing.JPanel UserInfo_menuPanel;
-    private javax.swing.JTextField YYYY_Text;
     private javax.swing.JTextField YYYY_Text1;
     private javax.swing.JPanel afterReser;
     private javax.swing.JRadioButton afterReserRadio;
@@ -3460,8 +4143,6 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
