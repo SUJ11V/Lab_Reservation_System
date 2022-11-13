@@ -1685,10 +1685,10 @@ public class AssistantMain extends javax.swing.JFrame {
         });
 
         SStartTime.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        SStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
+        SStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
         SEndTime.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        SEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00" }));
+        SEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00" }));
 
         jLabel37.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel37.setText("세미나명 : ");
