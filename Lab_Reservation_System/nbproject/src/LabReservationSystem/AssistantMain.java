@@ -3589,8 +3589,7 @@ public class AssistantMain extends javax.swing.JFrame {
                     }
                 }
                 //꽉 찬 실습실이 존재한다면
-                sql="select count(*),labId from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))"
-                        +"group by labId";
+                sql="select labId from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
                 pstmt.setString(1, seminar.dateS);      //날짜
@@ -3603,9 +3602,9 @@ public class AssistantMain extends javax.swing.JFrame {
 
                 rs = pstmt.executeQuery();
                 while(rs.next()){
-                    if(lab.contains(rs.getString(2))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
-                            lab.add(rs.getString(2));   //실습실번호 저장
-                        }
+                    if(lab.contains(rs.getString(1))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
+                         lab.add(rs.getString(1));   //실습실번호 저장
+                    }
                 }
                 DefaultListModel listModel = new DefaultListModel();
                 if(lab.contains("911")==false){
@@ -3620,7 +3619,6 @@ public class AssistantMain extends javax.swing.JFrame {
                 if(lab.contains("918")==false){
                     listModel.addElement("918");
                 }
-                System.out.println(lab);
                 jList1.setModel(listModel);
                 if(lab.size()>=4){  //사용 가능한 실습실이 없다면
                     JOptionPane.showMessageDialog(this, "세미나(특강) 등록 가능한 실습실이 없습니다." , "Message",JOptionPane.ERROR_MESSAGE );
@@ -3631,8 +3629,6 @@ public class AssistantMain extends javax.swing.JFrame {
                     SDate.setText(SDateText.getText());
                     SStart.setText(SStartTime.getSelectedItem().toString());
                     SEnd.setText(SEndTime.getSelectedItem().toString());
-        
-                    // 사용가능한 강의실 출력
                 }
         }catch(SQLException ex){
                System.out.println(ex.getMessage()); 

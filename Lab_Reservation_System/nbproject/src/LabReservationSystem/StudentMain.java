@@ -3985,6 +3985,7 @@ public class StudentMain extends javax.swing.JFrame {
                         lab.add(rs.getString("labId"));
                     }
                 }
+                //꽉 찬 실습실이 존재한다면
                 sql="select count(*),labId from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))"
                         + "group by labId";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
@@ -3999,8 +4000,10 @@ public class StudentMain extends javax.swing.JFrame {
 
                 rs = pstmt.executeQuery();
                 while(rs.next()){
-                    if(lab.contains(rs.getString(2))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
-                        lab.add(rs.getString(2));   //실습실번호 저장
+                    if(rs.getInt(1)==30){ //꽉차면
+                        if(lab.contains(rs.getString(2))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
+                            lab.add(rs.getString(2));   //실습실번호 저장
+                        }
                     }
                 }
                 if(lab.contains("911")==false){
