@@ -10,8 +10,12 @@ import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import source.Lecture;
 import source.Seminar;
@@ -35,6 +39,27 @@ public class AssistantMain extends javax.swing.JFrame {
     /**
      * Creates new form ProfessorMain
      */
+    
+    
+    public String getDayString(int day){
+        String dayString = null;
+        if(day==1)
+            dayString="월";
+        if(day==2)
+            dayString="화";
+        if(day==2)
+            dayString="수";
+        if(day==2)
+            dayString="목";
+        if(day==2)
+            dayString="금";
+        if(day==2)
+            dayString="토";
+        if(day==2)
+            dayString="일";
+        
+        return dayString;
+    }
     
     public int getDay(Seminar seminar){ //요일 구하기
         //dateR은 "yyyy/mm/dd" 형식으로 된 string type으로 받는다.
@@ -1685,10 +1710,10 @@ public class AssistantMain extends javax.swing.JFrame {
         });
 
         SStartTime.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        SStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
+        SStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
 
         SEndTime.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        SEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00" }));
+        SEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00" }));
 
         jLabel37.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel37.setText("세미나명 : ");
@@ -1755,6 +1780,11 @@ public class AssistantMain extends javax.swing.JFrame {
 
         jComboBox4.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
 
         TTCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         TTCheckButt.setText("조회");
@@ -1769,18 +1799,25 @@ public class AssistantMain extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "요일", "강의명", "교수명", "시작 시간", "종료 시간"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -3525,7 +3562,25 @@ public class AssistantMain extends javax.swing.JFrame {
     // 실습실 별 시간표 조회 버튼
     private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
         TT.setVisible(true);
+        connect();
         
+        try{
+            sql="select * from lecture where labId=? order by day";
+            pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+            
+            pstmt.setString(1, jComboBox4.getSelectedItem().toString());    //실습실
+                
+            rs=pstmt.executeQuery();
+                while(rs.next()){ // 레코드(Record, Row) 생성
+                   
+                } 
+        }catch(SQLException ex){
+               System.out.println(ex.getMessage()); 
+            }finally {
+                if(rs != null) try {rs.close();} catch (SQLException ex) {}
+                if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
+                if(conn != null) try {conn.close();} catch (SQLException ex) {}
+            }
         // 테이블에 시간표 출력
     }//GEN-LAST:event_TTCheckButtActionPerformed
 
@@ -3773,17 +3828,52 @@ public class AssistantMain extends javax.swing.JFrame {
             day=7;
         }
         
-        lecture=new Lecture(jTextField2.getText(),jComboBox2.getSelectedItem().toString(),sText.substring(0,sNum),eText.substring(0,eNum),day,jTextField5.getText());
-        /*try{
+        if(Integer.parseInt(sText.substring(0,sNum)) >= Integer.parseInt(eText.substring(0,eNum))){ //시작시간을 종료시간보다 늦게 설정했을 경우
+            JOptionPane.showMessageDialog(this, "시작 시간을 종료 시간보다 빠르게 설정하세요." , "Message",JOptionPane.ERROR_MESSAGE );
+            TimeTableAddPanel.setVisible(true);
+        }else{
+            lecture=new Lecture(jComboBox2.getSelectedItem().toString(),jTextField2.getText(),sText.substring(0,sNum),eText.substring(0,eNum),day,jTextField5.getText());
+            try{
+                //기존의 강의와 겹치는지 조회
+                sql="select * from lecture where day=? and labId=? and ((startTime >=? and startTime<?) or (endTime>? and endTime<=?) or (startTime>=? and endTime<=?))";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
             
-        }catch(SQLException ex){
+                pstmt.setInt(1, day);      //요일
+                pstmt.setString(2, lecture.labId);      //실습실 번호
+                pstmt.setString(3, lecture.startTime); //시작시간
+                pstmt.setString(4, lecture.endTime);   //종료시간
+                pstmt.setString(5, lecture.startTime); //시작시간
+                pstmt.setString(6, lecture.endTime);   //종료시간
+                pstmt.setString(7, lecture.startTime); //시작시간
+                pstmt.setString(8, lecture.endTime);   //종료시간
+
+                rs = pstmt.executeQuery();
+                if (rs.next()) { //만약 겹치는 강의가 존재한다면
+                    JOptionPane.showMessageDialog(this, "시간이 겹치는 강의가 존재합니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
+                    TimeTableAddPanel.setVisible(true);
+                } else {
+                    sql = "insert into lecture (labId,lectureName,startTime, endTime,day,pId) values (?,?,?,?,?,?)";
+                    pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+
+                    //로그인 시 조교 정보 객체에 저장해서 아이디 가져와야 함
+                    pstmt.setString(1,lecture.labId);         //실습실 번호 
+                    pstmt.setString(2, lecture.lecName);   //
+                    pstmt.setString(3, lecture.startTime);    //좌석번호
+                    pstmt.setString(4, lecture.endTime);   //예약날짜
+                    pstmt.setInt(5, day); //시작시간
+                    pstmt.setString(6,lecture.pId);   //교수명 (임의로 아이디 넣어둠! 수정해야함)
+
+                    pstmt.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "등록 완료되었습니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
+                }     
+            }catch(SQLException ex){
                System.out.println(ex.getMessage()); 
             }finally {
                 if(rs != null) try {rs.close();} catch (SQLException ex) {}
                 if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
                 if(conn != null) try {conn.close();} catch (SQLException ex) {}
             }
-        */
+        }
     }//GEN-LAST:event_TimeTableAddButtActionPerformed
 
     // 특강 추가 버튼
@@ -3932,6 +4022,10 @@ public class AssistantMain extends javax.swing.JFrame {
     private void SEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEndActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SEndActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4ActionPerformed
 
     /**
      * @param args the command line arguments
