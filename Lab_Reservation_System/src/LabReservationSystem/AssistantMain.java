@@ -6,17 +6,51 @@
 package LabReservationSystem;
 
 import java.awt.Color;
+import java.sql.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
+import source.Lecture;
+import source.Seminar;
+import source.Manager;
+import source.Reservation;
 
 /**
  *
  * @author asdf0
  */
 public class AssistantMain extends javax.swing.JFrame {
-
+    
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    String sql; //쿼리문 받을 변수
+    
+    Lecture lecture;    //강의 정보를 저장할 객체
+    Seminar seminar;
+    Manager manager;
     /**
      * Creates new form ProfessorMain
      */
+    
+    public int getDay(Seminar seminar){ //요일 구하기
+        //dateR은 "yyyy/mm/dd" 형식으로 된 string type으로 받는다.
+        int yNum=seminar.dateS.indexOf("/"); //4
+        int mNum=seminar.dateS.indexOf("/",yNum+1);//7
+        
+        int year=Integer.parseInt(seminar.dateS.substring(0,yNum));    //년
+        int month=Integer.parseInt(seminar.dateS.substring(yNum+1,mNum));   //월
+        int day=Integer.parseInt(seminar.dateS.substring(mNum+1));    //일
+
+        LocalDate date =LocalDate.of(year,month,day);   //date에 날짜 저장
+        DayOfWeek dayOfWeek =date.getDayOfWeek();
+        int dayOfWeekNumber=dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
+        return dayOfWeekNumber;                   //1: 월, 2: 화, 3: 수, ....
+    }
+    
     public AssistantMain() {
         initComponents();
         
@@ -129,6 +163,22 @@ public class AssistantMain extends javax.swing.JFrame {
         TTResetPanel.setVisible(false);
     }
     
+    public void connect() {  //DB연결 함수
+        try {
+            //JDBC드라이버 로딩
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //디비 연결 용 변수
+            String jdbcDriver = "jdbc:mysql://211.213.95.123:3360/labmanagement?serverTimeZone=UTC";
+            String dbId = "20203128"; //MySQL 접속 아이디("20203132"도 가능)
+            String dbPw = "20203128"; //접속 비밀번호(아이디를 20203132로 작성시, 비밀번호도 아이디와 같도록
+            conn = DriverManager.getConnection(jdbcDriver, dbId, dbPw);
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -237,19 +287,21 @@ public class AssistantMain extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
         jComboBox3 = new javax.swing.JComboBox<>();
         jTextField5 = new javax.swing.JTextField();
         TimeTableAddButt = new javax.swing.JButton();
+        jComboBox8 = new javax.swing.JComboBox<>();
+        jComboBox9 = new javax.swing.JComboBox<>();
         SeminarAddPanel = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         SDateText = new javax.swing.JTextField();
-        SStartText = new javax.swing.JTextField();
-        SEndText = new javax.swing.JTextField();
         seminarCheckButt = new javax.swing.JButton();
+        SStartTime = new javax.swing.JComboBox<>();
+        SEndTime = new javax.swing.JComboBox<>();
+        jLabel37 = new javax.swing.JLabel();
+        SNameText = new javax.swing.JTextField();
         TimeTableCheckPanel = new javax.swing.JPanel();
         jComboBox4 = new javax.swing.JComboBox<>();
         TTCheckButt = new javax.swing.JButton();
@@ -1510,6 +1562,11 @@ public class AssistantMain extends javax.swing.JFrame {
 
         jComboBox2.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jLabel22.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel22.setText("강의명 : ");
@@ -1524,22 +1581,15 @@ public class AssistantMain extends javax.swing.JFrame {
         jLabel25.setText("요일 : ");
 
         jLabel26.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jLabel26.setText("교수명 : ");
+        jLabel26.setText("교수번호 : ");
 
         jTextField2.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jTextField4.setText("jTextField4");
 
         jComboBox3.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "월", "화", "수", "목", "금", "토", "일" }));
 
         jTextField5.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        jTextField5.setText("jTextField5");
+        jTextField5.setToolTipText("");
 
         TimeTableAddButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         TimeTableAddButt.setText("추가");
@@ -1548,6 +1598,12 @@ public class AssistantMain extends javax.swing.JFrame {
                 TimeTableAddButtActionPerformed(evt);
             }
         });
+
+        jComboBox8.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
+
+        jComboBox9.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00" }));
 
         javax.swing.GroupLayout TimeTableAddPanelLayout = new javax.swing.GroupLayout(TimeTableAddPanel);
         TimeTableAddPanel.setLayout(TimeTableAddPanelLayout);
@@ -1564,14 +1620,15 @@ public class AssistantMain extends javax.swing.JFrame {
                     .addComponent(jLabel17))
                 .addGap(18, 18, 18)
                 .addGroup(TimeTableAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TimeTableAddButt, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(415, Short.MAX_VALUE))
+                    .addGroup(TimeTableAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField2)
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField5)
+                        .addComponent(TimeTableAddButt, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(422, Short.MAX_VALUE))
         );
         TimeTableAddPanelLayout.setVerticalGroup(
             TimeTableAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1587,12 +1644,12 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(TimeTableAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(TimeTableAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24))
-                .addGap(18, 18, 18)
+                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(TimeTableAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(TimeTableAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25))
@@ -1617,13 +1674,7 @@ public class AssistantMain extends javax.swing.JFrame {
         jLabel30.setText("날짜 : ");
 
         SDateText.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        SDateText.setText("2022 - 11 - 06");
-
-        SStartText.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        SStartText.setText("jTextField7");
-
-        SEndText.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        SEndText.setText("jTextField8");
+        SDateText.setText("2022/11/06");
 
         seminarCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         seminarCheckButt.setText("조회");
@@ -1633,28 +1684,48 @@ public class AssistantMain extends javax.swing.JFrame {
             }
         });
 
+        SStartTime.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        SStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
+
+        SEndTime.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        SEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00" }));
+
+        jLabel37.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel37.setText("세미나명 : ");
+
+        SNameText.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        SNameText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SNameTextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout SeminarAddPanelLayout = new javax.swing.GroupLayout(SeminarAddPanel);
         SeminarAddPanel.setLayout(SeminarAddPanelLayout);
         SeminarAddPanelLayout.setHorizontalGroup(
             SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SeminarAddPanelLayout.createSequentialGroup()
                 .addGap(365, 365, 365)
-                .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(seminarCheckButt)
-                    .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(SeminarAddPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SDateText))
+                    .addGroup(SeminarAddPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SNameText))
+                    .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(seminarCheckButt)
                         .addGroup(SeminarAddPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel28)
+                            .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel28)
+                                .addComponent(jLabel29))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(SStartText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(SeminarAddPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel30)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(SDateText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(SeminarAddPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel29)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(SEndText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(432, Short.MAX_VALUE))
+                            .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(SEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(SStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(439, Short.MAX_VALUE))
         );
         SeminarAddPanelLayout.setVerticalGroup(
             SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1666,14 +1737,18 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
-                    .addComponent(SStartText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
-                    .addComponent(SEndText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
+                    .addComponent(SEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
+                    .addComponent(SNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(seminarCheckButt)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         getContentPane().add(SeminarAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
@@ -1782,9 +1857,14 @@ public class AssistantMain extends javax.swing.JFrame {
         SEnd.setEditable(false);
         SEnd.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         SEnd.setText("jTextField11");
+        SEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SEndActionPerformed(evt);
+            }
+        });
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "915", "916", " " };
+            String[] strings = { " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -3452,17 +3532,117 @@ public class AssistantMain extends javax.swing.JFrame {
     // 특강 및 세미나 사용가능한 강의실 조회
     private void seminarCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seminarCheckButtActionPerformed
         reset();
+        connect();
         TimeTable_menuPanel.setVisible(true);
         menuSeminarAdd.setBackground(Color.pink);
         
-        seminarReserCheckPanel.setVisible(true);
+        ArrayList<String> lab = new ArrayList<>();
         
-        // SeminarAddPanel에서 입력받은 날짜, 시작시간, 종료시간 받아와서 출력 
-        SDate.setText(SDateText.getText());
-        SStart.setText(SStartText.getText());
-        SEnd.setText(SEndText.getText());
+        String sText=SStartTime.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
+        int sNum=sText.indexOf(":");    //":"위치 저장
+        String eText=SEndTime.getSelectedItem().toString();   //종료 시간 가져와서 문자열로 변수에 저장
+        int eNum=eText.indexOf(":");    //":" 위치 저장
         
-        // 사용가능한 강의실 출력
+        if(Integer.parseInt(sText.substring(0,sNum)) >= Integer.parseInt(eText.substring(0,eNum))){ //시작시간을 종료시간보다 늦게 설정했을 경우
+            JOptionPane.showMessageDialog(this, "시작 시간을 종료 시간보다 빠르게 설정하세요." , "Message",JOptionPane.ERROR_MESSAGE );
+            SeminarAddPanel.setVisible(true);
+        }else{
+        //실습실 번호는 임의로 0으로 설정
+        //pId는 로그인 시 객체 저장해서 가져와야 한다. 현재는 임의로 pro1로 설정
+        seminar=new Seminar(SDateText.getText(), SNameText.getText(), "pro1", "0", sText.substring(0,sNum), eText.substring(0,eNum));
+            System.out.println(seminar.dateS);
+        try{
+            //강의가 있는지 조회
+                sql="select * from lecture where day=? and ((startTime >=? and startTime<?) or (endTime>? and endTime<=?) or (startTime>=? and endTime<=?))";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+                
+                pstmt.setInt(1, getDay(seminar));      //요일
+                pstmt.setString(2, seminar.startTimeS); //시작시간
+                pstmt.setString(3, seminar.endTimeS);   //종료시간
+                pstmt.setString(4, seminar.startTimeS); //시작시간
+                pstmt.setString(5, seminar.endTimeS);   //종료시간
+                pstmt.setString(6, seminar.startTimeS); //시작시간
+                pstmt.setString(7, seminar.endTimeS);   //종료시간
+
+                rs=pstmt.executeQuery();
+                while(rs.next()){ //해당 예약 정보와 겹치는 강의가 존재한다면
+                    if(lab.contains(rs.getString("labId"))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
+                        lab.add(rs.getString("labId"));
+                    }
+                } //해당 예약 정보와 겹치는 세미나(또는 특강)이 존재한다면
+
+                sql="select * from seminar where dateS=? and ((startTimeS >=? and startTimeS<?) or (endTimeS>? and endTimeS<=?) or (startTimeS>=? and endTimeS<=?))";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+                
+                pstmt.setString(1, seminar.dateS);      //날짜
+                pstmt.setString(2, seminar.startTimeS); //시작시간
+                pstmt.setString(3, seminar.endTimeS);   //종료시간
+                pstmt.setString(4, seminar.startTimeS); //시작시간
+                pstmt.setString(5, seminar.endTimeS);   //종료시간
+                pstmt.setString(6, seminar.startTimeS); //시작시간
+                pstmt.setString(7, seminar.endTimeS);   //종료시간
+                
+                rs=pstmt.executeQuery();
+                while(rs.next()){
+                    if(lab.contains(rs.getString("labId"))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
+                        lab.add(rs.getString("labId"));
+                    }
+                }
+                //꽉 찬 실습실이 존재한다면
+                sql="select count(*),labId from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))"
+                        + "group by labId";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+
+                pstmt.setString(1, seminar.dateS);      //날짜
+                pstmt.setString(2, seminar.startTimeS); //시작시간
+                pstmt.setString(3, seminar.endTimeS);   //종료시간
+                pstmt.setString(4, seminar.startTimeS); //시작시간
+                pstmt.setString(5, seminar.endTimeS);   //종료시간
+                pstmt.setString(6, seminar.startTimeS); //시작시간
+                pstmt.setString(7, seminar.endTimeS);   //종료시간
+
+                rs = pstmt.executeQuery();
+                while(rs.next()){
+                    if(rs.getInt(1)==30){ //꽉차면
+                        if(lab.contains(rs.getString(2))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
+                            lab.add(rs.getString(2));   //실습실번호 저장
+                        }
+                    }
+                }
+                DefaultListModel listModel = new DefaultListModel();
+                if(lab.contains("911")==false){
+                    listModel.addElement("911");
+                }
+                if(lab.contains("915")==false){
+                    listModel.addElement("915");
+                }
+                if(lab.contains("916")==false){
+                    listModel.addElement("916");
+                }
+                if(lab.contains("918")==false){
+                    listModel.addElement("918");
+                }
+                jList1.setModel(listModel);
+                if(lab.size()>=4){  //사용 가능한 실습실이 없다면
+                    JOptionPane.showMessageDialog(this, "세미나(특강) 등록 가능한 실습실이 없습니다." , "Message",JOptionPane.ERROR_MESSAGE );
+                    SeminarAddPanel.setVisible(true);
+                }else{  //사용 가능한 실습실이 있다면
+                    seminarReserCheckPanel.setVisible(true);
+                    // SeminarAddPanel에서 입력받은 날짜, 시작시간, 종료시간 받아와서 출력 
+                    SDate.setText(SDateText.getText());
+                    SStart.setText(SStartTime.getSelectedItem().toString());
+                    SEnd.setText(SEndTime.getSelectedItem().toString());
+        
+                    // 사용가능한 강의실 출력
+                }
+        }catch(SQLException ex){
+               System.out.println(ex.getMessage()); 
+            }finally {
+                if(rs != null) try {rs.close();} catch (SQLException ex) {}
+                if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
+                if(conn != null) try {conn.close();} catch (SQLException ex) {}
+            }
+        }
     }//GEN-LAST:event_seminarCheckButtActionPerformed
 
     // 실습실 관리 메뉴바 - 실습실 공지사항 및 규칙 입력 선택 시
@@ -3569,11 +3749,86 @@ public class AssistantMain extends javax.swing.JFrame {
     // 시간표 추가 버튼
     private void TimeTableAddButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimeTableAddButtActionPerformed
         // 입력받은 값 시간표 db에 저장
+        connect();
+        
+        String sText=jComboBox8.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
+        int sNum=sText.indexOf(":");    //":"위치 저장
+        String eText=jComboBox9.getSelectedItem().toString();   //종료 시간 가져와서 문자열로 변수에 저장
+        int eNum=eText.indexOf(":");    //":" 위치 저장
+        
+        //요일을 숫자 형태로
+        int day;
+        if(jComboBox3.getSelectedItem().toString().equals("월")){
+            day=1;
+        }else if(jComboBox3.getSelectedItem().toString().equals("화")){
+            day=2;
+        }else if(jComboBox3.getSelectedItem().toString().equals("수")){
+            day=3;
+        }else if(jComboBox3.getSelectedItem().toString().equals("목")){
+            day=4;
+        }else if(jComboBox3.getSelectedItem().toString().equals("금")){
+            day=5;
+        }else if(jComboBox3.getSelectedItem().toString().equals("토")){
+            day=6;
+        }else{
+            day=7;
+        }
+        
+        lecture=new Lecture(jTextField2.getText(),jComboBox2.getSelectedItem().toString(),sText.substring(0,sNum),eText.substring(0,eNum),day,jTextField5.getText());
+        /*try{
+            
+        }catch(SQLException ex){
+               System.out.println(ex.getMessage()); 
+            }finally {
+                if(rs != null) try {rs.close();} catch (SQLException ex) {}
+                if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
+                if(conn != null) try {conn.close();} catch (SQLException ex) {}
+            }
+        */
     }//GEN-LAST:event_TimeTableAddButtActionPerformed
 
     // 특강 추가 버튼
     private void SeminarAddButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeminarAddButtActionPerformed
+        connect();
         // DB에 특강 정보 저장
+        seminar.labId=jList1.getSelectedValue();
+        if(seminar.labId==null){
+            JOptionPane.showMessageDialog(this, "실습실을 먼저 선택해주세요.", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+        try {
+            //데이터 삽입을 위한 sql문
+            sql = "insert into seminar (pId,labId,seminarName,dateS,startTimeS,endTimeS) values (?,?,?,?,?,?)";
+                    pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+
+                    //로그인 시 조교 정보 객체에 저장해서 아이디 가져와야 함
+                    pstmt.setString(1,"pro1");         //조교아이디 
+                    pstmt.setString(2, seminar.labId);   //실습실번호
+                    pstmt.setString(3, seminar.seminarName);    //세미나명
+                    pstmt.setString(4, seminar.dateS);   //예약날짜
+                    pstmt.setString(5, seminar.startTimeS); //시작시간
+                    pstmt.setString(6, seminar.endTimeS); //종료시간
+
+                    pstmt.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "등록 완료되었습니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                } finally {
+                    if (rs != null) try {
+                        rs.close();
+                    } catch (SQLException ex) {
+                    }
+                    if (pstmt != null) try {
+                        pstmt.close();
+                    } catch (SQLException ex) {
+                    }
+                    if (conn != null) try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                    }
+                }
+        reset();
+        mainPanel.setVisible(true);//메인 패널로 이동
+        }
     }//GEN-LAST:event_SeminarAddButtActionPerformed
 
     // 실습실 예약 조회 
@@ -3667,6 +3922,18 @@ public class AssistantMain extends javax.swing.JFrame {
         s1.setText("홍길동");
     }//GEN-LAST:event_LabCheckButtActionPerformed
 
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void SNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SNameTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SNameTextActionPerformed
+
+    private void SEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEndActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SEndActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3725,9 +3992,10 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JTextField SDate;
     private javax.swing.JTextField SDateText;
     private javax.swing.JTextField SEnd;
-    private javax.swing.JTextField SEndText;
+    private javax.swing.JComboBox<String> SEndTime;
+    private javax.swing.JTextField SNameText;
     private javax.swing.JTextField SStart;
-    private javax.swing.JTextField SStartText;
+    private javax.swing.JComboBox<String> SStartTime;
     private javax.swing.JButton SeatCheckButt;
     private javax.swing.JButton SeatReserCancle;
     private javax.swing.JPanel SeatReserCanclePanel;
@@ -3764,6 +4032,8 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JComboBox<String> jComboBox7;
+    private javax.swing.JComboBox<String> jComboBox8;
+    private javax.swing.JComboBox<String> jComboBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -3793,6 +4063,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
@@ -3849,8 +4120,6 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField lab;

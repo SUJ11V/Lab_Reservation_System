@@ -3,20 +3,25 @@ package source;
 public class Lecture {
   public Lab lab;
 
-  public int startTimeC;
+  public String startTimeC;
 
-  public int endTimeC;
+  public String endTimeC;
 
   public String lecName;
   
-  public Lecture(String lecName,String lecId){
+  public int day;
+  
+  public String pId;
+  
+  public String lecId;
+  
+  public Lecture(String lecName,String lecId, String startTimeC, String endTimeC, int day, String pId){
       lecName=this.lecName;
       lecId=this.lecId;
-  }
-  
-  public void inputClass() {
-    // Bouml preserved body begin 0001F502
-    // Bouml preserved body end 0001F502
+      startTimeC=this.startTimeC;
+      endTimeC=this.endTimeC;
+      day=this.day;
+      pId=this.pId;
   }
 
   public void checkClass() {
@@ -29,8 +34,5 @@ public class Lecture {
     // Bouml preserved body end 0001F602
   }
 
-  public String lecId;
-
-  public manager ma;
-
+  
 }
