@@ -102,11 +102,7 @@ public class StudentMain extends javax.swing.JFrame {
         int year=Integer.parseInt(reservation.dateR.substring(0,yNum));    //년
         int month=Integer.parseInt(reservation.dateR.substring(yNum+1,mNum));   //월
         int day=Integer.parseInt(reservation.dateR.substring(mNum+1));    //일
-        System.out.println(year);
-        System.out.println(month);
-        System.out.println(day);
-        
-        
+
         LocalDate date =LocalDate.of(year,month,day);   //date에 날짜 저장
         DayOfWeek dayOfWeek =date.getDayOfWeek();
         int dayOfWeekNumber=dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
@@ -2480,7 +2476,7 @@ public class StudentMain extends javax.swing.JFrame {
         LabCheckPanelLayout.setHorizontalGroup(
             LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LabCheckPanelLayout.createSequentialGroup()
-                .addContainerGap(273, Short.MAX_VALUE)
+                .addContainerGap(227, Short.MAX_VALUE)
                 .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel31)
                     .addComponent(jLabel32)
@@ -2528,7 +2524,7 @@ public class StudentMain extends javax.swing.JFrame {
                         .addGroup(LabCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel33)
                             .addComponent(endTimeR1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(301, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
 
         getContentPane().add(LabCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 610));
@@ -2537,7 +2533,6 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel27.setText("강의실");
 
         LabComboBox.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        LabComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
         LabComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LabComboBoxActionPerformed(evt);
@@ -3452,7 +3447,7 @@ public class StudentMain extends javax.swing.JFrame {
 
             try{
                 //기존의 강의와 겹치는지 조회
-                sql="select * from lecture where day=? and labId=? and ((startTime <=? and endTime>?) or (startTime<? and endTime>=?) or (startTime>=? and endTime<=?))";
+                sql="select * from lecture where day=? and labId=? and ((startTime >=? and startTime<?) or (endTime>? and endTime<=?) or (startTime>=? and endTime<=?))";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
             
                 pstmt.setInt(1, getDay(reservation));      //요일
@@ -3472,7 +3467,7 @@ public class StudentMain extends javax.swing.JFrame {
                     beforeSeatStatePanel.setVisible(false); //좌석 안보이게 설정
                 } else {
                     //기존의 세미나(혹은 특강)과 겹치는지 조회
-                    sql="select * from seminar where dateS=? and labId=? and ((startTimeS <=? and endTimeS>?) or (startTimeS<? and endTimeS>=?) or (startTimeS>=? and endTimeS<=?))";
+                    sql="select * from seminar where dateS=? and labId=? and ((startTimeS >=? and startTimeS<?) or (endTimeS>? and endTimeS<=?) or (startTimeS>=? and endTimeS<=?))";
                     pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
                     pstmt.setString(1, reservation.dateR);      //날짜
@@ -3492,13 +3487,13 @@ public class StudentMain extends javax.swing.JFrame {
                         beforeSeatStatePanel.setVisible(false); //좌석 안보이게 설정
                     } else {
                         //기존의 예약과 겹치는지 조회
-                        sql="select * from reservation where dateR=? and labId=? and ((startTimeR <=? and endTimeR>?) or (startTimeR<? and endTimeR>=?) or (startTimeR>=? and endTimeR<=?))";
+                        sql="select * from reservation where dateR=? and labId=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))";
                         pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
                         pstmt.setString(1, reservation.dateR);      //날짜
                         pstmt.setString(2, reservation.labId);      //실습실 번호
-                        pstmt.setString(3, reservation.startTimeR); //시작시간
-                        pstmt.setString(4, reservation.endTimeR);   //종료시간
+                        pstmt.setString(3, reservation.startTimeR); 
+                        pstmt.setString(4, reservation.endTimeR);
                         pstmt.setString(5, reservation.startTimeR); //시작시간
                         pstmt.setString(6, reservation.endTimeR);   //종료시간
                         pstmt.setString(7, reservation.startTimeR); //시작시간
@@ -3930,7 +3925,10 @@ public class StudentMain extends javax.swing.JFrame {
         connect();
         Lab_menuPanel.setVisible(true);
         menuLabCheck.setBackground(Color.yellow);
-
+        
+        LabComboBox.removeAllItems();   //콤보박스 값 제거
+        
+        ArrayList<String> lab = new ArrayList<>();
         
         String sText=startTimeR1.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
         int sNum=sText.indexOf(":");    //":"위치 저장
@@ -3952,12 +3950,8 @@ public class StudentMain extends javax.swing.JFrame {
             reservation = new Reservation(date,"0",sText.substring(0,sNum),eText.substring(0,eNum),0);        
             try{
                 //강의가 있는지 조회
-                sql="select * from lecture where day=? and ((startTime <=? and endTime>?) or (startTime<? and endTime>=?) or (startTime>=? and endTime<=?))";
+                sql="select * from lecture where day=? and ((startTime >=? and startTime<?) or (endTime>? and endTime<=?) or (startTime>=? and endTime<=?))";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
-                
-                System.out.println(getDay(reservation));
-                System.out.println(reservation.startTimeR);
-                System.out.println(reservation.endTimeR);
                 
                 pstmt.setInt(1, getDay(reservation));      //요일
                 pstmt.setString(2, reservation.startTimeR); //시작시간
@@ -3968,30 +3962,61 @@ public class StudentMain extends javax.swing.JFrame {
                 pstmt.setString(7, reservation.endTimeR);   //종료시간
 
                 rs=pstmt.executeQuery();
-                if(rs.next()){ //해당 예약 정보와 겹치는 강의가 존재한다면
-                    //lecture=new Lecture(rs.getString("lectureName"),rs.getString("labId"));
-                    //System.out.println(rs.getString("lectureName"));
-                    JOptionPane.showMessageDialog(this, "해당 시각에는 강의가 진행 중입니다." , "Message",JOptionPane.ERROR_MESSAGE );
-                    LabCheckPanel.setVisible(true);
-                }else{  //해당 예약 정보와 겹치는 세미나(또는 특강)이 존재한다면
-                    sql="select * from seminar where dateS=? and labId=? and ((startTimeS <=? and endTimeS>?) or (startTimeS<? and endTimeS>=?) or (startTimeS>=? and endTimeS<=?))";
-                    pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+                while(rs.next()){ //해당 예약 정보와 겹치는 강의가 존재한다면
+                    lab.add(rs.getString("labId"));
+                } //해당 예약 정보와 겹치는 세미나(또는 특강)이 존재한다면
+                sql="select * from seminar where dateS=? and ((startTimeS >=? and startTimeS<?) or (endTimeS>? and endTimeS<=?) or (startTimeS>=? and endTimeS<=?))";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
                 
-                    pstmt.setString(1, reservation.dateR);      //날짜
-                    pstmt.setString(2, reservation.labId);      //실습실 번호
-                    pstmt.setString(3, reservation.startTimeR); //시작시간
-                    pstmt.setString(4, reservation.endTimeR);   //종료시간
-                    pstmt.setString(5, reservation.startTimeR); //시작시간
-                    pstmt.setString(6, reservation.endTimeR);   //종료시간
-                    pstmt.setString(7, reservation.startTimeR); //시작시간
-                    pstmt.setString(8, reservation.endTimeR);   //종료시간
+                pstmt.setString(1, reservation.dateR);      //날짜
+                pstmt.setString(2, reservation.startTimeR); //시작시간
+                pstmt.setString(3, reservation.endTimeR);   //종료시간
+                pstmt.setString(4, reservation.startTimeR); //시작시간
+                pstmt.setString(5, reservation.endTimeR);   //종료시간
+                pstmt.setString(6, reservation.startTimeR); //시작시간
+                pstmt.setString(7, reservation.endTimeR);   //종료시간
                 
-                    rs=pstmt.executeQuery();
-                    if(rs.next()){
-                        //seminar=new Seminar(rs.getString("seminarName"));   //seminar 테이블에 seminarName 속성에서 값 가져오기 //값 안들어감.. 왜지
-                        JOptionPane.showMessageDialog(this, "해당 시각에는 세미나(특강)가 진행 중입니다." , "Message",JOptionPane.ERROR_MESSAGE );
-                        LabCheckPanel.setVisible(true);
+                rs=pstmt.executeQuery();
+                while(rs.next()){
+                    lab.add(rs.getString("labId"));
+                }
+                //꽉 찬 실습실이 존재한다면
+                sql="select count(*),labId from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))"
+                        + "group by labId";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+
+                pstmt.setString(1, reservation.dateR);      //날짜
+                pstmt.setString(2, reservation.startTimeR); //시작시간
+                pstmt.setString(3, reservation.endTimeR);   //종료시간
+                pstmt.setString(4, reservation.startTimeR); //시작시간
+                pstmt.setString(5, reservation.endTimeR);   //종료시간
+                pstmt.setString(6, reservation.startTimeR); //시작시간
+                pstmt.setString(7, reservation.endTimeR);   //종료시간
+
+                rs = pstmt.executeQuery();
+                while(rs.next()){
+                    if(rs.getInt(1)==30){ //꽉차면
+                        lab.add(rs.getString(2)); //실습실번호 저장
                     }
+                }
+                if(lab.contains("911")==false){
+                    LabComboBox.addItem("911");
+                }
+                if(lab.contains("915")==false){
+                    LabComboBox.addItem("915");
+                }
+                if(lab.contains("916")==false){
+                    LabComboBox.addItem("916");
+                }
+                if(lab.contains("918")==false){
+                    LabComboBox.addItem("918");
+                }
+                
+                if(lab.size()>=4){  //사용 가능한 실습실이 없다면
+                    JOptionPane.showMessageDialog(this, "예약 가능한 실습실이 없습니다." , "Message",JOptionPane.ERROR_MESSAGE );
+                    LabCheckPanel.setVisible(true);
+                }else{  //사용 가능한 실습실이 있다면
+                    LabStatusPanel.setVisible(true);
                 }
             }catch(SQLException ex){
                 System.out.println(ex.getMessage());
@@ -4001,7 +4026,6 @@ public class StudentMain extends javax.swing.JFrame {
                 if(conn != null) try {conn.close();} catch (SQLException ex) {}
             }
         }
-        LabStatusPanel.setVisible(true);
 
         // 날짜, 시간 입력 후 사용 가능한 실습실만 콤보박스 아이템으로 넣기 (LabStatusPanel)
     }//GEN-LAST:event_checkButt1ActionPerformed
