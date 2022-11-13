@@ -60,7 +60,7 @@ public class StudentMain extends javax.swing.JFrame {
     }
     
     public int getDay(Reservation reservation){ //요일 구하기
-        //dateR은 "yyyy-mm-dd" 형식으로 된 string type으로 받는다.
+        //dateR은 "yyyy/mm/dd" 형식으로 된 string type으로 받는다.
         int year=Integer.parseInt(reservation.dateR.substring(0,4));    //년
         int month=Integer.parseInt(reservation.dateR.substring(5,7));   //월
         int day=Integer.parseInt(reservation.dateR.substring(8,10));    //일
@@ -2365,6 +2365,11 @@ public class StudentMain extends javax.swing.JFrame {
 
         YYYY_Text1.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
         YYYY_Text1.setText("2022");
+        YYYY_Text1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                YYYY_Text1ActionPerformed(evt);
+            }
+        });
 
         MM_Text1.setFont(new java.awt.Font("맑은 고딕", 0, 17)); // NOI18N
         MM_Text1.setText("10");
@@ -3143,17 +3148,17 @@ public class StudentMain extends javax.swing.JFrame {
         //사용자에게 입력받은 정보를 저장하는 객체
         //아직 자리를 지정하지 않아서 자리번호는 0으로 설정
         reservation = new Reservation(jTextField1.getText(),jComboBox3.getSelectedItem().toString(),sText.substring(0,sNum),eText.substring(0,eNum),0);
-        
+
         try{
             //기존의 강의와 겹치는지 조회
             sql="select * from lecture where day=? and labId=? and ((startTime <=? and endTime>?) or (startTime<? and endTime>=?) or (startTime>=? and endTime<=?))";
             pstmt = conn.prepareStatement(sql); //디비 구문과 연결
             
-            pstmt.setString(1, reservation.dateR);      //날짜
+            pstmt.setInt(1, getDay(reservation));      //요일
             pstmt.setString(2, reservation.labId);      //실습실 번호
             pstmt.setString(3, reservation.startTimeR); //시작시간
-            pstmt.setString(4, reservation.startTimeR); //시작시간
-            pstmt.setString(5, reservation.endTimeR);   //종료시간
+            pstmt.setString(4, reservation.endTimeR);   //종료시간
+            pstmt.setString(5, reservation.startTimeR); //시작시간
             pstmt.setString(6, reservation.endTimeR);   //종료시간
             pstmt.setString(7, reservation.startTimeR); //시작시간
             pstmt.setString(8, reservation.endTimeR);   //종료시간
@@ -3162,6 +3167,7 @@ public class StudentMain extends javax.swing.JFrame {
             if(rs.next()){ //해당 예약 정보와 겹치는 강의가 존재한다면
                 //lecture=new Lecture(rs.getString("lectureName"));   //lecture 테이블에 lectureName 속성에서 값 가져오기 //값 안들어감.. 왜지
                 JOptionPane.showMessageDialog(this, rs.getString("lectureName") +" 강의 시간입니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
+                System.out.println("ㅓㅗ퍼ㅗㅓㅜㅏ");
             }else{
                 //기존의 세미나(혹은 특강)과 겹치는지 조회
                 sql="select * from seminar where dateS=? and labId=? and ((startTimeS <=? and endTimeS>?) or (startTimeS<? and endTimeS>=?) or (startTimeS>=? and endTimeS<=?))";
@@ -3170,8 +3176,8 @@ public class StudentMain extends javax.swing.JFrame {
                 pstmt.setString(1, reservation.dateR);      //날짜
                 pstmt.setString(2, reservation.labId);      //실습실 번호
                 pstmt.setString(3, reservation.startTimeR); //시작시간
-                pstmt.setString(4, reservation.startTimeR); //시작시간
-                pstmt.setString(5, reservation.endTimeR);   //종료시간
+                pstmt.setString(4, reservation.endTimeR);   //종료시간
+                pstmt.setString(5, reservation.startTimeR); //시작시간
                 pstmt.setString(6, reservation.endTimeR);   //종료시간
                 pstmt.setString(7, reservation.startTimeR); //시작시간
                 pstmt.setString(8, reservation.endTimeR);   //종료시간
@@ -3188,9 +3194,10 @@ public class StudentMain extends javax.swing.JFrame {
                     
                     pstmt.setString(1, reservation.dateR);      //날짜
                     pstmt.setString(2, reservation.labId);      //실습실 번호
+                    pstmt.setString(2, reservation.labId);      //실습실 번호
                     pstmt.setString(3, reservation.startTimeR); //시작시간
-                    pstmt.setString(4, reservation.startTimeR); //시작시간
-                    pstmt.setString(5, reservation.endTimeR);   //종료시간
+                    pstmt.setString(4, reservation.endTimeR);   //종료시간
+                    pstmt.setString(5, reservation.startTimeR); //시작시간
                     pstmt.setString(6, reservation.endTimeR);   //종료시간
                     pstmt.setString(7, reservation.startTimeR); //시작시간
                     pstmt.setString(8, reservation.endTimeR);   //종료시간
@@ -3271,12 +3278,62 @@ public class StudentMain extends javax.swing.JFrame {
     // 날짜, 시간 입력 후 사용 가능한 실습실 조회 버튼
     private void checkButt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkButt1ActionPerformed
         reset();
+        connect();
         Lab_menuPanel.setVisible(true);
         menuLabCheck.setBackground(Color.yellow);
-        LabStatusPanel.setVisible(true);
-    
-        // 날짜, 시간 입력 후 사용 가능한 실습실만 콤보박스 아이템으로 넣기 (LabStatusPanel)
         
+        String sText=startTimeR1.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
+        int sNum=sText.indexOf(":");    //":"위치 저장
+        String eText=endTimeR1.getSelectedItem().toString();   //종료 시간 가져와서 문자열로 변수에 저장
+        int eNum=eText.indexOf(":");    //":" 위치 저장
+        
+        if(Integer.parseInt(sText.substring(0,sNum)) >= Integer.parseInt(eText.substring(0,eNum))){ //시작시간을 종료시간보다 늦게 설정했을 경우
+            JOptionPane.showMessageDialog(this, "시작 시간을 종료 시간보다 빠르게 설정하세요." , "Message",JOptionPane.ERROR_MESSAGE );
+        }else{//정상적으로 입력했을 경우
+            String yyyy=YYYY_Text1.getText();
+            String mm=MM_Text1.getText();
+            String dd=DD_Text1.getText();
+            String date= yyyy+"/"+mm+"/"+dd;
+            
+            //사용자에게 입력받은 정보를 저장하는 객체
+            //자리번호는 임의로 0으로 설정
+            //실습실번호는 임의로 0으로 설정
+            reservation = new Reservation(date,"0",sText.substring(0,sNum),eText.substring(0,eNum),0);        
+            try{
+                //강의가 있는지 조회
+                sql="select * from lecture where day=? and ((startTime <=? and endTime>?) or (startTime<? and endTime>=?) or (startTime>=? and endTime<=?))";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+                
+                System.out.println(getDay(reservation));
+                System.out.println(reservation.startTimeR);
+                System.out.println(reservation.endTimeR);
+                
+                pstmt.setInt(1, getDay(reservation));      //요일
+                pstmt.setString(2, reservation.startTimeR); //시작시간
+                pstmt.setString(3, reservation.endTimeR);   //종료시간
+                pstmt.setString(4, reservation.startTimeR); //시작시간
+                pstmt.setString(5, reservation.endTimeR);   //종료시간
+                pstmt.setString(6, reservation.startTimeR); //시작시간
+                pstmt.setString(7, reservation.endTimeR);   //종료시간
+                
+                
+                
+                rs=pstmt.executeQuery();
+                if(rs.next()){ //해당 예약 정보와 겹치는 강의가 존재한다면
+                    lecture=new Lecture(rs.getString("lectureName"),rs.getString("labId"));
+                    System.out.println(rs.getString("lectureName"));
+                }
+                LabStatusPanel.setVisible(true);
+                
+                // 날짜, 시간 입력 후 사용 가능한 실습실만 콤보박스 아이템으로 넣기 (LabStatusPanel)
+            }catch(SQLException ex){
+                System.out.println(ex.getMessage());
+            }finally {
+                if(rs != null) try {rs.close();} catch (SQLException ex) {}
+                if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
+                if(conn != null) try {conn.close();} catch (SQLException ex) {}
+            }
+        }
     }//GEN-LAST:event_checkButt1ActionPerformed
 
     // 실습실 선택 후 확인 버튼 클릭
@@ -3356,6 +3413,10 @@ public class StudentMain extends javax.swing.JFrame {
     private void seat31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat31ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_seat31ActionPerformed
+
+    private void YYYY_Text1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YYYY_Text1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_YYYY_Text1ActionPerformed
 
     /**
      * @param args the command line arguments
