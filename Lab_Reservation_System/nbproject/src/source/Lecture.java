@@ -3,9 +3,9 @@ package source;
 public class Lecture {
   public Lab lab;
 
-  public String startTime;
+  public String startTimeC;
 
-  public String endTime;
+  public String endTimeC;
 
   public String lecName;
   
@@ -13,15 +13,15 @@ public class Lecture {
   
   public String pId;
   
-  public String labId;
+  public String lecId;
   
-  public Lecture(String labId,String lecName, String startTime, String endTime, int day, String pId){
-      this.labId=labId;
-      this.lecName=lecName;
-      this.startTime=startTime;
-      this.endTime=endTime;
-      this.day=day;
-      this.pId=pId;
+  public Lecture(String lecName,String lecId, String startTimeC, String endTimeC, int day, String pId){
+      lecName=this.lecName;
+      lecId=this.lecId;
+      startTimeC=this.startTimeC;
+      endTimeC=this.endTimeC;
+      day=this.day;
+      pId=this.pId;
   }
 
   public void checkClass() {

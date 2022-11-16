@@ -10,12 +10,8 @@ import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import source.Lecture;
 import source.Seminar;
@@ -27,9 +23,6 @@ import source.Reservation;
  * @author asdf0
  */
 public class AssistantMain extends javax.swing.JFrame {
-
-    
-    Color yellow = new Color(254,255,233);  // 노란색 저장
     
     Connection conn = null;
     PreparedStatement pstmt = null;
@@ -42,27 +35,6 @@ public class AssistantMain extends javax.swing.JFrame {
     /**
      * Creates new form ProfessorMain
      */
-    
-    
-    public String getDayString(int day){
-        String dayString = null;
-        if(day==1)
-            dayString="월";
-        if(day==2)
-            dayString="화";
-        if(day==2)
-            dayString="수";
-        if(day==2)
-            dayString="목";
-        if(day==2)
-            dayString="금";
-        if(day==2)
-            dayString="토";
-        if(day==2)
-            dayString="일";
-        
-        return dayString;
-    }
     
     public int getDay(Seminar seminar){ //요일 구하기
         //dateR은 "yyyy/mm/dd" 형식으로 된 string type으로 받는다.
@@ -557,9 +529,9 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1110, 620));
+        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1100, 620));
 
-        TitlePanel.setBackground(new java.awt.Color(246, 226, 231));
+        TitlePanel.setBackground(new java.awt.Color(204, 204, 204));
         TitlePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         TitlePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         TitlePanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -571,7 +543,6 @@ public class AssistantMain extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("굴림", 0, 30)); // NOI18N
         jLabel1.setText("컴퓨터소프트웨어공학과 실습실 예약 시스템");
 
-        textField1.setBackground(new java.awt.Color(255, 255, 255));
         textField1.setEditable(false);
         textField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textField1.setText("안수진");
@@ -591,7 +562,7 @@ public class AssistantMain extends javax.swing.JFrame {
         TitlePanelLayout.setHorizontalGroup(
             TitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TitlePanelLayout.createSequentialGroup()
-                .addContainerGap(245, Short.MAX_VALUE)
+                .addContainerGap(235, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(137, 137, 137)
                 .addComponent(jLabel2)
@@ -619,7 +590,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(TitlePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 110));
+        getContentPane().add(TitlePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 110));
 
         ReserManage_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
         ReserManage_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -747,12 +718,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(menuListCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuseatReserCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(273, Short.MAX_VALUE))
+                .addContainerGap(263, Short.MAX_VALUE))
         );
 
-        getContentPane().add(ReserManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
-
-        ReserCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(ReserManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -775,7 +744,6 @@ public class AssistantMain extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        ReserOkButt.setBackground(new java.awt.Color(255, 255, 255));
         ReserOkButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         ReserOkButt.setText("승인");
         ReserOkButt.addActionListener(new java.awt.event.ActionListener() {
@@ -789,11 +757,11 @@ public class AssistantMain extends javax.swing.JFrame {
         ReserCheckPanelLayout.setHorizontalGroup(
             ReserCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReserCheckPanelLayout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(ReserCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ReserOkButt)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 867, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         ReserCheckPanelLayout.setVerticalGroup(
             ReserCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -805,9 +773,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        getContentPane().add(ReserCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        ListCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(ReserCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -834,7 +800,6 @@ public class AssistantMain extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jTextField1.setText("2022- 11 - 06");
 
-        ListCheckButt.setBackground(new java.awt.Color(255, 255, 255));
         ListCheckButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         ListCheckButt.setText("조회");
         ListCheckButt.addActionListener(new java.awt.event.ActionListener() {
@@ -843,7 +808,6 @@ public class AssistantMain extends javax.swing.JFrame {
             }
         });
 
-        ListCancleButt.setBackground(new java.awt.Color(255, 255, 255));
         ListCancleButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         ListCancleButt.setText("취소");
         ListCancleButt.addActionListener(new java.awt.event.ActionListener() {
@@ -857,7 +821,7 @@ public class AssistantMain extends javax.swing.JFrame {
         ListCheckPanelLayout.setHorizontalGroup(
             ListCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ListCheckPanelLayout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
+                .addContainerGap(85, Short.MAX_VALUE)
                 .addGroup(ListCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(ListCheckPanelLayout.createSequentialGroup()
@@ -890,9 +854,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addGap(39, 39, 39))
         );
 
-        getContentPane().add(ListCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        SeatReserCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(ListCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         jLabel9.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel9.setText("실습실 : ");
@@ -906,7 +868,6 @@ public class AssistantMain extends javax.swing.JFrame {
         dateNum.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         dateNum.setText("2022 - 11 - 06");
 
-        SeatCheckButt.setBackground(new java.awt.Color(255, 255, 255));
         SeatCheckButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         SeatCheckButt.setText("조회");
         SeatCheckButt.addActionListener(new java.awt.event.ActionListener() {
@@ -915,7 +876,6 @@ public class AssistantMain extends javax.swing.JFrame {
             }
         });
 
-        seatCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
         seatCheckPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         seat2.addActionListener(new java.awt.event.ActionListener() {
@@ -1345,12 +1305,12 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(dateNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
                 .addComponent(SeatCheckButt)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
             .addGroup(SeatReserCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SeatReserCheckPanelLayout.createSequentialGroup()
-                    .addContainerGap(130, Short.MAX_VALUE)
+                    .addContainerGap(125, Short.MAX_VALUE)
                     .addComponent(seatCheckPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(136, Short.MAX_VALUE)))
+                    .addContainerGap(131, Short.MAX_VALUE)))
         );
         SeatReserCheckPanelLayout.setVerticalGroup(
             SeatReserCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1370,9 +1330,7 @@ public class AssistantMain extends javax.swing.JFrame {
                     .addContainerGap(51, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(SeatReserCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        SeatReserCanclePanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(SeatReserCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         jLabel13.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel13.setText("강의실 : ");
@@ -1383,7 +1341,6 @@ public class AssistantMain extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel15.setText("좌석번호 : ");
 
-        SeatReserCancle.setBackground(new java.awt.Color(255, 255, 255));
         SeatReserCancle.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         SeatReserCancle.setText("취소");
         SeatReserCancle.addActionListener(new java.awt.event.ActionListener() {
@@ -1433,7 +1390,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addGroup(SeatReserCanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(SeatReserCancle)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 725, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SeatReserCanclePanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel13)
@@ -1467,7 +1424,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addGap(45, 45, 45))
         );
 
-        getContentPane().add(SeatReserCanclePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
+        getContentPane().add(SeatReserCanclePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         TimeTable_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
         TimeTable_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -1595,12 +1552,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(menuSeminarAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuTimeTableCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
-        getContentPane().add(TimeTable_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
-
-        TimeTableAddPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(TimeTable_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
 
         jLabel17.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel17.setText("실습실 : ");
@@ -1665,15 +1620,15 @@ public class AssistantMain extends javax.swing.JFrame {
                     .addComponent(jLabel17))
                 .addGap(18, 18, 18)
                 .addGroup(TimeTableAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TimeTableAddButt, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(425, Short.MAX_VALUE))
+                    .addGroup(TimeTableAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField2)
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField5)
+                        .addComponent(TimeTableAddButt, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(422, Short.MAX_VALUE))
         );
         TimeTableAddPanelLayout.setVerticalGroup(
             TimeTableAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1707,9 +1662,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(150, Short.MAX_VALUE))
         );
 
-        getContentPane().add(TimeTableAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        SeminarAddPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(TimeTableAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         jLabel28.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel28.setText("시작시간 : ");
@@ -1732,10 +1685,10 @@ public class AssistantMain extends javax.swing.JFrame {
         });
 
         SStartTime.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        SStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
+        SStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
 
         SEndTime.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        SEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00" }));
+        SEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00" }));
 
         jLabel37.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel37.setText("세미나명 : ");
@@ -1769,9 +1722,10 @@ public class AssistantMain extends javax.swing.JFrame {
                                 .addComponent(jLabel28)
                                 .addComponent(jLabel29))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-
-                            .addComponent(SEndText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(442, Short.MAX_VALUE))
+                            .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(SEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(SStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(439, Short.MAX_VALUE))
         );
         SeminarAddPanelLayout.setVerticalGroup(
             SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1797,17 +1751,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(201, Short.MAX_VALUE))
         );
 
-        getContentPane().add(SeminarAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        TimeTableCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(SeminarAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         jComboBox4.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
-            }
-        });
 
         TTCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         TTCheckButt.setText("조회");
@@ -1820,29 +1767,20 @@ public class AssistantMain extends javax.swing.JFrame {
         jLabel27.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel27.setText("실습실 : ");
 
-        TT.setBackground(new java.awt.Color(254, 255, 233));
-
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "요일", "강의명", "교수명", "시작 시간", "종료 시간"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -1880,7 +1818,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(TTCheckButt)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TimeTableCheckPanelLayout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
+                .addContainerGap(80, Short.MAX_VALUE)
                 .addComponent(TT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81))
         );
@@ -1897,9 +1835,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
-        getContentPane().add(TimeTableCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        seminarReserCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(TimeTableCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         jLabel31.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel31.setText("날짜 : ");
@@ -1971,7 +1907,7 @@ public class AssistantMain extends javax.swing.JFrame {
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
                         .addComponent(SeminarAddButt)))
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
         seminarReserCheckPanelLayout.setVerticalGroup(
             seminarReserCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1992,7 +1928,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(245, Short.MAX_VALUE))
         );
 
-        getContentPane().add(seminarReserCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
+        getContentPane().add(seminarReserCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         LabManage_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
         LabManage_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -2129,12 +2065,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(menuManageRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuNoticeAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addContainerGap(232, Short.MAX_VALUE))
         );
 
-        getContentPane().add(LabManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
-
-        LabStatusPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(LabManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
 
         jLabel39.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel39.setText("강의실 : ");
@@ -2150,7 +2084,6 @@ public class AssistantMain extends javax.swing.JFrame {
             }
         });
 
-        seatStatusPanel.setBackground(new java.awt.Color(254, 255, 233));
         seatStatusPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout seatStatusPanelLayout = new javax.swing.GroupLayout(seatStatusPanel);
@@ -2297,12 +2230,10 @@ public class AssistantMain extends javax.swing.JFrame {
                     .addComponent(LabCheckButt))
                 .addGap(34, 34, 34)
                 .addComponent(seatStatusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
-        getContentPane().add(LabStatusPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        ManageRightPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(LabStatusPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 600));
 
         jComboBox5.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
@@ -2349,7 +2280,7 @@ public class AssistantMain extends javax.swing.JFrame {
         ManageRightPanelLayout.setHorizontalGroup(
             ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ManageRightPanelLayout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
+                .addContainerGap(87, Short.MAX_VALUE)
                 .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(ManageRightPanelLayout.createSequentialGroup()
                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2375,9 +2306,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addGap(41, 41, 41))
         );
 
-        getContentPane().add(ManageRightPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        NoticeAddPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(ManageRightPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         jLabel35.setText("실습실 공지사항 및 규칙 입력");
 
@@ -2386,7 +2315,7 @@ public class AssistantMain extends javax.swing.JFrame {
         NoticeAddPanelLayout.setHorizontalGroup(
             NoticeAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NoticeAddPanelLayout.createSequentialGroup()
-                .addContainerGap(419, Short.MAX_VALUE)
+                .addContainerGap(409, Short.MAX_VALUE)
                 .addComponent(jLabel35)
                 .addGap(381, 381, 381))
         );
@@ -2398,7 +2327,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(595, Short.MAX_VALUE))
         );
 
-        getContentPane().add(NoticeAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
+        getContentPane().add(NoticeAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         UserManage_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
         UserManage_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -2492,12 +2421,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(menuUserDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuUserChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(322, Short.MAX_VALUE))
+                .addContainerGap(312, Short.MAX_VALUE))
         );
 
-        getContentPane().add(UserManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
-
-        UserDeletePanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(UserManage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
 
         DeleteButt.setFont(new java.awt.Font("맑은 고딕", 0, 16)); // NOI18N
         DeleteButt.setText("회원 정보 삭제");
@@ -2526,7 +2453,7 @@ public class AssistantMain extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDeletePanelLayout.createSequentialGroup()
                         .addComponent(DeleteButt)
                         .addGap(82, 82, 82)))
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
         UserDeletePanelLayout.setVerticalGroup(
             UserDeletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2540,9 +2467,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(285, Short.MAX_VALUE))
         );
 
-        getContentPane().add(UserDeletePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        UserChangePanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(UserDeletePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         jTextField12.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jTextField12.setText("jTextField6");
@@ -2593,7 +2518,7 @@ public class AssistantMain extends javax.swing.JFrame {
         UserChangePanelLayout.setHorizontalGroup(
             UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserChangePanelLayout.createSequentialGroup()
-                .addContainerGap(339, Short.MAX_VALUE)
+                .addContainerGap(329, Short.MAX_VALUE)
                 .addGroup(UserChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UserChangePanelLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
@@ -2648,9 +2573,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(192, Short.MAX_VALUE))
         );
 
-        getContentPane().add(UserChangePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        UserInfoPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(UserChangePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2673,7 +2596,6 @@ public class AssistantMain extends javax.swing.JFrame {
         });
         jScrollPane7.setViewportView(jTable6);
 
-        UserDeleteButt.setBackground(new java.awt.Color(255, 255, 255));
         UserDeleteButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         UserDeleteButt.setText("삭제");
         UserDeleteButt.addActionListener(new java.awt.event.ActionListener() {
@@ -2682,7 +2604,6 @@ public class AssistantMain extends javax.swing.JFrame {
             }
         });
 
-        UserChangeButt.setBackground(new java.awt.Color(255, 255, 255));
         UserChangeButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         UserChangeButt.setText("수정");
         UserChangeButt.addActionListener(new java.awt.event.ActionListener() {
@@ -2696,7 +2617,7 @@ public class AssistantMain extends javax.swing.JFrame {
         UserInfoPanelLayout.setHorizontalGroup(
             UserInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserInfoPanelLayout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
+                .addContainerGap(57, Short.MAX_VALUE)
                 .addGroup(UserInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(UserInfoPanelLayout.createSequentialGroup()
                         .addComponent(UserChangeButt)
@@ -2717,7 +2638,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
-        getContentPane().add(UserInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
+        getContentPane().add(UserInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         Manage_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
         Manage_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -2887,12 +2808,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(menuUserReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuTTReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Manage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
-
-        TokenPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(Manage_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
 
         jLabel38.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
         jLabel38.setText("토큰값");
@@ -2900,7 +2819,6 @@ public class AssistantMain extends javax.swing.JFrame {
         jTextField6.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
         jTextField6.setText("jTextField6");
 
-        TokenOkButt.setBackground(new java.awt.Color(255, 255, 255));
         TokenOkButt.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
         TokenOkButt.setText("생성");
         TokenOkButt.addActionListener(new java.awt.event.ActionListener() {
@@ -2909,7 +2827,6 @@ public class AssistantMain extends javax.swing.JFrame {
             }
         });
 
-        TokenResetButt.setBackground(new java.awt.Color(255, 255, 255));
         TokenResetButt.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
         TokenResetButt.setText("초기화");
         TokenResetButt.addActionListener(new java.awt.event.ActionListener() {
@@ -2933,7 +2850,7 @@ public class AssistantMain extends javax.swing.JFrame {
                         .addComponent(TokenOkButt, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(TokenResetButt)))
-                .addContainerGap(371, Short.MAX_VALUE))
+                .addContainerGap(361, Short.MAX_VALUE))
         );
         TokenPanelLayout.setVerticalGroup(
             TokenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2949,9 +2866,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(291, Short.MAX_VALUE))
         );
 
-        getContentPane().add(TokenPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
-
-        UserOkPanel.setBackground(new java.awt.Color(254, 255, 233));
+        getContentPane().add(TokenPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         jTable7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2974,7 +2889,6 @@ public class AssistantMain extends javax.swing.JFrame {
         });
         jScrollPane8.setViewportView(jTable7);
 
-        UserOkButt.setBackground(new java.awt.Color(255, 255, 255));
         UserOkButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         UserOkButt.setText("승인");
         UserOkButt.addActionListener(new java.awt.event.ActionListener() {
@@ -2992,7 +2906,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addGroup(UserOkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(UserOkButt)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         UserOkPanelLayout.setVerticalGroup(
             UserOkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3004,11 +2918,8 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        getContentPane().add(UserOkPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
+        getContentPane().add(UserOkPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
-        UserResetPanel.setBackground(new java.awt.Color(254, 255, 233));
-
-        UserResetButt.setBackground(new java.awt.Color(255, 255, 255));
         UserResetButt.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
         UserResetButt.setText("회원 승인 정보 초기화");
         UserResetButt.addActionListener(new java.awt.event.ActionListener() {
@@ -3024,7 +2935,7 @@ public class AssistantMain extends javax.swing.JFrame {
             .addGroup(UserResetPanelLayout.createSequentialGroup()
                 .addGap(329, 329, 329)
                 .addComponent(UserResetButt)
-                .addContainerGap(358, Short.MAX_VALUE))
+                .addContainerGap(348, Short.MAX_VALUE))
         );
         UserResetPanelLayout.setVerticalGroup(
             UserResetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3034,11 +2945,8 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(325, Short.MAX_VALUE))
         );
 
-        getContentPane().add(UserResetPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
+        getContentPane().add(UserResetPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
-        TTResetPanel.setBackground(new java.awt.Color(254, 255, 233));
-
-        TTResetButt.setBackground(new java.awt.Color(255, 255, 255));
         TTResetButt.setFont(new java.awt.Font("맑은 고딕", 0, 24)); // NOI18N
         TTResetButt.setText("시간표 초기화");
         TTResetButt.addActionListener(new java.awt.event.ActionListener() {
@@ -3054,7 +2962,7 @@ public class AssistantMain extends javax.swing.JFrame {
             .addGroup(TTResetPanelLayout.createSequentialGroup()
                 .addGap(380, 380, 380)
                 .addComponent(TTResetButt)
-                .addContainerGap(395, Short.MAX_VALUE))
+                .addContainerGap(385, Short.MAX_VALUE))
         );
         TTResetPanelLayout.setVerticalGroup(
             TTResetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3064,7 +2972,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(328, Short.MAX_VALUE))
         );
 
-        getContentPane().add(TTResetPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
+        getContentPane().add(TTResetPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -3080,7 +2988,7 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         TimeTable_menuPanel.setVisible(true);
         TimeTableAddPanel.setVisible(true);
-        menuTimeTableAdd.setBackground(yellow);
+        menuTimeTableAdd.setBackground(Color.pink);
     }//GEN-LAST:event_timeTableManageButtActionPerformed
 
     // 메인화면 - 승인 및 초기화 관리 버튼
@@ -3088,7 +2996,7 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         Manage_menuPanel.setVisible(true);
         TokenPanel.setVisible(true);
-        menuToken.setBackground(yellow);
+        menuToken.setBackground(Color.pink);
     }//GEN-LAST:event_manageButtActionPerformed
 
     // 메인화면 - 예약 관리 버튼
@@ -3096,7 +3004,7 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         ReserCheckPanel.setVisible(true);
-        menuReserCheck.setBackground(yellow);
+        menuReserCheck.setBackground(Color.pink);
         
         // 예약 승인 패널(ReserCheckPanel)에 테이블 값 DB에서 가져와서 띄우기
     }//GEN-LAST:event_reservationManageButtActionPerformed
@@ -3111,7 +3019,7 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         UserManage_menuPanel.setVisible(true);
         UserInfoPanel.setVisible(true);
-        menuUserDelete.setBackground(yellow);
+        menuUserDelete.setBackground(Color.pink);
         
         // 테이블에 모든 회원 정보 띄움
     }//GEN-LAST:event_userInforManageButtActionPerformed
@@ -3121,7 +3029,7 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         LabManage_menuPanel.setVisible(true);
         LabStatusPanel.setVisible(true);
-        menuLabStatus.setBackground(yellow);
+        menuLabStatus.setBackground(Color.pink);
     }//GEN-LAST:event_labManageButtActionPerformed
 
     // 예약 관리 메뉴바 - 실습실 좌석별 예약 조회 및 취소 선택 시
@@ -3130,7 +3038,7 @@ public class AssistantMain extends javax.swing.JFrame {
         ReserManage_menuPanel.setVisible(true);
         SeatReserCheckPanel.setVisible(true);
 
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
     }//GEN-LAST:event_menuseatReserCheckMouseClicked
 
     // 예약 관리 메뉴바 - 예약 리스트 조회 및 취소 선택 시
@@ -3139,7 +3047,7 @@ public class AssistantMain extends javax.swing.JFrame {
         ReserManage_menuPanel.setVisible(true);
         ListCheckPanel.setVisible(true);
 
-        menuListCheck.setBackground(yellow);
+        menuListCheck.setBackground(Color.pink);
         
         // 예약 리스트 조회 및 취소 패널(ReserCanclePanel)에 테이블 값 DB에서 가져와서 띄우기
     }//GEN-LAST:event_menuListCheckMouseClicked
@@ -3150,7 +3058,7 @@ public class AssistantMain extends javax.swing.JFrame {
         ReserManage_menuPanel.setVisible(true);
         ReserCheckPanel.setVisible(true);
 
-        menuReserCheck.setBackground(yellow);
+        menuReserCheck.setBackground(Color.pink);
         
         // 예약 승인 패널(ReserCheckPanel)에 테이블 값 DB에서 가져와서 띄우기
     }//GEN-LAST:event_menuReserCheckMouseClicked
@@ -3171,7 +3079,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat2ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3185,7 +3093,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat1ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3199,7 +3107,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat3ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3213,7 +3121,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat4ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3227,7 +3135,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat5ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3241,7 +3149,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat6ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3255,7 +3163,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seat7MouseClicked
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3269,7 +3177,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat8ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3283,7 +3191,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat9ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3297,7 +3205,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat10ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3311,7 +3219,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat11ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3325,7 +3233,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat12ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3339,7 +3247,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat13ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3353,7 +3261,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat14ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3367,7 +3275,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat15ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3381,7 +3289,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat16ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3395,7 +3303,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat17ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3409,7 +3317,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat18ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3423,7 +3331,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat19ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3437,7 +3345,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat20ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3451,7 +3359,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat21ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3465,7 +3373,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat22ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3479,7 +3387,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat23ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3493,7 +3401,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat24ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3507,7 +3415,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat25ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3521,7 +3429,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat26ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3535,7 +3443,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat27ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3549,7 +3457,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat28ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3563,7 +3471,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat29ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3577,7 +3485,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seat30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat30ActionPerformed
         reset();
         ReserManage_menuPanel.setVisible(true);
-        menuseatReserCheck.setBackground(yellow);
+        menuseatReserCheck.setBackground(Color.pink);
         
         SeatReserCanclePanel.setVisible(true);
         
@@ -3593,7 +3501,7 @@ public class AssistantMain extends javax.swing.JFrame {
         TimeTable_menuPanel.setVisible(true);
         TimeTableCheckPanel.setVisible(true);
 
-        menuTimeTableCheck.setBackground(yellow);
+        menuTimeTableCheck.setBackground(Color.pink);
     }//GEN-LAST:event_menuTimeTableCheckMouseClicked
 
     // 시간표 관리 메뉴바 - 특강 시간표 입력 선택 시
@@ -3602,7 +3510,7 @@ public class AssistantMain extends javax.swing.JFrame {
         TimeTable_menuPanel.setVisible(true);
         SeminarAddPanel.setVisible(true);
 
-        menuSeminarAdd.setBackground(yellow);
+        menuSeminarAdd.setBackground(Color.pink);
     }//GEN-LAST:event_menuSeminarAddMouseClicked
 
     // 시간표 관리 메뉴바 - 수업 시간표 입력 선택 시
@@ -3611,31 +3519,13 @@ public class AssistantMain extends javax.swing.JFrame {
         TimeTable_menuPanel.setVisible(true);
         TimeTableAddPanel.setVisible(true);
 
-        menuTimeTableAdd.setBackground(yellow);
+        menuTimeTableAdd.setBackground(Color.pink);
     }//GEN-LAST:event_menuTimeTableAddMouseClicked
 
     // 실습실 별 시간표 조회 버튼
     private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
         TT.setVisible(true);
-        connect();
         
-        try{
-            sql="select * from lecture where labId=? order by day";
-            pstmt = conn.prepareStatement(sql); //디비 구문과 연결
-            
-            pstmt.setString(1, jComboBox4.getSelectedItem().toString());    //실습실
-                
-            rs=pstmt.executeQuery();
-                while(rs.next()){ // 레코드(Record, Row) 생성
-                   
-                } 
-        }catch(SQLException ex){
-               System.out.println(ex.getMessage()); 
-            }finally {
-                if(rs != null) try {rs.close();} catch (SQLException ex) {}
-                if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
-                if(conn != null) try {conn.close();} catch (SQLException ex) {}
-            }
         // 테이블에 시간표 출력
     }//GEN-LAST:event_TTCheckButtActionPerformed
 
@@ -3644,7 +3534,7 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         connect();
         TimeTable_menuPanel.setVisible(true);
-        menuSeminarAdd.setBackground(yellow);
+        menuSeminarAdd.setBackground(Color.pink);
         
         ArrayList<String> lab = new ArrayList<>();
         
@@ -3699,8 +3589,7 @@ public class AssistantMain extends javax.swing.JFrame {
                     }
                 }
                 //꽉 찬 실습실이 존재한다면
-                sql="select count(*),labId from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))"
-                        +"group by labId";
+                sql="select labId from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
                 pstmt.setString(1, seminar.dateS);      //날짜
@@ -3713,9 +3602,9 @@ public class AssistantMain extends javax.swing.JFrame {
 
                 rs = pstmt.executeQuery();
                 while(rs.next()){
-                    if(lab.contains(rs.getString(2))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
-                            lab.add(rs.getString(2));   //실습실번호 저장
-                        }
+                    if(lab.contains(rs.getString(1))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
+                         lab.add(rs.getString(1));   //실습실번호 저장
+                    }
                 }
                 DefaultListModel listModel = new DefaultListModel();
                 if(lab.contains("911")==false){
@@ -3730,7 +3619,6 @@ public class AssistantMain extends javax.swing.JFrame {
                 if(lab.contains("918")==false){
                     listModel.addElement("918");
                 }
-                System.out.println(lab);
                 jList1.setModel(listModel);
                 if(lab.size()>=4){  //사용 가능한 실습실이 없다면
                     JOptionPane.showMessageDialog(this, "세미나(특강) 등록 가능한 실습실이 없습니다." , "Message",JOptionPane.ERROR_MESSAGE );
@@ -3741,8 +3629,6 @@ public class AssistantMain extends javax.swing.JFrame {
                     SDate.setText(SDateText.getText());
                     SStart.setText(SStartTime.getSelectedItem().toString());
                     SEnd.setText(SEndTime.getSelectedItem().toString());
-        
-                    // 사용가능한 강의실 출력
                 }
         }catch(SQLException ex){
                System.out.println(ex.getMessage()); 
@@ -3760,7 +3646,7 @@ public class AssistantMain extends javax.swing.JFrame {
         LabManage_menuPanel.setVisible(true);
         NoticeAddPanel.setVisible(true);
 
-        menuNoticeAdd.setBackground(yellow);
+        menuNoticeAdd.setBackground(Color.pink);
     }//GEN-LAST:event_menuNoticeAddMouseClicked
 
     // 실습실 관리 메뉴바 - 실습실 관리 권한 부여 선택 시
@@ -3769,7 +3655,7 @@ public class AssistantMain extends javax.swing.JFrame {
         LabManage_menuPanel.setVisible(true);
         ManageRightPanel.setVisible(true);
 
-        menuManageRight.setBackground(yellow);
+        menuManageRight.setBackground(Color.pink);
     }//GEN-LAST:event_menuManageRightMouseClicked
 
     // 실습실 관리 메뉴바 - 실습실 사용현황 조회 선택 시
@@ -3778,7 +3664,7 @@ public class AssistantMain extends javax.swing.JFrame {
         LabManage_menuPanel.setVisible(true);
         LabStatusPanel.setVisible(true);
 
-        menuLabStatus.setBackground(yellow);
+        menuLabStatus.setBackground(Color.pink);
     }//GEN-LAST:event_menuLabStatusMouseClicked
 
     // 회원정보 관리 메뉴바 - 회원 정보 수정 선택 시
@@ -3787,7 +3673,7 @@ public class AssistantMain extends javax.swing.JFrame {
         UserManage_menuPanel.setVisible(true);
         UserInfoPanel.setVisible(true);
 
-        menuUserChange.setBackground(yellow);
+        menuUserChange.setBackground(Color.pink);
         
         // 테이블에 모든 회원 정보 띄움
     }//GEN-LAST:event_menuUserChangeMouseClicked
@@ -3798,7 +3684,7 @@ public class AssistantMain extends javax.swing.JFrame {
         UserManage_menuPanel.setVisible(true);
         UserInfoPanel.setVisible(true);
 
-        menuUserDelete.setBackground(yellow);
+        menuUserDelete.setBackground(Color.pink);
         
         // 테이블에 모든 회원 정보 띄움
     }//GEN-LAST:event_menuUserDeleteMouseClicked
@@ -3809,7 +3695,7 @@ public class AssistantMain extends javax.swing.JFrame {
         UserManage_menuPanel.setVisible(true);
         UserChangePanel.setVisible(true);
         
-        menuUserChange.setBackground(yellow);
+        menuUserChange.setBackground(Color.pink);
         
         // 테이블에서 선택한 행의 값 출력
     }//GEN-LAST:event_UserChangeButtActionPerformed
@@ -3820,7 +3706,7 @@ public class AssistantMain extends javax.swing.JFrame {
         UserManage_menuPanel.setVisible(true);
         UserDeletePanel.setVisible(true);
         
-        menuUserDelete.setBackground(yellow);
+        menuUserDelete.setBackground(Color.pink);
         
         // 테이블에서 선택한 행의 값 출력
     }//GEN-LAST:event_UserDeleteButtActionPerformed
@@ -3883,52 +3769,17 @@ public class AssistantMain extends javax.swing.JFrame {
             day=7;
         }
         
-        if(Integer.parseInt(sText.substring(0,sNum)) >= Integer.parseInt(eText.substring(0,eNum))){ //시작시간을 종료시간보다 늦게 설정했을 경우
-            JOptionPane.showMessageDialog(this, "시작 시간을 종료 시간보다 빠르게 설정하세요." , "Message",JOptionPane.ERROR_MESSAGE );
-            TimeTableAddPanel.setVisible(true);
-        }else{
-            lecture=new Lecture(jComboBox2.getSelectedItem().toString(),jTextField2.getText(),sText.substring(0,sNum),eText.substring(0,eNum),day,jTextField5.getText());
-            try{
-                //기존의 강의와 겹치는지 조회
-                sql="select * from lecture where day=? and labId=? and ((startTime >=? and startTime<?) or (endTime>? and endTime<=?) or (startTime>=? and endTime<=?))";
-                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+        lecture=new Lecture(jTextField2.getText(),jComboBox2.getSelectedItem().toString(),sText.substring(0,sNum),eText.substring(0,eNum),day,jTextField5.getText());
+        /*try{
             
-                pstmt.setInt(1, day);      //요일
-                pstmt.setString(2, lecture.labId);      //실습실 번호
-                pstmt.setString(3, lecture.startTime); //시작시간
-                pstmt.setString(4, lecture.endTime);   //종료시간
-                pstmt.setString(5, lecture.startTime); //시작시간
-                pstmt.setString(6, lecture.endTime);   //종료시간
-                pstmt.setString(7, lecture.startTime); //시작시간
-                pstmt.setString(8, lecture.endTime);   //종료시간
-
-                rs = pstmt.executeQuery();
-                if (rs.next()) { //만약 겹치는 강의가 존재한다면
-                    JOptionPane.showMessageDialog(this, "시간이 겹치는 강의가 존재합니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
-                    TimeTableAddPanel.setVisible(true);
-                } else {
-                    sql = "insert into lecture (labId,lectureName,startTime, endTime,day,pId) values (?,?,?,?,?,?)";
-                    pstmt = conn.prepareStatement(sql); //디비 구문과 연결
-
-                    //로그인 시 조교 정보 객체에 저장해서 아이디 가져와야 함
-                    pstmt.setString(1,lecture.labId);         //실습실 번호 
-                    pstmt.setString(2, lecture.lecName);   //
-                    pstmt.setString(3, lecture.startTime);    //좌석번호
-                    pstmt.setString(4, lecture.endTime);   //예약날짜
-                    pstmt.setInt(5, day); //시작시간
-                    pstmt.setString(6,lecture.pId);   //교수명 (임의로 아이디 넣어둠! 수정해야함)
-
-                    pstmt.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "등록 완료되었습니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
-                }     
-            }catch(SQLException ex){
+        }catch(SQLException ex){
                System.out.println(ex.getMessage()); 
             }finally {
                 if(rs != null) try {rs.close();} catch (SQLException ex) {}
                 if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
                 if(conn != null) try {conn.close();} catch (SQLException ex) {}
             }
-        }
+        */
     }//GEN-LAST:event_TimeTableAddButtActionPerformed
 
     // 특강 추가 버튼
@@ -3991,7 +3842,7 @@ public class AssistantMain extends javax.swing.JFrame {
         Manage_menuPanel.setVisible(true);
         UserResetPanel.setVisible(true);
 
-        menuUserReset.setBackground(yellow);
+        menuUserReset.setBackground(Color.pink);
     }//GEN-LAST:event_menuUserResetMouseClicked
 
     // 승인 및 초기화 관리 메뉴바 - 회원 정보 승인 선택 시
@@ -4000,7 +3851,7 @@ public class AssistantMain extends javax.swing.JFrame {
         Manage_menuPanel.setVisible(true);
         UserOkPanel.setVisible(true);
 
-        menuUserOk.setBackground(yellow);
+        menuUserOk.setBackground(Color.pink);
         
         // 정상적인 토큰 값이 입력되고 승인 정보가 미승인 상태인 정보 테이블에 출력
         
@@ -4012,7 +3863,7 @@ public class AssistantMain extends javax.swing.JFrame {
         Manage_menuPanel.setVisible(true);
         TokenPanel.setVisible(true);
 
-        menuToken.setBackground(yellow);
+        menuToken.setBackground(Color.pink);
     }//GEN-LAST:event_menuTokenMouseClicked
 
     // 승인 및 초기화 관리 메뉴바 - 시간표 초기화 선택 시
@@ -4021,7 +3872,7 @@ public class AssistantMain extends javax.swing.JFrame {
         Manage_menuPanel.setVisible(true);
         TTResetPanel.setVisible(true);
 
-        menuTTReset.setBackground(yellow);
+        menuTTReset.setBackground(Color.pink);
     }//GEN-LAST:event_menuTTResetMouseClicked
 
     // 토큰 입력 후 토큰 생성 버튼
@@ -4077,10 +3928,6 @@ public class AssistantMain extends javax.swing.JFrame {
     private void SEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEndActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SEndActionPerformed
-
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox4ActionPerformed
 
     /**
      * @param args the command line arguments
