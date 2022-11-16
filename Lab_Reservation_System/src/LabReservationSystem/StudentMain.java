@@ -534,7 +534,7 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
+        jTextField17 = new javax.swing.JTextField();
         jComboBox9 = new javax.swing.JComboBox<>();
         beforeCheckButt = new javax.swing.JButton();
         beforeTTPanel = new javax.swing.JPanel();
@@ -1145,18 +1145,25 @@ public class StudentMain extends javax.swing.JFrame {
         jTextField10.setEditable(false);
         jTextField10.setBackground(new java.awt.Color(255, 255, 255));
         jTextField10.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        jTextField10.setText("jTextField10");
 
         jTextField11.setEditable(false);
         jTextField11.setBackground(new java.awt.Color(255, 255, 255));
         jTextField11.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        jTextField11.setText("jTextField11");
 
         jTextField12.setEditable(false);
         jTextField12.setBackground(new java.awt.Color(255, 255, 255));
         jTextField12.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        jTextField12.setText("jTextField12");
 
         jTextField13.setEditable(false);
         jTextField13.setBackground(new java.awt.Color(255, 255, 255));
         jTextField13.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        jTextField13.setText("jTextField13");
+
+        jTextField14.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        jTextField14.setText("jTextField14");
 
         startButt.setBackground(new java.awt.Color(255, 255, 255));
         startButt.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
@@ -1173,17 +1180,6 @@ public class StudentMain extends javax.swing.JFrame {
         endButt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 endButtActionPerformed(evt);
-            }
-        });
-
-        continueCombo.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-
-        continueButt.setBackground(new java.awt.Color(255, 255, 255));
-        continueButt.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        continueButt.setText("연장");
-        continueButt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                continueButtActionPerformed(evt);
             }
         });
 
@@ -1210,15 +1206,13 @@ public class StudentMain extends javax.swing.JFrame {
                                 .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.LEADING))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                .addComponent(jTextField12)
-                                .addComponent(continueCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jTextField14, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                .addComponent(jTextField13)
+                                .addComponent(jTextField12))))
                     .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(startButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(endButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(continueButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(213, 213, 213))
+                .addContainerGap(342, Short.MAX_VALUE))
         );
         CheckPanelLayout.setVerticalGroup(
             CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1242,9 +1236,8 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel50)
-                    .addComponent(continueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(continueButt))
-                .addGap(36, 36, 36)
+                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addComponent(startButt)
                 .addGap(18, 18, 18)
                 .addComponent(endButt)
@@ -2945,8 +2938,8 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel28.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
         jLabel28.setText("강의실 : ");
 
-        jTextField14.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField14.setText("jTextField14");
+        jTextField17.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        jTextField17.setText("jTextField14");
 
         jComboBox9.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
         jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
@@ -4192,7 +4185,7 @@ public class StudentMain extends javax.swing.JFrame {
                         .addGap(233, 233, 233)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(jLabel28)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -4213,7 +4206,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGroup(aPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel28)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(beforeCheckButt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -4432,12 +4425,9 @@ public class StudentMain extends javax.swing.JFrame {
                             .addGroup(beforeSeatStatePanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(BeforeReserButt))
-                            .addGroup(beforeSeatStatePanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(resetRadio)))
+                            .addComponent(resetRadio))
                         .addGap(28, 28, 28))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, beforeSeatStatePanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(beforeSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(seat43, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(seat35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -4464,7 +4454,7 @@ public class StudentMain extends javax.swing.JFrame {
                                 .addComponent(seat46, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addGap(98, 98, 98))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, beforeSeatStatePanelLayout.createSequentialGroup()
-                .addGap(0, 205, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(beforeSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, beforeSeatStatePanelLayout.createSequentialGroup()
                         .addComponent(jLabel61)
@@ -6037,6 +6027,7 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
+    private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField19;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField20;
