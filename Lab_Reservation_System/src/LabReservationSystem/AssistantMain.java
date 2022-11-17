@@ -756,23 +756,24 @@ public class AssistantMain extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "강의실", "날짜", "시작시간", "종료시간", "학번", "이름"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setSelectionBackground(new java.awt.Color(246, 226, 231));
         jScrollPane1.setViewportView(jTable1);
 
         ReserOkButt.setBackground(new java.awt.Color(255, 255, 255));
@@ -811,15 +812,24 @@ public class AssistantMain extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "강의실", "날짜", "시작시간", "종료시간", "학번", "이름"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.setSelectionBackground(new java.awt.Color(246, 226, 231));
         jScrollPane2.setViewportView(jTable2);
 
         jComboBox1.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
@@ -3099,7 +3109,45 @@ public class AssistantMain extends javax.swing.JFrame {
         ReserCheckPanel.setVisible(true);
         menuReserCheck.setBackground(yellow);
         
+        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+
+        table.setNumRows(0);  // 테이블 초기화
+
         // 예약 승인 패널(ReserCheckPanel)에 테이블 값 DB에서 가져와서 띄우기
+        connect();  // 디비 연결
+
+        try {
+            // 미승인 예약의 강의실번호, 날짜, 시작시간, 종료시간, 학생아이디, 학생이름 
+            sql = "select r.labId, r.dateR, r.startTimeR, r.endTimeR, r.sId, s.sName from reservation r, student s where r.sId = s.sId and r.reserPermission = ?";
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, 0);  // 예약 미승인
+            
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};  // 값 저장
+                table.addRow(data);  // 테이블에 값 추가 
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
+   
     }//GEN-LAST:event_reservationManageButtActionPerformed
 
     // 메인화면 - 공지사항 및 신고 관리 버튼
@@ -3143,6 +3191,43 @@ public class AssistantMain extends javax.swing.JFrame {
         menuListCheck.setBackground(yellow);
         
         // 예약 리스트 조회 및 취소 패널(ReserCanclePanel)에 테이블 값 DB에서 가져와서 띄우기
+        
+        DefaultTableModel table = (DefaultTableModel) jTable2.getModel();
+
+        table.setNumRows(0);  // 테이블 초기화
+
+        // 예약 승인 패널(ReserCheckPanel)에 테이블 값 DB에서 가져와서 띄우기
+        connect();  // 디비 연결
+
+        try {
+            // 모든 예약 조회 
+            sql = "select r.labId, r.dateR, r.startTimeR, r.endTimeR, r.sId, s.sName from reservation r, student s where r.sId = s.sId";
+
+            pstmt = conn.prepareStatement(sql);
+            
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};  // 값 저장
+                table.addRow(data);  // 테이블에 값 추가 
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_menuListCheckMouseClicked
 
     // 예약 관리 메뉴바 - 예약 승인 선택 시
@@ -3153,7 +3238,44 @@ public class AssistantMain extends javax.swing.JFrame {
 
         menuReserCheck.setBackground(yellow);
         
+        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+
+        table.setNumRows(0);  // 테이블 초기화
+
         // 예약 승인 패널(ReserCheckPanel)에 테이블 값 DB에서 가져와서 띄우기
+        connect();  // 디비 연결
+
+        try {
+            // 미승인 예약의 강의실번호, 날짜, 시작시간, 종료시간, 학생아이디, 학생이름 
+            sql = "select r.labId, r.dateR, r.startTimeR, r.endTimeR, r.sId, s.sName from reservation r, student s where r.sId = s.sId and r.reserPermission = ?";
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, 0);  // 예약 미승인
+            
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};  // 값 저장
+                table.addRow(data);  // 테이블에 값 추가 
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_menuReserCheckMouseClicked
 
     // 좌석별 조회 - 실습실, 날짜 입력 후 조회 버튼 클릭
@@ -3844,6 +3966,11 @@ public class AssistantMain extends javax.swing.JFrame {
     // 예약 리스트 조회 버튼
     private void ListCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListCheckButtActionPerformed
         // 입력받은 실습실, 날짜에 대해서 조회 후 테이블에 값 출력
+        
+        // jComboBox1 : 실습실
+        // jTextField1 : 날짜 
+        
+        
     }//GEN-LAST:event_ListCheckButtActionPerformed
 
     // 예약 리스트 삭제 버튼
