@@ -643,9 +643,8 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="95" max="32767" attributes="0"/>
+                  <EmptySpace pref="52" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jScrollPane2" min="-2" pref="825" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -658,6 +657,7 @@
                           <Component id="ListCheckButt" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="ListCancleButt" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="1" min="-2" pref="868" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
@@ -675,10 +675,10 @@
                       <Component id="ListCheckButt" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="420" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="437" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="ListCancleButt" min="-2" pref="37" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -786,7 +786,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="&#xad74;&#xb9bc;" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="2022- 11 - 06"/>
+            <Property name="text" type="java.lang.String" value="2022/11/10"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="ListCheckButt">
@@ -845,7 +845,7 @@
                   <Component id="dateNum" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                   <Component id="SeatCheckButt" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="237" max="32767" attributes="0"/>
+                  <EmptySpace pref="261" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
@@ -919,7 +919,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="&#xad74;&#xb9bc;" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="2022 - 11 - 06"/>
+            <Property name="text" type="java.lang.String" value="2022/11/10"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="SeatCheckButt">
