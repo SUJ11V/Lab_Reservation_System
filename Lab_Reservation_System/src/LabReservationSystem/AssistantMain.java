@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import source.Lecture;
 import source.Seminar;
@@ -28,169 +29,173 @@ import source.Reservation;
  */
 public class AssistantMain extends javax.swing.JFrame {
 
-    
-    Color yellow = new Color(254,255,233);  // 노란색 저장
-    
+    Color yellow = new Color(254, 255, 233);  // 노란색 저장
+
     Connection conn = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     String sql; //쿼리문 받을 변수
-    
+
     Lecture lecture;    //강의 정보를 저장할 객체
     Seminar seminar;
     Manager manager;
+
     /**
      * Creates new form ProfessorMain
      */
-    
-    
-    public String getDayString(int day){
+    public String getDayString(int day) {
         String dayString = null;
-        if(day==1)
-            dayString="월";
-        if(day==2)
-            dayString="화";
-        if(day==2)
-            dayString="수";
-        if(day==2)
-            dayString="목";
-        if(day==2)
-            dayString="금";
-        if(day==2)
-            dayString="토";
-        if(day==2)
-            dayString="일";
-        
+        if (day == 1) {
+            dayString = "월";
+        }
+        if (day == 2) {
+            dayString = "화";
+        }
+        if (day == 2) {
+            dayString = "수";
+        }
+        if (day == 2) {
+            dayString = "목";
+        }
+        if (day == 2) {
+            dayString = "금";
+        }
+        if (day == 2) {
+            dayString = "토";
+        }
+        if (day == 2) {
+            dayString = "일";
+        }
+
         return dayString;
     }
-    
-    public int getDay(Seminar seminar){ //요일 구하기
-        //dateR은 "yyyy/mm/dd" 형식으로 된 string type으로 받는다.
-        int yNum=seminar.dateS.indexOf("/"); //4
-        int mNum=seminar.dateS.indexOf("/",yNum+1);//7
-        
-        int year=Integer.parseInt(seminar.dateS.substring(0,yNum));    //년
-        int month=Integer.parseInt(seminar.dateS.substring(yNum+1,mNum));   //월
-        int day=Integer.parseInt(seminar.dateS.substring(mNum+1));    //일
 
-        LocalDate date =LocalDate.of(year,month,day);   //date에 날짜 저장
-        DayOfWeek dayOfWeek =date.getDayOfWeek();
-        int dayOfWeekNumber=dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
+    public int getDay(Seminar seminar) { //요일 구하기
+        //dateR은 "yyyy/mm/dd" 형식으로 된 string type으로 받는다.
+        int yNum = seminar.dateS.indexOf("/"); //4
+        int mNum = seminar.dateS.indexOf("/", yNum + 1);//7
+
+        int year = Integer.parseInt(seminar.dateS.substring(0, yNum));    //년
+        int month = Integer.parseInt(seminar.dateS.substring(yNum + 1, mNum));   //월
+        int day = Integer.parseInt(seminar.dateS.substring(mNum + 1));    //일
+
+        LocalDate date = LocalDate.of(year, month, day);   //date에 날짜 저장
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        int dayOfWeekNumber = dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
         return dayOfWeekNumber;                   //1: 월, 2: 화, 3: 수, ....
     }
-    
+
     public AssistantMain() {
         initComponents();
-        
+
         TitlePanel.setVisible(true);
         mainPanel.setVisible(true);
-        
+
         // 예약 관리
         ReserManage_menuPanel.setVisible(false);
-        
+
         ReserCheckPanel.setVisible(false);
         SeatReserCheckPanel.setVisible(false);
         ListCheckPanel.setVisible(false);
         seatCheckPanel.setVisible(false);
         SeatReserCanclePanel.setVisible(false);
-        
+
         // 시간표 관리
         TimeTable_menuPanel.setVisible(false);
-        
+
         TimeTableAddPanel.setVisible(false);
         SeminarAddPanel.setVisible(false);
         TimeTableCheckPanel.setVisible(false);
         TT.setVisible(false);
         seminarReserCheckPanel.setVisible(false);
-        
+
         // 실습실 관리
         LabManage_menuPanel.setVisible(false);
-        
+
         LabStatusPanel.setVisible(false);
         ManageRightPanel.setVisible(false);
         NoticeAddPanel.setVisible(false);
         seatStatusPanel.setVisible(false);
-        
+
         // 회원 정보 관리
         UserManage_menuPanel.setVisible(false);
-        
+
         UserInfoPanel.setVisible(false);
         UserDeletePanel.setVisible(false);
         UserChangePanel.setVisible(false);
-        
+
         // 승인 및 초기화 관리
         Manage_menuPanel.setVisible(false);
-        
+
         TokenPanel.setVisible(false);
         UserOkPanel.setVisible(false);
         UserResetPanel.setVisible(false);
         TTResetPanel.setVisible(false);
-        
+
     }
 
-    
     // 화면에 띄우는 패널들 초기화하는 함수
     public void reset() {
         TitlePanel.setVisible(true);
         mainPanel.setVisible(false);
-        
+
         // 예약 관리
         ReserManage_menuPanel.setVisible(false);
         menuReserCheck.setBackground(Color.WHITE);
         menuseatReserCheck.setBackground(Color.WHITE);
         menuListCheck.setBackground(Color.WHITE);
-       
+
         ReserCheckPanel.setVisible(false);
         SeatReserCheckPanel.setVisible(false);
         ListCheckPanel.setVisible(false);
         seatCheckPanel.setVisible(false);
         SeatReserCanclePanel.setVisible(false);
-        
+
         // 시간표 관리
         TimeTable_menuPanel.setVisible(false);
         menuTimeTableAdd.setBackground(Color.WHITE);
         menuSeminarAdd.setBackground(Color.WHITE);
         menuTimeTableCheck.setBackground(Color.WHITE);
-        
+
         TimeTableAddPanel.setVisible(false);
         SeminarAddPanel.setVisible(false);
         TimeTableCheckPanel.setVisible(false);
         TT.setVisible(false);
         seminarReserCheckPanel.setVisible(false);
-        
+
         // 실습실 관리
         LabManage_menuPanel.setVisible(false);
         menuLabStatus.setBackground(Color.WHITE);
         menuManageRight.setBackground(Color.WHITE);
         menuNoticeAdd.setBackground(Color.WHITE);
-        
+
         LabStatusPanel.setVisible(false);
         ManageRightPanel.setVisible(false);
         NoticeAddPanel.setVisible(false);
         seatStatusPanel.setVisible(false);
-        
+
         // 회원 정보 관리
         UserManage_menuPanel.setVisible(false);
         menuUserDelete.setBackground(Color.WHITE);
         menuUserChange.setBackground(Color.WHITE);
-        
+
         UserInfoPanel.setVisible(false);
         UserDeletePanel.setVisible(false);
         UserChangePanel.setVisible(false);
-        
+
         // 승인 및 초기화 관리
         Manage_menuPanel.setVisible(false);
         menuToken.setBackground(Color.WHITE);
         menuUserOk.setBackground(Color.WHITE);
         menuUserReset.setBackground(Color.WHITE);
         menuTTReset.setBackground(Color.WHITE);
-        
+
         TokenPanel.setVisible(false);
         UserOkPanel.setVisible(false);
         UserResetPanel.setVisible(false);
         TTResetPanel.setVisible(false);
     }
-    
+
     public void connect() {  //DB연결 함수
         try {
             //JDBC드라이버 로딩
@@ -206,7 +211,7 @@ public class AssistantMain extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -842,7 +847,7 @@ public class AssistantMain extends javax.swing.JFrame {
         jLabel11.setText("날짜 : ");
 
         jTextField1.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jTextField1.setText("2022- 11 - 06");
+        jTextField1.setText("2022/11/10");
 
         ListCheckButt.setBackground(new java.awt.Color(255, 255, 255));
         ListCheckButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
@@ -867,9 +872,8 @@ public class AssistantMain extends javax.swing.JFrame {
         ListCheckPanelLayout.setHorizontalGroup(
             ListCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ListCheckPanelLayout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(ListCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(ListCheckPanelLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -880,7 +884,8 @@ public class AssistantMain extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
                         .addComponent(ListCheckButt))
-                    .addComponent(ListCancleButt))
+                    .addComponent(ListCancleButt)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40))
         );
         ListCheckPanelLayout.setVerticalGroup(
@@ -894,10 +899,10 @@ public class AssistantMain extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ListCheckButt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ListCancleButt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addGap(22, 22, 22))
         );
 
         getContentPane().add(ListCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
@@ -914,7 +919,7 @@ public class AssistantMain extends javax.swing.JFrame {
         labNum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
 
         dateNum.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        dateNum.setText("2022 - 11 - 06");
+        dateNum.setText("2022/11/10");
 
         SeatCheckButt.setBackground(new java.awt.Color(255, 255, 255));
         SeatCheckButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
@@ -1355,7 +1360,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addComponent(dateNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
                 .addComponent(SeatCheckButt)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(261, Short.MAX_VALUE))
             .addGroup(SeatReserCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SeatReserCheckPanelLayout.createSequentialGroup()
                     .addContainerGap(130, Short.MAX_VALUE)
@@ -3108,7 +3113,7 @@ public class AssistantMain extends javax.swing.JFrame {
         ReserManage_menuPanel.setVisible(true);
         ReserCheckPanel.setVisible(true);
         menuReserCheck.setBackground(yellow);
-        
+
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
 
         table.setNumRows(0);  // 테이블 초기화
@@ -3123,7 +3128,7 @@ public class AssistantMain extends javax.swing.JFrame {
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setInt(1, 0);  // 예약 미승인
-            
+
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -3147,7 +3152,7 @@ public class AssistantMain extends javax.swing.JFrame {
             } catch (SQLException ex) {
             }
         }
-   
+
     }//GEN-LAST:event_reservationManageButtActionPerformed
 
     // 메인화면 - 공지사항 및 신고 관리 버튼
@@ -3161,7 +3166,7 @@ public class AssistantMain extends javax.swing.JFrame {
         UserManage_menuPanel.setVisible(true);
         UserInfoPanel.setVisible(true);
         menuUserDelete.setBackground(yellow);
-        
+
         // 테이블에 모든 회원 정보 띄움
     }//GEN-LAST:event_userInforManageButtActionPerformed
 
@@ -3189,9 +3194,8 @@ public class AssistantMain extends javax.swing.JFrame {
         ListCheckPanel.setVisible(true);
 
         menuListCheck.setBackground(yellow);
-        
+
         // 예약 리스트 조회 및 취소 패널(ReserCanclePanel)에 테이블 값 DB에서 가져와서 띄우기
-        
         DefaultTableModel table = (DefaultTableModel) jTable2.getModel();
 
         table.setNumRows(0);  // 테이블 초기화
@@ -3204,7 +3208,7 @@ public class AssistantMain extends javax.swing.JFrame {
             sql = "select r.labId, r.dateR, r.startTimeR, r.endTimeR, r.sId, s.sName from reservation r, student s where r.sId = s.sId";
 
             pstmt = conn.prepareStatement(sql);
-            
+
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -3237,7 +3241,7 @@ public class AssistantMain extends javax.swing.JFrame {
         ReserCheckPanel.setVisible(true);
 
         menuReserCheck.setBackground(yellow);
-        
+
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
 
         table.setNumRows(0);  // 테이블 초기화
@@ -3252,7 +3256,7 @@ public class AssistantMain extends javax.swing.JFrame {
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setInt(1, 0);  // 예약 미승인
-            
+
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -3281,11 +3285,11 @@ public class AssistantMain extends javax.swing.JFrame {
     // 좌석별 조회 - 실습실, 날짜 입력 후 조회 버튼 클릭
     private void SeatCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeatCheckButtActionPerformed
         seatCheckPanel.setVisible(true);
-        
+
         // 입력받은 실습실, 날짜에 따라 해당 좌석의 하루의 모든 예약을 카운트해서 출력
         seat2.setText("4");
         seat23.setText("1");
-        
+
         // 예약이 없는 좌석 -> 버튼 비활성화
         seat1.setEnabled(false);
     }//GEN-LAST:event_SeatCheckButtActionPerformed
@@ -3295,9 +3299,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3309,9 +3313,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3323,9 +3327,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3337,9 +3341,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3351,9 +3355,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3365,9 +3369,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3379,9 +3383,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3393,9 +3397,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3407,9 +3411,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3421,9 +3425,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3435,9 +3439,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3449,9 +3453,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3463,9 +3467,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3477,9 +3481,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3491,9 +3495,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3505,9 +3509,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3519,9 +3523,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3533,9 +3537,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3547,9 +3551,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3561,9 +3565,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3575,9 +3579,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3589,9 +3593,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3603,9 +3607,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3617,9 +3621,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3631,9 +3635,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3645,9 +3649,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3659,9 +3663,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3673,9 +3677,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3687,9 +3691,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3701,9 +3705,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         ReserManage_menuPanel.setVisible(true);
         menuseatReserCheck.setBackground(yellow);
-        
+
         SeatReserCanclePanel.setVisible(true);
-        
+
         // 강의실, 날짜 값 띄우기
         lab.setText(labNum.getSelectedItem().toString());
         date.setText(dateNum.getText());
@@ -3741,24 +3745,33 @@ public class AssistantMain extends javax.swing.JFrame {
     private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
         TT.setVisible(true);
         connect();
-        
-        try{
-            sql="select * from lecture where labId=? order by day";
+
+        try {
+            sql = "select * from lecture where labId=? order by day";
             pstmt = conn.prepareStatement(sql); //디비 구문과 연결
-            
+
             pstmt.setString(1, jComboBox4.getSelectedItem().toString());    //실습실
-                
-            rs=pstmt.executeQuery();
-                while(rs.next()){ // 레코드(Record, Row) 생성
-                   
-                } 
-        }catch(SQLException ex){
-               System.out.println(ex.getMessage()); 
-            }finally {
-                if(rs != null) try {rs.close();} catch (SQLException ex) {}
-                if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
-                if(conn != null) try {conn.close();} catch (SQLException ex) {}
+
+            rs = pstmt.executeQuery();
+            while (rs.next()) { // 레코드(Record, Row) 생성
+
             }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
         // 테이블에 시간표 출력
     }//GEN-LAST:event_TTCheckButtActionPerformed
 
@@ -3768,27 +3781,27 @@ public class AssistantMain extends javax.swing.JFrame {
         connect();
         TimeTable_menuPanel.setVisible(true);
         menuSeminarAdd.setBackground(yellow);
-        
+
         ArrayList<String> lab = new ArrayList<>();
-        
-        String sText=SStartTime.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
-        int sNum=sText.indexOf(":");    //":"위치 저장
-        String eText=SEndTime.getSelectedItem().toString();   //종료 시간 가져와서 문자열로 변수에 저장
-        int eNum=eText.indexOf(":");    //":" 위치 저장
-        
-        if(Integer.parseInt(sText.substring(0,sNum)) >= Integer.parseInt(eText.substring(0,eNum))){ //시작시간을 종료시간보다 늦게 설정했을 경우
-            JOptionPane.showMessageDialog(this, "시작 시간을 종료 시간보다 빠르게 설정하세요." , "Message",JOptionPane.ERROR_MESSAGE );
+
+        String sText = SStartTime.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
+        int sNum = sText.indexOf(":");    //":"위치 저장
+        String eText = SEndTime.getSelectedItem().toString();   //종료 시간 가져와서 문자열로 변수에 저장
+        int eNum = eText.indexOf(":");    //":" 위치 저장
+
+        if (Integer.parseInt(sText.substring(0, sNum)) >= Integer.parseInt(eText.substring(0, eNum))) { //시작시간을 종료시간보다 늦게 설정했을 경우
+            JOptionPane.showMessageDialog(this, "시작 시간을 종료 시간보다 빠르게 설정하세요.", "Message", JOptionPane.ERROR_MESSAGE);
             SeminarAddPanel.setVisible(true);
-        }else{
-        //실습실 번호는 임의로 0으로 설정
-        //pId는 로그인 시 객체 저장해서 가져와야 한다. 현재는 임의로 pro1로 설정
-        seminar=new Seminar(SDateText.getText(), SNameText.getText(), "pro1", "0", sText.substring(0,sNum), eText.substring(0,eNum));
+        } else {
+            //실습실 번호는 임의로 0으로 설정
+            //pId는 로그인 시 객체 저장해서 가져와야 한다. 현재는 임의로 pro1로 설정
+            seminar = new Seminar(SDateText.getText(), SNameText.getText(), "pro1", "0", sText.substring(0, sNum), eText.substring(0, eNum));
             System.out.println(seminar.dateS);
-        try{
-            //강의가 있는지 조회
-                sql="select * from lecture where day=? and ((startTime >=? and startTime<?) or (endTime>? and endTime<=?) or (startTime>=? and endTime<=?))";
+            try {
+                //강의가 있는지 조회
+                sql = "select * from lecture where day=? and ((startTime >=? and startTime<?) or (endTime>? and endTime<=?) or (startTime>=? and endTime<=?))";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
-                
+
                 pstmt.setInt(1, getDay(seminar));      //요일
                 pstmt.setString(2, seminar.startTimeS); //시작시간
                 pstmt.setString(3, seminar.endTimeS);   //종료시간
@@ -3797,33 +3810,14 @@ public class AssistantMain extends javax.swing.JFrame {
                 pstmt.setString(6, seminar.startTimeS); //시작시간
                 pstmt.setString(7, seminar.endTimeS);   //종료시간
 
-                rs=pstmt.executeQuery();
-                while(rs.next()){ //해당 예약 정보와 겹치는 강의가 존재한다면
-                    if(lab.contains(rs.getString("labId"))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
+                rs = pstmt.executeQuery();
+                while (rs.next()) { //해당 예약 정보와 겹치는 강의가 존재한다면
+                    if (lab.contains(rs.getString("labId")) == false) { //실습실이 이미 리스트에 있다면 추가하지 않는다.
                         lab.add(rs.getString("labId"));
                     }
                 } //해당 예약 정보와 겹치는 세미나(또는 특강)이 존재한다면
 
-                sql="select * from seminar where dateS=? and ((startTimeS >=? and startTimeS<?) or (endTimeS>? and endTimeS<=?) or (startTimeS>=? and endTimeS<=?))";
-                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
-                
-                pstmt.setString(1, seminar.dateS);      //날짜
-                pstmt.setString(2, seminar.startTimeS); //시작시간
-                pstmt.setString(3, seminar.endTimeS);   //종료시간
-                pstmt.setString(4, seminar.startTimeS); //시작시간
-                pstmt.setString(5, seminar.endTimeS);   //종료시간
-                pstmt.setString(6, seminar.startTimeS); //시작시간
-                pstmt.setString(7, seminar.endTimeS);   //종료시간
-                
-                rs=pstmt.executeQuery();
-                while(rs.next()){
-                    if(lab.contains(rs.getString("labId"))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
-                        lab.add(rs.getString("labId"));
-                    }
-                }
-                //꽉 찬 실습실이 존재한다면
-                sql="select count(*),labId from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))"
-                        +"group by labId";
+                sql = "select * from seminar where dateS=? and ((startTimeS >=? and startTimeS<?) or (endTimeS>? and endTimeS<=?) or (startTimeS>=? and endTimeS<=?))";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
                 pstmt.setString(1, seminar.dateS);      //날짜
@@ -3835,44 +3829,72 @@ public class AssistantMain extends javax.swing.JFrame {
                 pstmt.setString(7, seminar.endTimeS);   //종료시간
 
                 rs = pstmt.executeQuery();
-                while(rs.next()){
-                    if(lab.contains(rs.getString(2))==false){ //실습실이 이미 리스트에 있다면 추가하지 않는다.
-                            lab.add(rs.getString(2));   //실습실번호 저장
-                        }
+                while (rs.next()) {
+                    if (lab.contains(rs.getString("labId")) == false) { //실습실이 이미 리스트에 있다면 추가하지 않는다.
+                        lab.add(rs.getString("labId"));
+                    }
+                }
+                //꽉 찬 실습실이 존재한다면
+                sql = "select count(*),labId from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))"
+                        + "group by labId";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+
+                pstmt.setString(1, seminar.dateS);      //날짜
+                pstmt.setString(2, seminar.startTimeS); //시작시간
+                pstmt.setString(3, seminar.endTimeS);   //종료시간
+                pstmt.setString(4, seminar.startTimeS); //시작시간
+                pstmt.setString(5, seminar.endTimeS);   //종료시간
+                pstmt.setString(6, seminar.startTimeS); //시작시간
+                pstmt.setString(7, seminar.endTimeS);   //종료시간
+
+                rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    if (lab.contains(rs.getString(2)) == false) { //실습실이 이미 리스트에 있다면 추가하지 않는다.
+                        lab.add(rs.getString(2));   //실습실번호 저장
+                    }
                 }
                 DefaultListModel listModel = new DefaultListModel();
-                if(lab.contains("911")==false){
+                if (lab.contains("911") == false) {
                     listModel.addElement("911");
                 }
-                if(lab.contains("915")==false){
+                if (lab.contains("915") == false) {
                     listModel.addElement("915");
                 }
-                if(lab.contains("916")==false){
+                if (lab.contains("916") == false) {
                     listModel.addElement("916");
                 }
-                if(lab.contains("918")==false){
+                if (lab.contains("918") == false) {
                     listModel.addElement("918");
                 }
                 System.out.println(lab);
                 jList1.setModel(listModel);
-                if(lab.size()>=4){  //사용 가능한 실습실이 없다면
-                    JOptionPane.showMessageDialog(this, "세미나(특강) 등록 가능한 실습실이 없습니다." , "Message",JOptionPane.ERROR_MESSAGE );
+                if (lab.size() >= 4) {  //사용 가능한 실습실이 없다면
+                    JOptionPane.showMessageDialog(this, "세미나(특강) 등록 가능한 실습실이 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
                     SeminarAddPanel.setVisible(true);
-                }else{  //사용 가능한 실습실이 있다면
+                } else {  //사용 가능한 실습실이 있다면
                     seminarReserCheckPanel.setVisible(true);
                     // SeminarAddPanel에서 입력받은 날짜, 시작시간, 종료시간 받아와서 출력 
                     SDate.setText(SDateText.getText());
                     SStart.setText(SStartTime.getSelectedItem().toString());
                     SEnd.setText(SEndTime.getSelectedItem().toString());
-        
+
                     // 사용가능한 강의실 출력
                 }
-        }catch(SQLException ex){
-               System.out.println(ex.getMessage()); 
-            }finally {
-                if(rs != null) try {rs.close();} catch (SQLException ex) {}
-                if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
-                if(conn != null) try {conn.close();} catch (SQLException ex) {}
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
             }
         }
     }//GEN-LAST:event_seminarCheckButtActionPerformed
@@ -3911,7 +3933,7 @@ public class AssistantMain extends javax.swing.JFrame {
         UserInfoPanel.setVisible(true);
 
         menuUserChange.setBackground(yellow);
-        
+
         // 테이블에 모든 회원 정보 띄움
     }//GEN-LAST:event_menuUserChangeMouseClicked
 
@@ -3922,7 +3944,7 @@ public class AssistantMain extends javax.swing.JFrame {
         UserInfoPanel.setVisible(true);
 
         menuUserDelete.setBackground(yellow);
-        
+
         // 테이블에 모든 회원 정보 띄움
     }//GEN-LAST:event_menuUserDeleteMouseClicked
 
@@ -3931,9 +3953,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         UserManage_menuPanel.setVisible(true);
         UserChangePanel.setVisible(true);
-        
+
         menuUserChange.setBackground(yellow);
-        
+
         // 테이블에서 선택한 행의 값 출력
     }//GEN-LAST:event_UserChangeButtActionPerformed
 
@@ -3942,9 +3964,9 @@ public class AssistantMain extends javax.swing.JFrame {
         reset();
         UserManage_menuPanel.setVisible(true);
         UserDeletePanel.setVisible(true);
-        
+
         menuUserDelete.setBackground(yellow);
-        
+
         // 테이블에서 선택한 행의 값 출력
     }//GEN-LAST:event_UserDeleteButtActionPerformed
 
@@ -3965,17 +3987,119 @@ public class AssistantMain extends javax.swing.JFrame {
 
     // 예약 리스트 조회 버튼
     private void ListCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListCheckButtActionPerformed
-        // 입력받은 실습실, 날짜에 대해서 조회 후 테이블에 값 출력
-        
-        // jComboBox1 : 실습실
-        // jTextField1 : 날짜 
-        
-        
+
+        DefaultTableModel table = (DefaultTableModel) jTable2.getModel();
+
+        table.setNumRows(0);  // 테이블 초기화
+
+        // 예약 승인 패널(ReserCheckPanel)에 테이블 값 DB에서 가져와서 띄우기
+        connect();  // 디비 연결
+
+        try {
+            // 입력받은 실습실, 날짜에 대해서 강의실, 날짜, 시작시간, 종료시간, 학번, 이름 조회
+            sql = "select r.labId, r.dateR, r.startTimeR, r.endTimeR, r.sId, s.sName from reservation r, student s where r.sId = s.sId and r.labId = ? and r.dateR = ? order by r.dateR";
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, (String) jComboBox1.getSelectedItem());  // 실습실
+            pstmt.setString(2, jTextField1.getText());  // 날짜
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};  // 학번, 날짜, 시작시간, 종료시간, 학번, 이름 값 저장
+                table.addRow(data);  // 테이블에 값 추가 
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
+
     }//GEN-LAST:event_ListCheckButtActionPerformed
 
     // 예약 리스트 삭제 버튼
     private void ListCancleButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListCancleButtActionPerformed
         // 선택된 테이블 행 정보 db에서 삭제
+
+        DefaultTableModel table = (DefaultTableModel) jTable2.getModel();
+
+        int row = jTable2.getSelectedRow();
+
+        if (row == -1) {  // 열이 선택되지 않았을 경우
+            JOptionPane.showMessageDialog(this, "취소할 예약을 선택하세요");
+        } else {  // 선택된 열이 존재할 경우
+
+            connect();  // 디비 연결
+
+            try {
+
+                // 해당 학번, 날짜, 시작시간, 종료시간에 대한 예약 삭제
+                sql = "delete from reservation where sId = ? and labId = ? and dateR = ? and startTimeR =? and endTimeR = ?";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, (String) table.getValueAt(row, 4));  // 학번
+                pstmt.setString(2, (String) table.getValueAt(row, 0));  // 강의실
+                pstmt.setString(3, (String) table.getValueAt(row, 1));  // 날짜
+                pstmt.setString(4, (String) table.getValueAt(row, 2));  // 시작시간
+                pstmt.setString(5, (String) table.getValueAt(row, 3));  // 종료시간
+
+                pstmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "예약 취소가 완료되었습니다.");
+
+                
+                // 테이블 새로고침 (수정된 테이블 값 반영해서 테이블 띄움)
+                
+                table.setNumRows(0);  // 테이블 초기화
+
+                // 입력받은 실습실, 날짜에 대한 예약 정보 날짜 순으로 출력 
+                sql = "select r.labId, r.dateR, r.startTimeR, r.endTimeR, r.sId, s.sName from reservation r, student s where r.sId = s.sId and r.labId = ? and r.dateR = ? order by r.dateR";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, (String) jComboBox1.getSelectedItem());  // 실습실
+                pstmt.setString(2, jTextField1.getText());  // 날짜
+
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};  // 학번, 날짜, 시작시간, 종료시간, 학번, 이름 값 저장
+                    table.addRow(data);  // 테이블에 값 추가 
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+
+        }
+
     }//GEN-LAST:event_ListCancleButtActionPerformed
 
     // 좌석별 예약 조회 및 취소 -> 조회 -> 좌석 선택 ->  예약 취소 버튼
@@ -3987,40 +4111,40 @@ public class AssistantMain extends javax.swing.JFrame {
     private void TimeTableAddButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimeTableAddButtActionPerformed
         // 입력받은 값 시간표 db에 저장
         connect();
-        
-        String sText=jComboBox8.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
-        int sNum=sText.indexOf(":");    //":"위치 저장
-        String eText=jComboBox9.getSelectedItem().toString();   //종료 시간 가져와서 문자열로 변수에 저장
-        int eNum=eText.indexOf(":");    //":" 위치 저장
-        
+
+        String sText = jComboBox8.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
+        int sNum = sText.indexOf(":");    //":"위치 저장
+        String eText = jComboBox9.getSelectedItem().toString();   //종료 시간 가져와서 문자열로 변수에 저장
+        int eNum = eText.indexOf(":");    //":" 위치 저장
+
         //요일을 숫자 형태로
         int day;
-        if(jComboBox3.getSelectedItem().toString().equals("월")){
-            day=1;
-        }else if(jComboBox3.getSelectedItem().toString().equals("화")){
-            day=2;
-        }else if(jComboBox3.getSelectedItem().toString().equals("수")){
-            day=3;
-        }else if(jComboBox3.getSelectedItem().toString().equals("목")){
-            day=4;
-        }else if(jComboBox3.getSelectedItem().toString().equals("금")){
-            day=5;
-        }else if(jComboBox3.getSelectedItem().toString().equals("토")){
-            day=6;
-        }else{
-            day=7;
+        if (jComboBox3.getSelectedItem().toString().equals("월")) {
+            day = 1;
+        } else if (jComboBox3.getSelectedItem().toString().equals("화")) {
+            day = 2;
+        } else if (jComboBox3.getSelectedItem().toString().equals("수")) {
+            day = 3;
+        } else if (jComboBox3.getSelectedItem().toString().equals("목")) {
+            day = 4;
+        } else if (jComboBox3.getSelectedItem().toString().equals("금")) {
+            day = 5;
+        } else if (jComboBox3.getSelectedItem().toString().equals("토")) {
+            day = 6;
+        } else {
+            day = 7;
         }
-        
-        if(Integer.parseInt(sText.substring(0,sNum)) >= Integer.parseInt(eText.substring(0,eNum))){ //시작시간을 종료시간보다 늦게 설정했을 경우
-            JOptionPane.showMessageDialog(this, "시작 시간을 종료 시간보다 빠르게 설정하세요." , "Message",JOptionPane.ERROR_MESSAGE );
+
+        if (Integer.parseInt(sText.substring(0, sNum)) >= Integer.parseInt(eText.substring(0, eNum))) { //시작시간을 종료시간보다 늦게 설정했을 경우
+            JOptionPane.showMessageDialog(this, "시작 시간을 종료 시간보다 빠르게 설정하세요.", "Message", JOptionPane.ERROR_MESSAGE);
             TimeTableAddPanel.setVisible(true);
-        }else{
-            lecture=new Lecture(jComboBox2.getSelectedItem().toString(),jTextField2.getText(),sText.substring(0,sNum),eText.substring(0,eNum),day,jTextField5.getText());
-            try{
+        } else {
+            lecture = new Lecture(jComboBox2.getSelectedItem().toString(), jTextField2.getText(), sText.substring(0, sNum), eText.substring(0, eNum), day, jTextField5.getText());
+            try {
                 //기존의 강의와 겹치는지 조회
-                sql="select * from lecture where day=? and labId=? and ((startTime >=? and startTime<?) or (endTime>? and endTime<=?) or (startTime>=? and endTime<=?))";
+                sql = "select * from lecture where day=? and labId=? and ((startTime >=? and startTime<?) or (endTime>? and endTime<=?) or (startTime>=? and endTime<=?))";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
-            
+
                 pstmt.setInt(1, day);      //요일
                 pstmt.setString(2, lecture.labId);      //실습실 번호
                 pstmt.setString(3, lecture.startTime); //시작시간
@@ -4032,29 +4156,38 @@ public class AssistantMain extends javax.swing.JFrame {
 
                 rs = pstmt.executeQuery();
                 if (rs.next()) { //만약 겹치는 강의가 존재한다면
-                    JOptionPane.showMessageDialog(this, "시간이 겹치는 강의가 존재합니다." , "Message",JOptionPane.INFORMATION_MESSAGE );
+                    JOptionPane.showMessageDialog(this, "시간이 겹치는 강의가 존재합니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
                     TimeTableAddPanel.setVisible(true);
                 } else {
                     sql = "insert into lecture (labId,lectureName,startTime, endTime,day,pId) values (?,?,?,?,?,?)";
                     pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
                     //로그인 시 조교 정보 객체에 저장해서 아이디 가져와야 함
-                    pstmt.setString(1,lecture.labId);         //실습실 번호 
+                    pstmt.setString(1, lecture.labId);         //실습실 번호 
                     pstmt.setString(2, lecture.lecName);   //
                     pstmt.setString(3, lecture.startTime);    //좌석번호
                     pstmt.setString(4, lecture.endTime);   //예약날짜
                     pstmt.setInt(5, day); //시작시간
-                    pstmt.setString(6,lecture.pId);   //교수명 (임의로 아이디 넣어둠! 수정해야함)
+                    pstmt.setString(6, lecture.pId);   //교수명 (임의로 아이디 넣어둠! 수정해야함)
 
                     pstmt.executeUpdate();
                     JOptionPane.showMessageDialog(this, "등록 완료되었습니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
-                }     
-            }catch(SQLException ex){
-               System.out.println(ex.getMessage()); 
-            }finally {
-                if(rs != null) try {rs.close();} catch (SQLException ex) {}
-                if(pstmt != null) try {pstmt.close();} catch (SQLException ex) {}
-                if(conn != null) try {conn.close();} catch (SQLException ex) {}
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
             }
         }
     }//GEN-LAST:event_TimeTableAddButtActionPerformed
@@ -4063,43 +4196,43 @@ public class AssistantMain extends javax.swing.JFrame {
     private void SeminarAddButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeminarAddButtActionPerformed
         connect();
         // DB에 특강 정보 저장
-        seminar.labId=jList1.getSelectedValue();
-        if(seminar.labId==null){
+        seminar.labId = jList1.getSelectedValue();
+        if (seminar.labId == null) {
             JOptionPane.showMessageDialog(this, "실습실을 먼저 선택해주세요.", "Message", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-        try {
-            //데이터 삽입을 위한 sql문
-            sql = "insert into seminar (pId,labId,seminarName,dateS,startTimeS,endTimeS) values (?,?,?,?,?,?)";
-                    pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+        } else {
+            try {
+                //데이터 삽입을 위한 sql문
+                sql = "insert into seminar (pId,labId,seminarName,dateS,startTimeS,endTimeS) values (?,?,?,?,?,?)";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
-                    //로그인 시 조교 정보 객체에 저장해서 아이디 가져와야 함
-                    pstmt.setString(1,"pro1");         //조교아이디 
-                    pstmt.setString(2, seminar.labId);   //실습실번호
-                    pstmt.setString(3, seminar.seminarName);    //세미나명
-                    pstmt.setString(4, seminar.dateS);   //예약날짜
-                    pstmt.setString(5, seminar.startTimeS); //시작시간
-                    pstmt.setString(6, seminar.endTimeS); //종료시간
+                //로그인 시 조교 정보 객체에 저장해서 아이디 가져와야 함
+                pstmt.setString(1, "pro1");         //조교아이디 
+                pstmt.setString(2, seminar.labId);   //실습실번호
+                pstmt.setString(3, seminar.seminarName);    //세미나명
+                pstmt.setString(4, seminar.dateS);   //예약날짜
+                pstmt.setString(5, seminar.startTimeS); //시작시간
+                pstmt.setString(6, seminar.endTimeS); //종료시간
 
-                    pstmt.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "등록 완료되었습니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
+                pstmt.executeUpdate();
+                JOptionPane.showMessageDialog(this, "등록 완료되었습니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
                 } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                } finally {
-                    if (rs != null) try {
-                        rs.close();
-                    } catch (SQLException ex) {
-                    }
-                    if (pstmt != null) try {
-                        pstmt.close();
-                    } catch (SQLException ex) {
-                    }
-                    if (conn != null) try {
-                        conn.close();
-                    } catch (SQLException ex) {
-                    }
                 }
-        reset();
-        mainPanel.setVisible(true);//메인 패널로 이동
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+            reset();
+            mainPanel.setVisible(true);//메인 패널로 이동
         }
     }//GEN-LAST:event_SeminarAddButtActionPerformed
 
@@ -4129,9 +4262,9 @@ public class AssistantMain extends javax.swing.JFrame {
         UserOkPanel.setVisible(true);
 
         menuUserOk.setBackground(yellow);
-        
+
         // 정상적인 토큰 값이 입력되고 승인 정보가 미승인 상태인 정보 테이블에 출력
-        
+
     }//GEN-LAST:event_menuUserOkMouseClicked
 
     // 승인 및 초기화 관리 메뉴바 - 토큰 생성 및 초기화 선택 시
@@ -4155,31 +4288,31 @@ public class AssistantMain extends javax.swing.JFrame {
     // 토큰 입력 후 토큰 생성 버튼
     private void TokenOkButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TokenOkButtActionPerformed
         // 디비에 값 저장
-        
+
     }//GEN-LAST:event_TokenOkButtActionPerformed
 
     // 토큰 초기화 버튼
     private void TokenResetButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TokenResetButtActionPerformed
         // 디비에서 값 삭제
-        
+
     }//GEN-LAST:event_TokenResetButtActionPerformed
 
     // 회원 정보 승인 버튼
     private void UserOkButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserOkButtActionPerformed
         // 테이블에서 선택된 행 회원 정보 승인 
-        
+
     }//GEN-LAST:event_UserOkButtActionPerformed
 
     // 회원 승인 정보 초기화 버튼
     private void UserResetButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserResetButtActionPerformed
         // 모든 회원 승인 정보 미승인으로 디비값 수정
-        
+
     }//GEN-LAST:event_UserResetButtActionPerformed
 
     // 시간표 초기화 버튼
     private void TTResetButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTResetButtActionPerformed
         // 모든 시간표 정보 디비에서 삭제
-        
+
     }//GEN-LAST:event_TTResetButtActionPerformed
 
     private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed
@@ -4190,7 +4323,6 @@ public class AssistantMain extends javax.swing.JFrame {
         seatStatusPanel.setVisible(true);
 
         // 입력받은 강의실의 각 좌석에 현재 사용하고 있는 학생 이름 띄우기
-
         s1.setText("홍길동");
     }//GEN-LAST:event_LabCheckButtActionPerformed
 
