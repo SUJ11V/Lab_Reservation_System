@@ -4,12 +4,14 @@ import source.Lecture;
 import source.Reservation;
 import source.Seminar;
 import java.awt.Color;
+import java.awt.List;
 import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -25,6 +27,8 @@ public class StudentMain extends javax.swing.JFrame {
     ResultSet rs = null;
     String sql; //쿼리문 받을 변수
     int num = 1;
+    String labItem = null;  // 5시 이후 강의실 아이템 저장
+    String[][] reser = {{"915", "0"}, {"916", "0"}, {"918", "0"}, {"911", "0"}};  // 예약카운트 2차원 배열
 
     ArrayList<JRadioButton> seat = new ArrayList<>();
     ArrayList<JRadioButton> seatInquire = new ArrayList<>();
@@ -199,11 +203,6 @@ public class StudentMain extends javax.swing.JFrame {
         }
     }
 
-    // 강의실별 인원수
-    String lab915Num = null;
-    String lab916Num = null;
-    String lab918Num = null;
-    String lab911Num = null;
 
     public StudentMain() {
         initComponents();
@@ -4724,6 +4723,8 @@ public class StudentMain extends javax.swing.JFrame {
         Reser_menuPanel.setVisible(true);
         menuReser.setBackground(yellow);
 
+        ArrayList<String> seminar = new ArrayList<>();  //  해당 날짜, 시작시간, 종료시간에 존재하는 세미나 동적 배열 
+ 
         connect(); //디비 연결
 
         String date = DATE_Text.getText();  // 날짜 값 받아오기
@@ -4744,38 +4745,28 @@ public class StudentMain extends javax.swing.JFrame {
         reservation = new Reservation(date, "0", startTime, endTime, 0);
 
         try {
-            
+
             // 세미나 강의실
             // 해당 날짜, 강의실, 시간에 세미나가 존재하면 예약 불가능
-            sql = "select * from seminar where dateS = ? and labId = ? and ((startTimeS > ? and startTimeS < ?) or (startTimeS <= ? and endTimeS > ?))";
-            
+            sql = "select labId from seminar where dateS = ? and ((startTimeS > ? and startTimeS < ?) or (startTimeS <= ? and endTimeS > ?))";
+
             pstmt = conn.prepareStatement(sql);
-            
+
             pstmt.setString(1, reservation.dateR);  // 날짜
-            pstmt.setString(2, "915");  // 915 강의실
-            pstmt.setString(3, reservation.startTimeR);  // 시작시간
-            pstmt.setString(4, reservation.endTimeR);  // 종료시간
+            pstmt.setString(2, reservation.startTimeR);  // 시작시간
+            pstmt.setString(3, reservation.endTimeR);  // 종료시간
+            pstmt.setString(4, reservation.startTimeR);  // 시작시간
             pstmt.setString(5, reservation.startTimeR);  // 시작시간
-            pstmt.setString(6, reservation.startTimeR);  // 시작시간
 
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                System.out.println("lab915  seminar : " + rs.getString(1));
-                
-                
+            while (rs.next()) {  // 겹치는 세미나가 있으면 해당 강의실 번호 배열에 저장
+                seminar.add(rs.getString(1));
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            for (int i = 0; i < seminar.size(); i++) {
+                System.out.println(seminar.get(i));
+            }
+
             // 해당 날짜, 시간에 강의실 별 예약 카운트
             sql = "select count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab915Count, "
                     + "count(case when dateR = ? and labId =? and ((startTimeR > ? and startTimeR < ?) or (startTimeR <= ? and endTimeR > ?) ) then 1 end) as lab916Count, "
@@ -4821,12 +4812,26 @@ public class StudentMain extends javax.swing.JFrame {
                 System.out.println("lab911 reserCount : " + rs.getString(4));
 
                 // 915, 916, 918, 911 강의실 별 해당 시간에 대한 예약 인원 수 저장
-                lab915Num = rs.getString(1);
-                lab916Num = rs.getString(2);
-                lab918Num = rs.getString(3);
-                lab911Num = rs.getString(4);
+                reser[0][1] = rs.getString(1);
+                reser[1][1] = rs.getString(2);
+                reser[2][1] = rs.getString(3);
+                reser[3][1] = rs.getString(4);
             }
 
+            // 세미나 있는 강의실 카운트 -1로 설정
+            for (int i = 0; i < seminar.size(); i++) {
+                if (seminar.get(i).equals(reser[i][0])) {
+                    reser[i][1] = "-1";
+                }
+            }
+
+            /*
+            for (int i = 0; i < reser.length; i++) {
+                for (int j = 0; j < reser[i].length; j++) {
+                    System.out.println(reser[i][j]);
+                }
+            }
+            */
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -4843,14 +4848,32 @@ public class StudentMain extends javax.swing.JFrame {
             } catch (SQLException ex) {
             }
         }
+ 
 
-        if (Integer.parseInt(lab915Num) < 2) {  // if 현재 강의실에 학생 수 20명 미만이면 
-            check.setVisible(true);  // 개인 예약 패널로 이동
-            jComboBox1.addItem("915");  // 현재 강의실 915 추가
-        } else if (Integer.parseInt(lab915Num) >= 2) {  // else if 학생 수 20명 이상이면 (개인, 조별 학습 확인)
-            OverReser.setVisible(true);  // 팀 학습 예약 패널로 이동
+        ArrayList<String> item = new ArrayList<>();  // 강의실 아이템
+
+        for (int i = 0; i < 4; i++) {
+
+            if ((!reser[i][1].equals("-1")) && Integer.parseInt(reser[i][1]) < 2) {  // if 현재 강의실에 학생 수 20명 미만이면 
+                reset();
+                Reser_menuPanel.setVisible(true);
+                menuReser.setBackground(yellow);
+                check.setVisible(true);  // 개인 예약 패널로 이동
+
+                item.add(reser[i][0]);  // 세미나 예약이 없고 2명이하인 강의실 아이템
+                break;
+            } else if ((!reser[i][1].equals("-1")) && Integer.parseInt(reser[i][1]) >= 2) {  // else if 학생 수 20명 이상이면 (개인, 조별 학습 확인)
+                reset();
+                Reser_menuPanel.setVisible(true);
+                menuReser.setBackground(yellow);
+                OverReser.setVisible(true);  // 팀 학습 예약 패널로 이동
+
+                return;
+            }
+
         }
 
+        jComboBox1.addItem(item.get(0));  // 강의실 추가
     }//GEN-LAST:event_checkButtActionPerformed
 
     // 예약 메뉴바 - 실습실 예약 선택 시 
@@ -4865,10 +4888,10 @@ public class StudentMain extends javax.swing.JFrame {
     // (afterReser -> check) 강의실 선택 후 확인 버튼 클릭
     private void AfterCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AfterCheckButtActionPerformed
         // 개인 좌석 초기화
-            for (int i = 0; i < 30; i++) {
-                afterseatS.get(i).setEnabled(true);
-            }
-        
+        for (int i = 0; i < 30; i++) {
+            afterseatS.get(i).setEnabled(true);
+        }
+
         afterSeatStatePanel.setVisible(true);
 
         String lab = jComboBox1.getSelectedItem().toString();   // 선택한 강의실 값 받아오기
@@ -5174,7 +5197,449 @@ public class StudentMain extends javax.swing.JFrame {
         OverLabCheckPanel.setVisible(false);
         overSeatStatePanel.setVisible(false);
 
-        // 세미나 확인
+        // 강의실 아이템 어레이리스트
+        ArrayList<String> item = new ArrayList<>();
+
+        if (soloRadio.isSelected() == true) {  // 개인학습 선택
+            reset();
+            Reser_menuPanel.setVisible(true);
+            menuReser.setBackground(yellow);
+
+            check.setVisible(true);
+
+            for (int i = 0; i < reser.length; i++) {
+                for (int j = 0; j < reser[i].length; j++) {
+                    if ((!reser[i][1].equals("-1")) && Integer.parseInt(reser[i][1]) < 6) {  // 세미나가 없고 30명 미만인 강의실
+                        item.add(reser[i][0]);
+                        break;
+                    }
+                }
+            }
+            jComboBox1.addItem(item.get(0));  // 강의실 추가
+            
+        } else if (teamRadio.isSelected() == true) {  // 조별학습 선택
+            OverLabCheckPanel.setVisible(true);
+
+            // OverLabCheckPanel의 사용 가능한 강의실 콤보 박스에 사용 가능한 실습실 값 아이템으로 넣기
+            jComboBox8.removeAllItems();  // 5시 이후 팀 학습 강의실 콤보박스 아이템 초기화
+
+            for (int i = 0; i < 4; i++) {
+
+                if ((!reser[i][1].equals("-1")) && (Integer.parseInt(reser[i][1]) >= 2 && Integer.parseInt(reser[i][1]) < 6)) {  // 20명 이상 30명 미만 (현재, 다음 강의실 선택 할 수 있음)
+
+                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i][1]) < 6) {  // 팀원수 + 현재 인원 수가 30명 미만
+                        item.add(reser[i][0]);
+                        jComboBox8.addItem(item.get(0));
+
+                        if ((!reser[i + 1][1].equals("-1")) && Integer.parseInt(reser[i + 1][1]) < 2) {  //  다음 강의실 세미나 예약이 없고 20명 미만
+                            item.add(reser[i + 1][0]);
+                            jComboBox8.addItem(item.get(1));
+                        } else if ((!reser[i + 1][1].equals("-1")) && (Integer.parseInt(reser[i + 1][1]) >= 2 && Integer.parseInt(reser[i + 1][1]) < 6)) {  // 다음 강의실이 20명이상 30명 미만
+                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 1][1]) < 6) {  // 팀원 수 + 현재 인원수가 30명 미만
+                                item.add(reser[i + 1][0]);
+                                jComboBox8.addItem(item.get(1));
+                                return;
+                            } else {  // 팀원수 + 현재 인원수가 30명 이상
+                                if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) < 2) {  // 다음 강의실 세미나 예약이 없고 20명 미만
+                                    item.add(reser[i + 2][0]);
+                                    jComboBox8.addItem(item.get(1));
+                                } else if ((!reser[i + 2][1].equals("-1")) && (Integer.parseInt(reser[i + 2][1]) >= 2 && Integer.parseInt(reser[i + 2][1]) < 6)) {  // 다음 강의실 세미나 예약 없고 20명 이상 30명 미만
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 2][1]) < 6) { // 팀원 수 + 현재 인원수가 30명 미만
+                                        item.add(reser[i + 2][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else {  // 팀원수 + 현재 인원수가 30명 이상
+                                        if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) { // 다음 강의실 세미나 예약이 없고 20명 미만
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(1));
+                                        } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {  // 다음 강의실 세미나 예약 없고 20명 이상 30명 미만
+                                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {  // 팀원 수 + 현재 인원수가 30명 미만
+                                                item.add(reser[i + 3][0]);
+                                                jComboBox8.addItem(item.get(1));
+                                            } else {  // 팀원수 + 현재 인원수가 30명 이상
+                                                System.out.println("no labs");
+                                            }
+                                        } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {  // 다음 강의실 30명 이상
+                                            System.out.println("no labs");
+                                        }
+                                    }
+                                } else if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) >= 6) {  // 다음 강의실 30명 이상
+                                    if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(1));
+                                        } else {
+                                            System.out.println("no labs");
+                                        }
+                                    } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                        System.out.println("no labs");
+                                    }
+                                }
+                            }
+                        } else if ((!reser[i + 1][1].equals("-1")) && Integer.parseInt(reser[i + 1][1]) >= 6) {
+                            if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) < 2) {
+                                item.add(reser[i + 2][0]);
+                                jComboBox8.addItem(item.get(1));
+                            } else if ((!reser[i + 2][1].equals("-1")) && (Integer.parseInt(reser[i + 2][1]) >= 2 && Integer.parseInt(reser[i + 2][1]) < 6)) {
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 2][1]) < 6) {
+                                    item.add(reser[i + 2][0]);
+                                    jComboBox8.addItem(item.get(1));
+                                } else {
+                                    if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(1));
+                                        } else {
+                                            System.out.println("no labs");
+                                        }
+                                    } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                        System.out.println("no labs");
+                                    }
+                                }
+                            } else if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) >= 6) {
+                                if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                    item.add(reser[i + 3][0]);
+                                    jComboBox8.addItem(item.get(1));
+                                } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else {
+                                        System.out.println("no labs");
+                                    }
+                                } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                    System.out.println("no labs");
+                                }
+                            }
+                        }
+
+                    } else {  // 팀원수 + 현재 인원 수가 30명 이상
+                        if ((!reser[i + 1][1].equals("-1")) && Integer.parseInt(reser[i + 1][1]) < 2) {
+                            item.add(reser[i + 1][0]);
+                            jComboBox8.addItem(item.get(0));
+                        } else if ((!reser[i + 1][1].equals("-1")) && (Integer.parseInt(reser[i + 1][1]) >= 2 && Integer.parseInt(reser[i + 1][1]) < 6)) {
+                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 1][1]) < 6) {
+                                item.add(reser[i + 1][0]);
+                                jComboBox8.addItem(item.get(0));
+
+                                if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) < 2) {
+                                    item.add(reser[i + 2][0]);
+                                    jComboBox8.addItem(item.get(1));
+                                } else if ((!reser[i + 2][1].equals("-1")) && (Integer.parseInt(reser[i + 2][1]) >= 2 && Integer.parseInt(reser[i + 2][1]) < 6)) {
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 2][1]) < 6) {
+                                        item.add(reser[i + 2][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else {
+                                        if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(1));
+                                        } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                                item.add(reser[i + 3][0]);
+                                                jComboBox8.addItem(item.get(1));
+                                            } else {
+                                                System.out.println("no labs");
+                                            }
+                                        } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                            System.out.println("no labs");
+                                        }
+                                    }
+                                } else if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) >= 6) {
+                                    if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(1));
+                                        } else {
+                                            System.out.println("no labs");
+                                        }
+                                    } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                        System.out.println("no labs");
+                                    }
+                                }
+
+                            } else {
+                                if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) < 2) {
+                                    item.add(reser[i + 2][0]);
+                                    jComboBox8.addItem(item.get(0));
+                                } else if ((!reser[i + 2][1].equals("-1")) && (Integer.parseInt(reser[i + 2][1]) >= 2 && Integer.parseInt(reser[i + 2][1]) < 6)) {
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 2][1]) < 6) {
+                                        item.add(reser[i + 2][0]);
+                                        jComboBox8.addItem(item.get(0));
+                                        if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(1));
+                                        } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                                item.add(reser[i + 3][0]);
+                                                jComboBox8.addItem(item.get(1));
+                                            } else {
+                                                System.out.println("no labs");
+                                            }
+                                        } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                            System.out.println("no labs");
+                                        }
+                                    } else {
+                                        if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(0));
+                                        } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                                item.add(reser[i + 3][0]);
+                                                jComboBox8.addItem(item.get(0));
+                                            } else {
+                                                System.out.println("no labs");
+                                            }
+                                        } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                            System.out.println("no labs");
+                                        }
+                                    }
+                                } else if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) >= 6) {
+                                    if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(0));
+                                    } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(0));
+                                        } else {
+                                            System.out.println("no labs");
+                                        }
+                                    } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                        System.out.println("no labs");
+                                    }
+                                }
+                            }
+                        } else if ((!reser[i + 1][1].equals("-1")) && Integer.parseInt(reser[i + 1][1]) >= 6) {
+                            if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) < 2) {
+                                item.add(reser[i + 2][0]);
+                                jComboBox8.addItem(item.get(0));
+                            } else if ((!reser[i + 2][1].equals("-1")) && (Integer.parseInt(reser[i + 2][1]) >= 2 && Integer.parseInt(reser[i + 2][1]) < 6)) {
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 2][1]) < 6) {
+                                    item.add(reser[i + 2][0]);
+                                    jComboBox8.addItem(item.get(0));
+                                    if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(1));
+                                        } else {
+                                            System.out.println("no labs");
+                                        }
+                                    } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                        System.out.println("no labs");
+                                    }
+                                } else {
+                                    if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(0));
+                                    } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(0));
+                                        } else {
+                                            System.out.println("no labs");
+                                        }
+                                    } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                        System.out.println("no labs");
+                                    }
+                                }
+                            } else if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) >= 6) {
+                                if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                    item.add(reser[i + 3][0]);
+                                    jComboBox8.addItem(item.get(0));
+                                } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(0));
+                                    } else {
+                                        System.out.println("no labs");
+                                    }
+                                } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                    System.out.println("no labs");
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                } else if ((!reser[i][1].equals("-1")) && (Integer.parseInt(reser[i][1]) >= 6)) {  // 30명 이상
+                    if ((!reser[i + 1][1].equals("-1")) && Integer.parseInt(reser[i + 1][1]) < 2) {
+                        item.add(reser[i + 1][0]);
+                        jComboBox8.addItem(item.get(0));
+                    } else if ((!reser[i + 1][1].equals("-1")) && (Integer.parseInt(reser[i + 1][1]) >= 2 && Integer.parseInt(reser[i + 1][1]) < 6)) {
+                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 1][1]) < 6) {
+                            item.add(reser[i + 1][0]);
+                            jComboBox8.addItem(item.get(0));
+
+                            if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) < 2) {
+                                item.add(reser[i + 2][0]);
+                                jComboBox8.addItem(item.get(1));
+                                
+                                break;
+                            } else if ((!reser[i + 2][1].equals("-1")) && (Integer.parseInt(reser[i + 2][1]) >= 2 && Integer.parseInt(reser[i + 2][1]) < 6)) {
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 2][1]) < 6) {
+                                    item.add(reser[i + 2][0]);
+                                    jComboBox8.addItem(item.get(1));
+                                } else {
+                                    if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(1));
+                                        } else {
+                                            System.out.println("no labs");
+                                        }
+                                    } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                        System.out.println("no labs");
+                                    }
+                                }
+                            } else if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) >= 6) {
+                                if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                    item.add(reser[i + 3][0]);
+                                    jComboBox8.addItem(item.get(1));
+                                } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else {
+                                        System.out.println("no labs");
+                                    }
+                                } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                    System.out.println("no labs");
+                                }
+                            }
+
+                        } else {
+                            if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) < 2) {
+                                item.add(reser[i + 2][0]);
+                                jComboBox8.addItem(item.get(0));
+                                break;
+                            } else if ((!reser[i + 2][1].equals("-1")) && (Integer.parseInt(reser[i + 2][1]) >= 2 && Integer.parseInt(reser[i + 2][1]) < 6)) {
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 2][1]) < 6) {
+                                    item.add(reser[i + 2][0]);
+                                    jComboBox8.addItem(item.get(0));
+
+                                    if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(1));
+                                        } else {
+                                            System.out.println("no labs");
+                                        }
+                                    } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                        System.out.println("no labs");
+                                    }
+
+                                } else {
+                                    if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(0));
+                                    } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                        if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                            item.add(reser[i + 3][0]);
+                                            jComboBox8.addItem(item.get(0));
+                                        } else {
+                                            System.out.println("no labs");
+                                        }
+                                    } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                        System.out.println("no labs");
+                                    }
+                                }
+                            } else if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) >= 6) {
+                                if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                    item.add(reser[i + 3][0]);
+                                    jComboBox8.addItem(item.get(0));
+                                } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(0));
+                                    } else {
+                                        System.out.println("no labs");
+                                    }
+                                } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                    System.out.println("no labs");
+                                }
+                            }
+                        }
+                    } else if ((!reser[i + 1][1].equals("-1")) && Integer.parseInt(reser[i + 1][1]) >= 6) {
+                        if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) < 2) {
+                            item.add(reser[i + 3][0]);
+                            jComboBox8.addItem(item.get(0));
+                        } else if ((!reser[i + 2][1].equals("-1")) && (Integer.parseInt(reser[i + 2][1]) >= 2 && Integer.parseInt(reser[i + 2][1]) < 6)) {
+                            if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 2][1]) < 6) {
+                                item.add(reser[i + 2][0]);
+                                jComboBox8.addItem(item.get(0));
+
+                                if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                    item.add(reser[i + 3][0]);
+                                    jComboBox8.addItem(item.get(1));
+                                } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(1));
+                                    } else {
+                                        System.out.println("no labs");
+                                    }
+                                } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                    System.out.println("no labs");
+                                }
+
+                            } else {
+                                if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                    item.add(reser[i + 3][0]);
+                                    jComboBox8.addItem(item.get(0));
+                                } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                    if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                        item.add(reser[i + 3][0]);
+                                        jComboBox8.addItem(item.get(0));
+                                    } else {
+                                        System.out.println("no labs");
+                                    }
+                                } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                    System.out.println("no labs");
+                                }
+                            }
+                        } else if ((!reser[i + 2][1].equals("-1")) && Integer.parseInt(reser[i + 2][1]) >= 6) {
+                            if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) < 2) {
+                                item.add(reser[i + 3][0]);
+                                jComboBox8.addItem(item.get(0));
+                            } else if ((!reser[i + 3][1].equals("-1")) && (Integer.parseInt(reser[i + 3][1]) >= 2 && Integer.parseInt(reser[i + 3][1]) < 6)) {
+                                if (Integer.parseInt((String) jComboBox6.getSelectedItem()) + Integer.parseInt(reser[i + 3][1]) < 6) {
+                                    item.add(reser[i + 3][0]);
+                                    jComboBox8.addItem(item.get(0));
+                                } else {
+                                    System.out.println("no labs");
+                                }
+                            } else if ((!reser[i + 3][1].equals("-1")) && Integer.parseInt(reser[i + 3][1]) >= 6) {
+                                System.out.println("no labs");
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "학습 유형을 선택해주세요.");
+        }
+
+        /*
         // 개인 학습 선택된 경우
         if (soloRadio.isSelected() == true) {
             reset();
@@ -5517,6 +5982,7 @@ public class StudentMain extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "학습 유형을 선택해주세요.");
         }
+         */
     }//GEN-LAST:event_teamCheckButtActionPerformed
 
     // 실습실 메뉴바 -  실습실 공지사항 및 규칙 조회 선택 시 
