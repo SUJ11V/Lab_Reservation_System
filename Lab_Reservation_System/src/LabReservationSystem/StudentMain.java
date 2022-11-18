@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -350,9 +352,10 @@ public class StudentMain extends javax.swing.JFrame {
         jTextField11 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
         jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
         startButt = new javax.swing.JButton();
         endButt = new javax.swing.JButton();
+        continueButt = new javax.swing.JButton();
+        continueCombo = new javax.swing.JComboBox<>();
         CanclePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -1144,25 +1147,18 @@ public class StudentMain extends javax.swing.JFrame {
         jTextField10.setEditable(false);
         jTextField10.setBackground(new java.awt.Color(255, 255, 255));
         jTextField10.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField10.setText("jTextField10");
 
         jTextField11.setEditable(false);
         jTextField11.setBackground(new java.awt.Color(255, 255, 255));
         jTextField11.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField11.setText("jTextField11");
 
         jTextField12.setEditable(false);
         jTextField12.setBackground(new java.awt.Color(255, 255, 255));
         jTextField12.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField12.setText("jTextField12");
 
         jTextField13.setEditable(false);
         jTextField13.setBackground(new java.awt.Color(255, 255, 255));
         jTextField13.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField13.setText("jTextField13");
-
-        jTextField14.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField14.setText("jTextField14");
 
         startButt.setBackground(new java.awt.Color(255, 255, 255));
         startButt.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
@@ -1182,36 +1178,48 @@ public class StudentMain extends javax.swing.JFrame {
             }
         });
 
+        continueButt.setBackground(new java.awt.Color(255, 255, 255));
+        continueButt.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        continueButt.setText("연장");
+        continueButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                continueButtActionPerformed(evt);
+            }
+        });
+
+        continueCombo.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout CheckPanelLayout = new javax.swing.GroupLayout(CheckPanel);
         CheckPanel.setLayout(CheckPanelLayout);
         CheckPanelLayout.setHorizontalGroup(
             CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CheckPanelLayout.createSequentialGroup()
                 .addGap(334, 334, 334)
-                .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CheckPanelLayout.createSequentialGroup()
-                            .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                                .addComponent(jTextField11)))
-                        .addGroup(CheckPanelLayout.createSequentialGroup()
-                            .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField14, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                .addComponent(jTextField13)
-                                .addComponent(jTextField12))))
+                .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(CheckPanelLayout.createSequentialGroup()
+                        .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                            .addComponent(jTextField11)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CheckPanelLayout.createSequentialGroup()
+                        .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                            .addComponent(jTextField12)
+                            .addComponent(continueCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(startButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(endButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(342, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(continueButt, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(213, Short.MAX_VALUE))
         );
         CheckPanelLayout.setVerticalGroup(
             CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1235,8 +1243,9 @@ public class StudentMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel50)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addComponent(continueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(continueButt))
+                .addGap(36, 36, 36)
                 .addComponent(startButt)
                 .addGap(18, 18, 18)
                 .addComponent(endButt)
@@ -2219,6 +2228,7 @@ public class StudentMain extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable4.setSelectionBackground(new java.awt.Color(246, 226, 231));
         jScrollPane4.setViewportView(jTable4);
 
         javax.swing.GroupLayout TTLayout = new javax.swing.GroupLayout(TT);
@@ -4417,13 +4427,11 @@ public class StudentMain extends javax.swing.JFrame {
                         .addGroup(beforeSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(seat42)
                             .addComponent(seat34, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(92, 92, 92)
+                .addGap(92, 163, Short.MAX_VALUE)
                 .addGroup(beforeSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(beforeSeatStatePanelLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, beforeSeatStatePanelLayout.createSequentialGroup()
                         .addGroup(beforeSeatStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(beforeSeatStatePanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(BeforeReserButt))
+                            .addComponent(BeforeReserButt)
                             .addComponent(resetRadio))
                         .addGap(28, 28, 28))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, beforeSeatStatePanelLayout.createSequentialGroup()
@@ -4606,8 +4614,99 @@ public class StudentMain extends javax.swing.JFrame {
 
         menuCheck.setBackground(yellow);
 
-        // 현재 사용할 수 있는 실습실 번호, 좌석번호, 시작시간, 종료시간, 연장가능시간 출력
+        String continueTime = null;  // 연장 시간
+        continueCombo.removeAllItems();  // 연장가능시간 콤보박스 아이템 초기화
 
+        LocalDate nowDate = LocalDate.now();  // 현재 날짜 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");  // "yyyy/MM/dd"형식으로 포맷 정의
+        String formatedNow = nowDate.format(formatter);  // 포맷 적용
+
+        LocalTime nowTime = LocalTime.now();  // 현재 시간
+        int hour = nowTime.getHour();  // 시 구하기
+
+        connect();  // DB 연결
+
+        try {
+            // 현재 시간을 기준으로 사용할 수 있는 예약 찾기
+            sql = "select reserId, labId, seatId, startTimeR, endTimeR, useCheck from reservation where sId = ? and dateR = ? and (startTimeR <= ? and endTimeR > ?)";
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, "stu1");  // 학생 아이디
+            pstmt.setString(2, formatedNow);  // 오늘 날짜
+            // pstmt.setString(2, "2022/11/09");  // 오늘 날짜
+            pstmt.setString(3, Integer.toString(hour));  // 현재 시간의 '시'
+            pstmt.setString(4, Integer.toString(hour));  // 현재 시간의 '시'
+            // pstmt.setString(3, "18");  // 현재 시간의 '시'
+            // pstmt.setString(4, "18");  // 현재 시간의 '시'
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {  // 현재 사용할 수 있는 실습실 번호, 좌석번호, 시작시간, 종료시간, 연장가능시간 출력
+                jTextField10.setText(rs.getString(2));  // 실습실 번호
+                jTextField11.setText(rs.getString(3));  // 좌석 번호
+                jTextField12.setText(rs.getString(4) + " : 00");  // 시작시간
+                jTextField13.setText(rs.getString(5) + " : 00");  // 종료시간
+
+                reservation = new Reservation(formatedNow, rs.getString(2), rs.getString(4), rs.getString(5), Integer.parseInt(rs.getString(3)));
+                // reservation = new Reservation("2022/11/09", rs.getString(2), rs.getString(4), rs.getString(5), Integer.parseInt(rs.getString(3)));
+
+                if (rs.getString(6).equals("1")) {  // 사용여부가 1이면 
+                    startButt.setEnabled(false);  // 사용 시작 버튼 비활성화
+                }
+
+                // 같은 실습실, 좌석, 날짜에 대해서 조회해서 연장 가능 시간 구하기
+                // 예약 중 가장 빠른 startTimeR까지 연장 가능
+                sql = "select startTimeR from reservation where labId = ? and seatId = ? and dateR = ? and (? <= startTimeR) order by startTimeR ";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, reservation.labId);  // 실습실 번호
+                pstmt.setInt(2, reservation.seatId);  // 좌석번호
+                pstmt.setString(3, reservation.dateR);  // 날짜
+                pstmt.setString(4, reservation.endTimeR);  // 종료시간
+
+                rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    continueCombo.setEnabled(true);  // 연장 가능 시간 콤보박스 활성화
+                    continueTime = rs.getString(1);  // 최대 연장 가능 시간 값 저장
+
+                    // 종료시간부터 최대 연장 가능 시간값까지 콤보박스 아이템으로 추가
+                    for (int i = Integer.parseInt(reservation.endTimeR) + 1; i <= Integer.parseInt(continueTime); i++) {
+                        continueCombo.addItem(Integer.toString(i) + " : 00");
+                    }
+                } else {  // 연장 불가능하면
+                    continueCombo.setEnabled(false);  // 연장 가능 시간 콤보박스 비활성화
+                }
+
+                /*
+                else {  // 사용 여부가 0이면
+                    startButt.setEnabled(true);  // 사용 시작 버튼 활성화
+                }
+                 */
+            } else {
+                JOptionPane.showMessageDialog(this, "현재 사용할 수 있는 예약이 존재하지 않습니다.");
+                reset();
+                mainPanel.setVisible(true);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_menuCheckMouseClicked
 
     // 예약 메뉴바 - 본인 예약 현황 조회 및 취소 선택 시
@@ -4826,7 +4925,7 @@ public class StudentMain extends javax.swing.JFrame {
         UserChangePanel.setVisible(true);
         UserInfo_menuPanel.setVisible(true);
 
-        menuUserChange.setBackground(Color.yellow);
+        menuUserChange.setBackground(yellow);
 
         // 회원 정보 db에서 가져와서 UserChangePanel에 띄우기
     }//GEN-LAST:event_userInformationButtActionPerformed
@@ -4837,7 +4936,7 @@ public class StudentMain extends javax.swing.JFrame {
         LabCheckPanel.setVisible(true);
         Lab_menuPanel.setVisible(true);
 
-        menuLabCheck.setBackground(Color.yellow);
+        menuLabCheck.setBackground(yellow);
     }//GEN-LAST:event_labButtActionPerformed
 
     // 메인화면 - 신고관리 버튼
@@ -5424,7 +5523,7 @@ public class StudentMain extends javax.swing.JFrame {
     private void menuLabNoticeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLabNoticeMouseClicked
         reset();
         Lab_menuPanel.setVisible(true);
-        menuLabNotice.setBackground(Color.yellow);
+        menuLabNotice.setBackground(yellow);
         LabNoticePanel.setVisible(true);
     }//GEN-LAST:event_menuLabNoticeMouseClicked
 
@@ -5432,7 +5531,7 @@ public class StudentMain extends javax.swing.JFrame {
     private void menuTimeTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuTimeTableMouseClicked
         reset();
         Lab_menuPanel.setVisible(true);
-        menuTimeTable.setBackground(Color.yellow);
+        menuTimeTable.setBackground(yellow);
         LabTTCheckPanel.setVisible(true);
     }//GEN-LAST:event_menuTimeTableMouseClicked
 
@@ -5440,7 +5539,7 @@ public class StudentMain extends javax.swing.JFrame {
     private void menuLabCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLabCheckMouseClicked
         reset();
         Lab_menuPanel.setVisible(true);
-        menuLabCheck.setBackground(Color.yellow);
+        menuLabCheck.setBackground(yellow);
         LabCheckPanel.setVisible(true);
     }//GEN-LAST:event_menuLabCheckMouseClicked
 
@@ -5456,7 +5555,7 @@ public class StudentMain extends javax.swing.JFrame {
         reset();
         connect();
         Lab_menuPanel.setVisible(true);
-        menuLabCheck.setBackground(Color.yellow);
+        menuLabCheck.setBackground(yellow);
 
         LabComboBox.removeAllItems();   //콤보박스 값 제거
 
@@ -5629,7 +5728,7 @@ public class StudentMain extends javax.swing.JFrame {
     private void menuUserDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuUserDeleteMouseClicked
         reset();
         UserInfo_menuPanel.setVisible(true);
-        menuUserDelete.setBackground(Color.yellow);
+        menuUserDelete.setBackground(yellow);
         UserDeletePanel.setVisible(true);
     }//GEN-LAST:event_menuUserDeleteMouseClicked
 
@@ -5637,7 +5736,7 @@ public class StudentMain extends javax.swing.JFrame {
     private void menuUserChangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuUserChangeMouseClicked
         reset();
         UserInfo_menuPanel.setVisible(true);
-        menuUserChange.setBackground(Color.yellow);
+        menuUserChange.setBackground(yellow);
         UserChangePanel.setVisible(true);
 
         // 회원 정보 db에서 가져와서 UserChangePanel에 띄우기
@@ -5665,19 +5764,101 @@ public class StudentMain extends javax.swing.JFrame {
 
     // 예약 사용 시작 버튼
     private void startButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtActionPerformed
-        // 예약 사용 시작 버튼 클릭 시 사용시작버튼 비활성화
-        startButt.setEnabled(false);
+        connect();  // 디비 연결
 
         // 사용 시작 상태 디비에 저장 
+        try {
+
+            // 사용 여부 1로 수정
+            sql = "update reservation set useCheck = ? where labId = ? and seatId = ? and dateR = ? and startTimeR =? and endTimeR =?";
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, 1);  // 사용 시작 여부
+            pstmt.setString(2, reservation.labId);  // 강의실
+            pstmt.setInt(3, reservation.seatId);  // 좌석
+            pstmt.setString(4, reservation.dateR);  // 날짜
+            pstmt.setString(5, reservation.startTimeR);  //시작 시간
+            pstmt.setString(6, reservation.endTimeR);  //종료 시간
+
+            pstmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(this, "예약 사용 시작");
+
+            startButt.setEnabled(false);  // 사용 시작 버튼 비활성화
+
+            // 메인 패널로 이동
+            reset();
+            mainPanel.setVisible(true);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_startButtActionPerformed
 
     //예약 퇴실 버튼
     private void endButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endButtActionPerformed
         if (startButt.isEnabled() == true) {  // 예약 사용 시작을 안했다면 
-            System.out.printf("No end!!");  // 퇴실 불가능
-        }
+            JOptionPane.showMessageDialog(this, "예약 사용 시작 후 퇴실해주세요.");
+        } else {
+            connect();  // 디비 연결
 
-        // 퇴실 상태 디비에 저장
+            // 퇴실 상태 디비에 저장 
+            try {
+                // 사용 여부 0로 수정
+                sql = "update reservation set useCheck = ? where labId = ? and seatId = ? and dateR = ? and startTimeR =? and endTimeR =?";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setInt(1, 0);  // 사용 시작 여부
+                pstmt.setString(2, reservation.labId);  // 강의실
+                pstmt.setInt(3, reservation.seatId);  // 좌석
+                pstmt.setString(4, reservation.dateR);  // 날짜
+                pstmt.setString(5, reservation.startTimeR);  //시작 시간
+                pstmt.setString(6, reservation.endTimeR);  //종료 시간
+
+                pstmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "퇴실완료");
+
+                // 퇴실할 경우 다시 사용 시작 불가능이므로 사용 시작 버튼 및 퇴실 버튼 비활성화
+                startButt.setEnabled(false);
+                endButt.setEnabled(false);
+
+                // 메인 패널로 이동
+                reset();
+                mainPanel.setVisible(true);
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+        }
     }//GEN-LAST:event_endButtActionPerformed
 
     // 좌석 선택후 예약 버튼 (5시 이후, 20명 이상, 팀별 학습)
@@ -5825,7 +6006,7 @@ public class StudentMain extends javax.swing.JFrame {
         beforeTTPanel.setVisible(true);
         // 패널에 강의시간표 출력
         // 입력받은 날짜에 테투리 표시
-        Wed1.setBackground(Color.yellow);
+        Wed1.setBackground(yellow);
         // 입력받은 날짜에 세미나 출력
     }//GEN-LAST:event_beforeCheckButtActionPerformed
 
@@ -5841,6 +6022,56 @@ public class StudentMain extends javax.swing.JFrame {
     private void seat36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat36ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_seat36ActionPerformed
+
+    // 연장버튼
+    private void continueButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueButtActionPerformed
+        if (continueCombo.getSelectedIndex() == -1) {  // 연장 가능 시간 콤보박스 아이템이 없을 경우
+            JOptionPane.showMessageDialog(this, "연장 불가능");
+        } else {  // 연장 가능 시간 콤보박스 아이템 있을 경우
+            connect();  // 디비 연결
+            String continueT = continueCombo.getSelectedItem().toString();   // 연장가능시간 가져와서 저장
+            int continueTNum = continueT.indexOf(":");    //":"위치 저장
+
+            try {
+
+                // 종료 시간 수정
+                sql = "update reservation set endTimeR = ? where labId = ? and seatId = ? and dateR = ? and startTimeR =? and endTimeR =?";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, continueT.substring(0, continueTNum));  // 연장 시간
+                pstmt.setString(2, reservation.labId);  // 강의실
+                pstmt.setInt(3, reservation.seatId);  // 좌석
+                pstmt.setString(4, reservation.dateR);  // 날짜
+                pstmt.setString(5, reservation.startTimeR);  //시작 시간
+                pstmt.setString(6, reservation.endTimeR);  //종료 시간
+
+                pstmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "연장 완료");
+
+                // 메인 패널로 이동
+                reset();
+                mainPanel.setVisible(true);
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+        }
+    }//GEN-LAST:event_continueButtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -5972,6 +6203,8 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JPanel check;
     private javax.swing.JButton checkButt;
     private javax.swing.JButton checkButt1;
+    private javax.swing.JButton continueButt;
+    private javax.swing.JComboBox<String> continueCombo;
     private javax.swing.JButton endButt;
     private javax.swing.JComboBox<String> endTimeR;
     private javax.swing.JComboBox<String> endTimeR1;
@@ -6074,7 +6307,6 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
