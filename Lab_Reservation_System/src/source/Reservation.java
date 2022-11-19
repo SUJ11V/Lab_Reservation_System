@@ -27,18 +27,9 @@ public class Reservation {
       this.permission = permission;
   }
   
-  public void permissionOnPushed() {
-      permission.permissionOnPushed();  
+  public void possible(Reservation reservation) {
+      permission.possible(reservation);
   }
-  
-  public void permissionOffPushed() {
-      permission.permissionOffPushed();
-  }
-  
-  public void possible() {
-    permission.possible();
-  }
-
 
   public void checkIn() {
     // Bouml preserved body begin 0001F682
