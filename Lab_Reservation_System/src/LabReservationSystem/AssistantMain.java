@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -124,6 +126,41 @@ public class AssistantMain extends javax.swing.JFrame {
         seatC.add(seat30);
     }
 
+    ArrayList<JButton> seatState = new ArrayList<>();  // 좌석별 상태
+
+    public void seatState() {
+        seatState.add(s1);
+        seatState.add(s2);
+        seatState.add(s3);
+        seatState.add(s4);
+        seatState.add(s5);
+        seatState.add(s6);
+        seatState.add(s7);
+        seatState.add(s8);
+        seatState.add(s9);
+        seatState.add(s10);
+        seatState.add(s11);
+        seatState.add(s12);
+        seatState.add(s13);
+        seatState.add(s14);
+        seatState.add(s15);
+        seatState.add(s16);
+        seatState.add(s17);
+        seatState.add(s18);
+        seatState.add(s19);
+        seatState.add(s20);
+        seatState.add(s21);
+        seatState.add(s22);
+        seatState.add(s23);
+        seatState.add(s24);
+        seatState.add(s25);
+        seatState.add(s26);
+        seatState.add(s27);
+        seatState.add(s28);
+        seatState.add(s29);
+        seatState.add(s30);
+    }
+
     public AssistantMain() {
         initComponents();
 
@@ -172,6 +209,7 @@ public class AssistantMain extends javax.swing.JFrame {
         TTResetPanel.setVisible(false);
 
         seatC();
+        seatState();
     }
 
     // 화면에 띄우는 패널들 초기화하는 함수
@@ -5333,6 +5371,69 @@ public class AssistantMain extends javax.swing.JFrame {
     // 예약 승인 버튼
     private void ReserOkButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserOkButtActionPerformed
         // 선택된 테이블 값 예약 승인
+
+        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+
+        int row = jTable1.getSelectedRow();
+
+        if (row == -1) {  // 열이 선택되지 않았을 경우
+            JOptionPane.showMessageDialog(this, "승인할 예약을 선택하세요");
+        } else {  // 선택된 열이 존재할 경우
+            //Reservation reservation = new Reservation((String) table.getValueAt(row, 1), (String) table.getValueAt(row, 0), (String) table.getValueAt(row, 2), (String) table.getValueAt(row, 3), 0);
+            //reservation.permissionOnPushed();
+            connect();  // 디비 연결
+
+            try {
+
+                // 예약 승인 1로 변경
+                sql = "update reservation set reserPermission = 1 where sId = ? and labId = ? and dateR = ? and startTimeR = ? and endTimeR = ? ";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, (String) table.getValueAt(row, 4));  // 학번
+                pstmt.setString(2, (String) table.getValueAt(row, 0));  // 강의실
+                pstmt.setString(3, (String) table.getValueAt(row, 1));  // 날짜
+                pstmt.setString(4, (String) table.getValueAt(row, 2));  // 시작시간
+                pstmt.setString(5, (String) table.getValueAt(row, 3));  // 종료시간
+
+                pstmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "예약이 승인되었습니다.");
+
+                // 테이블 새로고침 (수정된 테이블 값 반영해서 테이블 띄움)
+                table.setNumRows(0);  // 테이블 초기화
+
+                // 미승인 예약의 강의실번호, 날짜, 시작시간, 종료시간, 학생아이디, 학생이름 
+                sql = "select r.labId, r.dateR, r.startTimeR, r.endTimeR, r.sId, s.sName from reservation r, student s where r.sId = s.sId and r.reserPermission = ? order by r.dateR";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setInt(1, 0);  // 예약 미승인
+
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};  // 값 저장
+                    table.addRow(data);  // 테이블에 값 추가 
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+
+        }
     }//GEN-LAST:event_ReserOkButtActionPerformed
 
     // 예약 리스트 조회 버튼
@@ -5733,7 +5834,66 @@ public class AssistantMain extends javax.swing.JFrame {
         seatStatusPanel.setVisible(true);
 
         // 입력받은 강의실의 각 좌석에 현재 사용하고 있는 학생 이름 띄우기
-        s1.setText("홍길동");
+
+        for (int i = 0; i < 30; i++) {
+            seatState.get(i).setText("");  // 좌석 초기화
+            seatState.get(i).setEnabled(false);  // 좌석 비활성화
+        }
+
+        LocalDate nowDate = LocalDate.now();  // 현재 날짜 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");  // "yyyy/MM/dd"형식으로 포맷 정의
+        String formatedNow = nowDate.format(formatter);  // 포맷 적용
+
+        LocalTime nowTime = LocalTime.now();  // 현재 시간
+        int hour = nowTime.getHour();  // 시 구하기
+
+        connect();  // 디비연결
+
+        try {
+
+            // 1번 좌석부터 30번 좌석에 대해서 사용중인 좌석 찾기 
+            for (int i = 1; i <= 30; i++) {
+                
+                // 현재 시간을 기준으로 사용하고 있는 예약 찾기
+                sql = "select s.sName from reservation r, student s where r.sId = s.sId and r.labId = ? and r.dateR = ? and (r.startTimeR <= ? and r.endTimeR > ?) and r.useCheck = ? and seatId = ?";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, (String) jComboBox7.getSelectedItem());  // 강의실
+                pstmt.setString(2, formatedNow);  // 오늘 날짜
+                //pstmt.setString(2, "2022/11/10");  // 오늘 날짜
+                pstmt.setString(3, Integer.toString(hour));  // 현재 시간의 '시'
+                pstmt.setString(4, Integer.toString(hour));  // 현재 시간의 '시'
+                //pstmt.setString(3, "18");  // 현재 시간의 '시'
+                //pstmt.setString(4, "18");  // 현재 시간의 '시'
+                pstmt.setInt(5, 1);  // 사용 여부가 1
+                pstmt.setString(6, Integer.toString(i));  // i번째 좌석
+
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    seatState.get(i - 1).setText(rs.getString(1));  // 사용 중인 좌석에 이름 출력
+                    seatState.get(i - 1).setEnabled(true);  // 사용 중인 좌석 활성화
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_LabCheckButtActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
