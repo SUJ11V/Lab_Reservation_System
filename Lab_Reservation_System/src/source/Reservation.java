@@ -17,12 +17,28 @@ public class Reservation {
       this.seatId=seatId;
  };
   
+  private Permission permission;
+  
+  public Reservation() {
+      this.permission = new PermissionOff();
+  }
+  
+  public void setPermission(Permission permission) {
+      this.permission = permission;
+  }
+  
+  public void permissionOnPushed() {
+      permission.permissionOnPushed();  
+  }
+  
+  public void permissionOffPushed() {
+      permission.permissionOffPushed();
+  }
+  
   public void possible() {
-    // Bouml preserved body begin 00021182
-    // Bouml preserved body end 00021182
+    permission.possible();
   }
 
-  private Permission permi;
 
   public void checkIn() {
     // Bouml preserved body begin 0001F682

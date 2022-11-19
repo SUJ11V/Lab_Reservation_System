@@ -1,4 +1,8 @@
 package source;
 
-interface Permission {
+public interface Permission {
+    public void possible();
+    public void permissionOnPushed();
+    public void permissionOffPushed();
+
 }

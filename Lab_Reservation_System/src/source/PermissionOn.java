@@ -1,9 +1,17 @@
 package source;
 
-class PermissionOn implements Permission {
+public class PermissionOn implements Permission {
   public void possible() {
-    // Bouml preserved body begin 00021202
-    // Bouml preserved body end 00021202
+      System.out.println("예약 승인");
   }
+
+  
+  public void permissionOnPushed() {
+      System.out.println("예약 승인");   
+  }
+  public void permissionOffPushed() {
+      System.out.println("예약 미승인");
+  }
+  
 
 }
