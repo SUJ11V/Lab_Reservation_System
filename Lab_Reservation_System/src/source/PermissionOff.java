@@ -1,16 +1,12 @@
 package source;
 
 public class PermissionOff implements Permission {
-  public void possible() {
-      System.out.println("예약 미승인");
-  }
- 
-  public void permissionOffPushed() {
-      System.out.println("예약 미승인");
-  }
-  
-  public void permissionOnPushed() {
-      System.out.println("예약 승인");
-  }
 
+    public void PermissionOff() {
+    }
+
+    @Override
+    public void possible(Reservation reservation) {
+        System.out.println("예약 미승인");
+    }
 }

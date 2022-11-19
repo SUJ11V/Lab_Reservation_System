@@ -6,6 +6,12 @@
 package LabReservationSystem;
 
 import java.awt.Color;
+import java.sql.*;
+import java.util.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JButton;
 
 /**
  *
@@ -13,8 +19,47 @@ import java.awt.Color;
  */
 public class ProfessorMain extends javax.swing.JFrame {
 
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    String sql; //쿼리문 받을 변수
    
     Color yellow = new Color(254,255,233);  // 노란색 저장
+    
+    ArrayList<JButton> seatState = new ArrayList<>();  // 좌석별 상태
+
+    public void seatState() {
+        seatState.add(seat1);
+        seatState.add(seat2);
+        seatState.add(seat3);
+        seatState.add(seat4);
+        seatState.add(seat5);
+        seatState.add(seat6);
+        seatState.add(seat7);
+        seatState.add(seat8);
+        seatState.add(seat9);
+        seatState.add(seat10);
+        seatState.add(seat11);
+        seatState.add(seat12);
+        seatState.add(seat13);
+        seatState.add(seat14);
+        seatState.add(seat15);
+        seatState.add(seat16);
+        seatState.add(seat17);
+        seatState.add(seat18);
+        seatState.add(seat19);
+        seatState.add(seat20);
+        seatState.add(seat21);
+        seatState.add(seat22);
+        seatState.add(seat23);
+        seatState.add(seat24);
+        seatState.add(seat25);
+        seatState.add(seat26);
+        seatState.add(seat27);
+        seatState.add(seat28);
+        seatState.add(seat29);
+        seatState.add(seat30);
+    }
     
     public ProfessorMain() {
         initComponents();
@@ -41,6 +86,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         LabCheckPanel.setVisible(false);
         seatCheckPanel.setVisible(false);
         
+        seatState();
                 
     }
 
@@ -73,6 +119,21 @@ public class ProfessorMain extends javax.swing.JFrame {
         seatCheckPanel.setVisible(false);
     }
     
+    public void connect() {  //DB연결 함수
+        try {
+            //JDBC드라이버 로딩
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //디비 연결 용 변수
+            String jdbcDriver = "jdbc:mysql://211.213.95.123:3360/labmanagement?serverTimeZone=UTC";
+            String dbId = "20203128"; //MySQL 접속 아이디("20203132"도 가능)
+            String dbPw = "20203128"; //접속 비밀번호(아이디를 20203132로 작성시, 비밀번호도 아이디와 같도록
+            conn = DriverManager.getConnection(jdbcDriver, dbId, dbPw);
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1151,7 +1212,65 @@ public class ProfessorMain extends javax.swing.JFrame {
         
         // 입력받은 강의실의 각 좌석에 현재 사용하고 있는 학생 이름 띄우기
         
-        seat1.setText("홍길동");
+        for (int i = 0; i < 30; i++) {
+            seatState.get(i).setText("");  // 좌석 초기화
+            seatState.get(i).setEnabled(false);  // 좌석 비활성화
+        }
+
+        LocalDate nowDate = LocalDate.now();  // 현재 날짜 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");  // "yyyy/MM/dd"형식으로 포맷 정의
+        String formatedNow = nowDate.format(formatter);  // 포맷 적용
+
+        LocalTime nowTime = LocalTime.now();  // 현재 시간
+        int hour = nowTime.getHour();  // 시 구하기
+
+        connect();  // 디비연결
+
+        try {
+
+            // 1번 좌석부터 30번 좌석에 대해서 사용중인 좌석 찾기 
+            for (int i = 1; i <= 30; i++) {
+                
+                // 현재 시간을 기준으로 사용하고 있는 예약 찾기
+                sql = "select s.sName from reservation r, student s where r.sId = s.sId and r.labId = ? and r.dateR = ? and (r.startTimeR <= ? and r.endTimeR > ?) and r.useCheck = ? and seatId = ?";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, (String) jComboBox1.getSelectedItem());  // 강의실
+                pstmt.setString(2, formatedNow);  // 오늘 날짜
+                //pstmt.setString(2, "2022/11/10");  // 오늘 날짜
+                pstmt.setString(3, Integer.toString(hour));  // 현재 시간의 '시'
+                pstmt.setString(4, Integer.toString(hour));  // 현재 시간의 '시'
+                //pstmt.setString(3, "18");  // 현재 시간의 '시'
+                //pstmt.setString(4, "18");  // 현재 시간의 '시'
+                pstmt.setInt(5, 1);  // 사용 여부가 1
+                pstmt.setString(6, Integer.toString(i));  // i번째 좌석
+
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    seatState.get(i - 1).setText(rs.getString(1));  // 사용 중인 좌석에 이름 출력
+                    seatState.get(i - 1).setEnabled(true);  // 사용 중인 좌석 활성화
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_LabCheckButtActionPerformed
 
     /**/

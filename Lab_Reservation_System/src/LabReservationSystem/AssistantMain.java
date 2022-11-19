@@ -27,6 +27,8 @@ import javax.swing.table.TableModel;
 import source.Lecture;
 import source.Seminar;
 import source.Manager;
+import source.Permission;
+import source.PermissionOn;
 import source.Reservation;
 
 /**
@@ -5371,7 +5373,7 @@ public class AssistantMain extends javax.swing.JFrame {
     // 예약 승인 버튼
     private void ReserOkButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserOkButtActionPerformed
         // 선택된 테이블 값 예약 승인
-
+        
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
 
         int row = jTable1.getSelectedRow();
@@ -5379,26 +5381,14 @@ public class AssistantMain extends javax.swing.JFrame {
         if (row == -1) {  // 열이 선택되지 않았을 경우
             JOptionPane.showMessageDialog(this, "승인할 예약을 선택하세요");
         } else {  // 선택된 열이 존재할 경우
-            //Reservation reservation = new Reservation((String) table.getValueAt(row, 1), (String) table.getValueAt(row, 0), (String) table.getValueAt(row, 2), (String) table.getValueAt(row, 3), 0);
-            //reservation.permissionOnPushed();
+            
+            Reservation reservation = new Reservation((String) table.getValueAt(row, 1), (String) table.getValueAt(row, 0), (String) table.getValueAt(row, 2), (String) table.getValueAt(row, 3), 0);
+            Permission permission = new PermissionOn();
+            permission.possible(reservation);  // 예약 승인 1로 변경 
+            
             connect();  // 디비 연결
 
             try {
-
-                // 예약 승인 1로 변경
-                sql = "update reservation set reserPermission = 1 where sId = ? and labId = ? and dateR = ? and startTimeR = ? and endTimeR = ? ";
-
-                pstmt = conn.prepareStatement(sql);
-
-                pstmt.setString(1, (String) table.getValueAt(row, 4));  // 학번
-                pstmt.setString(2, (String) table.getValueAt(row, 0));  // 강의실
-                pstmt.setString(3, (String) table.getValueAt(row, 1));  // 날짜
-                pstmt.setString(4, (String) table.getValueAt(row, 2));  // 시작시간
-                pstmt.setString(5, (String) table.getValueAt(row, 3));  // 종료시간
-
-                pstmt.executeUpdate();
-
-                JOptionPane.showMessageDialog(this, "예약이 승인되었습니다.");
 
                 // 테이블 새로고침 (수정된 테이블 값 반영해서 테이블 띄움)
                 table.setNumRows(0);  // 테이블 초기화
