@@ -61,19 +61,19 @@ public class AssistantMain extends javax.swing.JFrame {
         if (day == 2) {
             dayString = "화";
         }
-        if (day == 2) {
+        if (day == 3) {
             dayString = "수";
         }
-        if (day == 2) {
+        if (day == 4) {
             dayString = "목";
         }
-        if (day == 2) {
+        if (day == 5) {
             dayString = "금";
         }
-        if (day == 2) {
+        if (day == 6) {
             dayString = "토";
         }
-        if (day == 2) {
+        if (day == 7) {
             dayString = "일";
         }
 
@@ -5171,16 +5171,20 @@ public class AssistantMain extends javax.swing.JFrame {
     private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
         TT.setVisible(true);
         connect();
+        
+        DefaultTableModel table = (DefaultTableModel) jTable4.getModel();
+            table.setNumRows(0);  // 테이블 초기화
 
         try {
-            sql = "select * from lecture where labId=? order by day";
+            sql = "select l.day, l.lectureName, pName, l.startTime, l.endTime from lecture l, professor p where l.pId = p.pId and l.labId=? order by l.day";
             pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
             pstmt.setString(1, jComboBox4.getSelectedItem().toString());    //실습실
 
             rs = pstmt.executeQuery();
-            while (rs.next()) { // 레코드(Record, Row) 생성
-
+            while (rs.next()) { 
+                Object data[] = {getDayString(Integer.parseInt(rs.getString(1))) + "요일", rs.getString(2), rs.getString(3), rs.getString(4) + " : 00", rs.getString(5) + " : 00"};  
+                table.addRow(data);  // 테이블에 값 추가 
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
