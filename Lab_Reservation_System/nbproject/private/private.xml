@@ -2,14 +2,30 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="객프2 강의">
-            <file>file:/C:/Users/asdf0/Desktop/master/Lab_Reservation_System/Lab_Reservation_System/src/LabReservationSystem/AssistantMain.java</file>
-        </group>
         <group>
             <file>file:/C:/Users/Samsung/OneDrive%20-%20동의대학교/바탕%20화면/LabReservationSystem1/src/source/Permission.java</file>
             <file>file:/C:/Users/Samsung/OneDrive%20-%20동의대학교/바탕%20화면/LabReservationSystem1/src/source/Reservation.java</file>
             <file>file:/C:/Users/Samsung/OneDrive%20-%20동의대학교/바탕%20화면/LabReservationSystem1/src/source/Lab.java</file>
             <file>file:/C:/Users/Samsung/OneDrive%20-%20동의대학교/바탕%20화면/LabReservationSystem1/src/LabReservationSystem/StudentMain.java</file>
+        </group>
+        <group name="객프2 강의">
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/Lab.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/Lab916.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/LabReservationSystem/StudentMain.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/Seminar.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/Reservation.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/LabReservationSystem/LoginMain.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/Lecture.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/LabReservationSystem/ProfessorMain.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/Lab911.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/Student.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/User.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/LabReservationSystem/AssistantMain.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/PermissionOn.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/PermissionOff.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/manager.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/Permission.java</file>
+            <file>file:/C:/Users/asdf0/Desktop/dlab/Lab_Reservation_System/Lab_Reservation_System/src/source/Lab915.java</file>
         </group>
     </open-files>
 </project-private>
