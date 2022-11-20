@@ -4981,7 +4981,7 @@ public class StudentMain extends javax.swing.JFrame {
                     pstmt.setString(4, reservation.dateR);   //예약날짜
                     pstmt.setString(5, reservation.startTimeR); //시작시간
                     pstmt.setString(6, reservation.endTimeR); //종료시간
-                    pstmt.setInt(7, 0);   //예약승인
+                    pstmt.setInt(7, 1);   //예약승인
                     pstmt.setInt(8, 0);   //권한여부
                     pstmt.setInt(9, 0);   //사용여부
 
