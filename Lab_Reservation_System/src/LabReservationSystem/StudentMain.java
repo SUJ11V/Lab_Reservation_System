@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.table.DefaultTableModel;
 
 public class StudentMain extends javax.swing.JFrame {
 
@@ -1213,9 +1214,8 @@ public class StudentMain extends javax.swing.JFrame {
                             .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                             .addComponent(jTextField12)
                             .addComponent(continueCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(CheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(startButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(endButt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(startButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(endButt, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(continueButt, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(213, Short.MAX_VALUE))
@@ -1257,17 +1257,17 @@ public class StudentMain extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "날짜", "실습실", "좌석", "시간시간", "종료시간", "예약승인여부", "관리권한여부"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1293,7 +1293,6 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel17.setText("날짜 : ");
 
         jTextField2.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jTextField2.setText("jTextField2");
 
         MyReserCheckButt.setBackground(new java.awt.Color(255, 255, 255));
         MyReserCheckButt.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
@@ -1312,22 +1311,23 @@ public class StudentMain extends javax.swing.JFrame {
         CanclePanelLayout.setHorizontalGroup(
             CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CanclePanelLayout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addGroup(CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CanclePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(MyReserCheckButt)
-                        .addGap(54, 54, 54))
-                    .addComponent(MyReserCancleButt, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addGap(239, 239, 239)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(MyReserCheckButt)
+                .addContainerGap(228, Short.MAX_VALUE))
+            .addGroup(CanclePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(MyReserCancleButt)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CanclePanelLayout.setVerticalGroup(
             CanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1340,10 +1340,10 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MyReserCheckButt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(MyReserCancleButt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
 
         getContentPane().add(CanclePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
@@ -4627,17 +4627,17 @@ public class StudentMain extends javax.swing.JFrame {
 
         try {
             // 현재 시간을 기준으로 사용할 수 있는 예약 찾기
-            sql = "select reserId, labId, seatId, startTimeR, endTimeR, useCheck from reservation where sId = ? and dateR = ? and (startTimeR <= ? and endTimeR > ?)";
+            sql = "select reserId, labId, seatId, startTimeR, endTimeR, useCheck from reservation where sId = ? and dateR = ? and (startTimeR <= ? and endTimeR > ?) and reserPermission = 1";
 
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, "stu1");  // 학생 아이디
             pstmt.setString(2, formatedNow);  // 오늘 날짜
-            // pstmt.setString(2, "2022/11/09");  // 오늘 날짜
+            //pstmt.setString(2, "2022/11/09");  // 오늘 날짜
             pstmt.setString(3, Integer.toString(hour));  // 현재 시간의 '시'
             pstmt.setString(4, Integer.toString(hour));  // 현재 시간의 '시'
-            // pstmt.setString(3, "18");  // 현재 시간의 '시'
-            // pstmt.setString(4, "18");  // 현재 시간의 '시'
+            //pstmt.setString(3, "18");  // 현재 시간의 '시'
+            //pstmt.setString(4, "18");  // 현재 시간의 '시'
 
             rs = pstmt.executeQuery();
 
@@ -4648,7 +4648,7 @@ public class StudentMain extends javax.swing.JFrame {
                 jTextField13.setText(rs.getString(5) + " : 00");  // 종료시간
 
                 reservation = new Reservation(formatedNow, rs.getString(2), rs.getString(4), rs.getString(5), Integer.parseInt(rs.getString(3)));
-                // reservation = new Reservation("2022/11/09", rs.getString(2), rs.getString(4), rs.getString(5), Integer.parseInt(rs.getString(3)));
+                //reservation = new Reservation("2022/11/09", rs.getString(2), rs.getString(4), rs.getString(5), Integer.parseInt(rs.getString(3)));
 
                 if (rs.getString(6).equals("1")) {  // 사용여부가 1이면 
                     startButt.setEnabled(false);  // 사용 시작 버튼 비활성화
@@ -6220,7 +6220,43 @@ public class StudentMain extends javax.swing.JFrame {
 
     // 본인 예약 상황 조회 버튼
     private void MyReserCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MyReserCheckButtActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+
+        table.setNumRows(0);  // 테이블 초기화
+        
+        connect();  // 디비연결
+        
+        try {
+            sql = "select r.dateR, r.labId, r.seatId, r.startTimeR, r.endTimeR, r.reserPermission, r.authority from reservation r, student s where r.sId = s.sId and r.sId = ? and r.labId = ? and r.dateR = ? order by r.startTimeR";
+            pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+
+            pstmt.setString(1, "stu1");      //아이디
+            pstmt.setString(2, (String) jComboBox2.getSelectedItem());      //실습실 번호
+            pstmt.setString(3, jTextField2.getText()); //날짜
+
+            rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)};  // 값 저장
+                table.addRow(data);  // 테이블에 값 추가 
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_MyReserCheckButtActionPerformed
 
     // 본인 예약 취소 버튼
