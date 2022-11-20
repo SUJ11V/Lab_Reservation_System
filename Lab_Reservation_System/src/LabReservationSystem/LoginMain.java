@@ -16,7 +16,11 @@ public class LoginMain extends javax.swing.JFrame {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     String sql; //쿼리문 받을 변수
-
+    
+    static public String loginId="0";   //로그인한 아이디
+    public String loginPw="0";   //로그인한 비밀번호
+    static public String loginName="0";  //로그인한 사람 이름
+            
     public void connect() {  //DB연결 함수
         try {
             //JDBC드라이버 로딩
@@ -310,6 +314,69 @@ public class LoginMain extends javax.swing.JFrame {
     // id,pw 입력 후 로그인 버튼
     private void LoginButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtActionPerformed
     // 임의로 ID, PW 지정함 
+    connect();
+    loginId=ID.getText();
+    loginPw=PW.getText();
+    
+    try {
+        sql="select * from student where sId=? and sPw=?";
+        pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+        
+        pstmt.setString(1, loginId);
+        pstmt.setString(2, loginPw);
+        
+         rs = pstmt.executeQuery();
+         if(rs.next()){
+            loginName=rs.getString("sName");
+            StudentMain stu = new StudentMain();
+            stu.setVisible(true);
+            setVisible(false);
+         }else{
+            sql="select * from professor where pId=? and pPw=?";
+            pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+        
+            pstmt.setString(1, loginId);
+            pstmt.setString(2, loginPw);
+            
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                loginName=rs.getString("pName");
+                ProfessorMain pro = new ProfessorMain();
+                pro.setVisible(true);
+                setVisible(false);
+            }else{
+                sql="select * from assistant where aId=? and aPw=?";
+                pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+        
+                pstmt.setString(1, loginId);
+                pstmt.setString(2, loginPw);
+            
+                rs = pstmt.executeQuery();
+                if(rs.next()){
+                    loginName=rs.getString("aName");
+                    AssistantMain ass = new AssistantMain();
+                    ass.setVisible(true);
+                    setVisible(false);
+                }
+            }
+         }
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    } finally {
+        if (rs != null) try {
+            rs.close();
+        } catch (SQLException ex) {
+        }
+        if (pstmt != null) try {
+            pstmt.close();
+        } catch (SQLException ex) {
+        }
+        if (conn != null) try {
+            conn.close();
+        } catch (SQLException ex) {
+        }
+    }
+    /*
     if(ID.getText().equals("stu1") && PW.getText().equals("1111")) { // 학생
         StudentMain stu = new StudentMain();
         stu.setVisible(true);
@@ -322,7 +389,7 @@ public class LoginMain extends javax.swing.JFrame {
         ProfessorMain pro = new ProfessorMain();
         pro.setVisible(true);
         setVisible(false);
-    } 
+    } */
 
     
     // 로그인 기능

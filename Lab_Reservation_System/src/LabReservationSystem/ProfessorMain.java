@@ -5,6 +5,7 @@
  */
 package LabReservationSystem;
 
+import static LabReservationSystem.LoginMain.loginName;
 import java.awt.Color;
 import java.sql.*;
 import java.util.*;
@@ -65,6 +66,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         initComponents();
         
         TitlePanel.setVisible(true);
+        textField1.setText(loginName);
         mainPanel.setVisible(true);
         
         // 특강 및 세미나
