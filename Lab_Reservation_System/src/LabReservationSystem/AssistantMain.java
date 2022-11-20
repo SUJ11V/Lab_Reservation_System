@@ -484,6 +484,8 @@ public class AssistantMain extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
         RightButt = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         NoticeAddPanel = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         UserManage_menuPanel = new javax.swing.JPanel();
@@ -2445,6 +2447,11 @@ public class AssistantMain extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel10.setText("날짜 : ");
+
+        jTextField3.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout ManageRightPanelLayout = new javax.swing.GroupLayout(ManageRightPanel);
         ManageRightPanel.setLayout(ManageRightPanelLayout);
         ManageRightPanelLayout.setHorizontalGroup(
@@ -2453,6 +2460,10 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(ManageRightPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(LabRightCheckButt))
@@ -2466,7 +2477,9 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabRightCheckButt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LabRightCheckButt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -5736,7 +5749,7 @@ public class AssistantMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SeminarAddButtActionPerformed
 
-    // 실습실 예약 조회 
+    // 실습실 관리 권한 부여
     private void LabRightCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LabRightCheckButtActionPerformed
         // 입력받은 실습실에 대해서 테이블에 실습실 예약 출력
 
@@ -5749,11 +5762,12 @@ public class AssistantMain extends javax.swing.JFrame {
         try {
             // 입력받은 실습실에 대해서 날짜, 학번, 이름, 시작시간, 종료시간, 관리권한여부 조회
             // 날짜 빠른순, 종료시간 느린순으로 정렬
-            sql = "select r.dateR, r.sId, s.sName, r.startTimeR, r.endTimeR, r.authority from reservation r, student s where r.sId = s.sId and r.labId = ? order by r.dateR asc, r.endTimeR desc";
+            sql = "select r.dateR, r.sId, s.sName, r.startTimeR, r.endTimeR, r.authority from reservation r, student s where r.sId = s.sId and r.dateR = ? and r.labId = ? order by r.dateR asc, r.endTimeR desc";
 
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, (String) jComboBox5.getSelectedItem());  // 실습실
+            pstmt.setString(1, jTextField3.getText());  //날짜
+            pstmt.setString(2, (String) jComboBox5.getSelectedItem());  // 실습실
 
             rs = pstmt.executeQuery();
 
@@ -5811,18 +5825,18 @@ public class AssistantMain extends javax.swing.JFrame {
                 pstmt.executeUpdate();
 
                 JOptionPane.showMessageDialog(this, "관리권한이 부여되었습니다.");
-                    
 
                 // 테이블 새로고침 (수정된 테이블 값 반영해서 테이블 띄움)
                 table.setNumRows(0);  // 테이블 초기화
 
                 // 입력받은 실습실에 대해서 날짜, 학번, 이름, 시작시간, 종료시간, 관리권한여부 조회
                 // 날짜 빠른순, 종료시간 느린순으로 정렬
-                sql = "select r.dateR, r.sId, s.sName, r.startTimeR, r.endTimeR, r.authority from reservation r, student s where r.sId = s.sId and r.labId = ? order by r.dateR asc, r.endTimeR desc";
+                sql = "select r.dateR, r.sId, s.sName, r.startTimeR, r.endTimeR, r.authority from reservation r, student s where r.sId = s.sId and r.dateR = ? and r.labId = ? order by r.dateR asc, r.endTimeR desc";
 
                 pstmt = conn.prepareStatement(sql);
 
-                pstmt.setString(1, (String) jComboBox5.getSelectedItem());  // 실습실
+                pstmt.setString(1, jTextField3.getText());  //날짜
+                pstmt.setString(2, (String) jComboBox5.getSelectedItem());  // 실습실
 
                 rs = pstmt.executeQuery();
 
@@ -6106,6 +6120,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JComboBox<String> jComboBox9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -6191,6 +6206,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField lab;
