@@ -5,6 +5,8 @@
  */
 package LabReservationSystem;
 
+import static LabReservationSystem.LoginMain.loginId;
+import static LabReservationSystem.LoginMain.loginName;
 import java.awt.Color;
 import java.sql.*;
 import java.time.DayOfWeek;
@@ -167,6 +169,7 @@ public class AssistantMain extends javax.swing.JFrame {
         initComponents();
 
         TitlePanel.setVisible(true);
+        textField1.setText(loginName);
         mainPanel.setVisible(true);
 
         // 예약 관리
@@ -415,6 +418,8 @@ public class AssistantMain extends javax.swing.JFrame {
         SEndTime = new javax.swing.JComboBox<>();
         jLabel37 = new javax.swing.JLabel();
         SNameText = new javax.swing.JTextField();
+        jLabel57 = new javax.swing.JLabel();
+        PNumText = new javax.swing.JTextField();
         TimeTableCheckPanel = new javax.swing.JPanel();
         jComboBox4 = new javax.swing.JComboBox<>();
         TTCheckButt = new javax.swing.JButton();
@@ -1844,31 +1849,46 @@ public class AssistantMain extends javax.swing.JFrame {
             }
         });
 
+        jLabel57.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel57.setText("교수 번호 : ");
+
+        PNumText.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        PNumText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PNumTextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout SeminarAddPanelLayout = new javax.swing.GroupLayout(SeminarAddPanel);
         SeminarAddPanel.setLayout(SeminarAddPanelLayout);
         SeminarAddPanelLayout.setHorizontalGroup(
             SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SeminarAddPanelLayout.createSequentialGroup()
                 .addGap(365, 365, 365)
-                .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SeminarAddPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel30)
+                        .addComponent(jLabel57)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SDateText))
-                    .addGroup(SeminarAddPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel37)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SNameText))
-                    .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(seminarCheckButt)
+                        .addComponent(PNumText))
+                    .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(SeminarAddPanelLayout.createSequentialGroup()
-                            .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel28)
-                                .addComponent(jLabel29))
+                            .addComponent(jLabel30)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(SEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(SStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(SDateText))
+                        .addGroup(SeminarAddPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel37)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(SNameText))
+                        .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(seminarCheckButt)
+                            .addGroup(SeminarAddPanelLayout.createSequentialGroup()
+                                .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel28)
+                                    .addComponent(jLabel29))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(SStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(449, Short.MAX_VALUE))
         );
         SeminarAddPanelLayout.setVerticalGroup(
@@ -1891,8 +1911,12 @@ public class AssistantMain extends javax.swing.JFrame {
                     .addComponent(jLabel37)
                     .addComponent(SNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
+                .addGroup(SeminarAddPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel57)
+                    .addComponent(PNumText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(seminarCheckButt)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         getContentPane().add(SeminarAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
@@ -5168,6 +5192,8 @@ public class AssistantMain extends javax.swing.JFrame {
     private void seminarCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seminarCheckButtActionPerformed
         reset();
         connect();
+        SNameText.setText("");
+        PNumText.setText("");
         TimeTable_menuPanel.setVisible(true);
         menuSeminarAdd.setBackground(yellow);
 
@@ -5184,7 +5210,7 @@ public class AssistantMain extends javax.swing.JFrame {
         } else {
             //실습실 번호는 임의로 0으로 설정
             //pId는 로그인 시 객체 저장해서 가져와야 한다. 현재는 임의로 pro1로 설정
-            seminar = new Seminar(SDateText.getText(), SNameText.getText(), "pro1", "0", sText.substring(0, sNum), eText.substring(0, eNum));
+            seminar = new Seminar(SDateText.getText(), SNameText.getText(), PNumText.getText(), "0", sText.substring(0, sNum), eText.substring(0, eNum));
             System.out.println(seminar.dateS);
             try {
                 //강의가 있는지 조회
@@ -5611,7 +5637,6 @@ public class AssistantMain extends javax.swing.JFrame {
     private void TimeTableAddButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimeTableAddButtActionPerformed
         // 입력받은 값 시간표 db에 저장
         connect();
-
         String sText = jComboBox8.getSelectedItem().toString();   //시작 시간 가져와서 문자열로 변수에 저장
         int sNum = sText.indexOf(":");    //":"위치 저장
         String eText = jComboBox9.getSelectedItem().toString();   //종료 시간 가져와서 문자열로 변수에 저장
@@ -5668,7 +5693,7 @@ public class AssistantMain extends javax.swing.JFrame {
                     pstmt.setString(3, lecture.startTime);    //좌석번호
                     pstmt.setString(4, lecture.endTime);   //예약날짜
                     pstmt.setInt(5, day); //시작시간
-                    pstmt.setString(6, lecture.pId);   //교수명 (임의로 아이디 넣어둠! 수정해야함)
+                    pstmt.setString(6, lecture.pId);   //교수명
 
                     pstmt.executeUpdate();
                     JOptionPane.showMessageDialog(this, "등록 완료되었습니다.", "Message", JOptionPane.INFORMATION_MESSAGE);
@@ -5706,7 +5731,7 @@ public class AssistantMain extends javax.swing.JFrame {
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
                 //로그인 시 조교 정보 객체에 저장해서 아이디 가져와야 함
-                pstmt.setString(1, "pro1");         //조교아이디 
+                pstmt.setString(1, seminar.pId);         //교수아이디 
                 pstmt.setString(2, seminar.labId);   //실습실번호
                 pstmt.setString(3, seminar.seminarName);    //세미나명
                 pstmt.setString(4, seminar.dateS);   //예약날짜
@@ -6005,6 +6030,10 @@ public class AssistantMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
+    private void PNumTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PNumTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PNumTextActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -6056,6 +6085,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JPanel ManageRightPanel;
     private javax.swing.JPanel Manage_menuPanel;
     private javax.swing.JPanel NoticeAddPanel;
+    private javax.swing.JTextField PNumText;
     private javax.swing.JPanel ReserCheckPanel;
     private javax.swing.JPanel ReserManage_menuPanel;
     private javax.swing.JButton ReserOkButt;
@@ -6156,6 +6186,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
