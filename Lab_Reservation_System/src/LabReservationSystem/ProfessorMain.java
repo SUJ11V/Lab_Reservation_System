@@ -6,6 +6,12 @@
 package LabReservationSystem;
 
 import java.awt.Color;
+import java.sql.*;
+import java.util.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JButton;
 
 /**
  *
@@ -13,9 +19,48 @@ import java.awt.Color;
  */
 public class ProfessorMain extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AssistantMain
-     */
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    String sql; //쿼리문 받을 변수
+   
+    Color yellow = new Color(254,255,233);  // 노란색 저장
+    
+    ArrayList<JButton> seatState = new ArrayList<>();  // 좌석별 상태
+
+    public void seatState() {
+        seatState.add(seat1);
+        seatState.add(seat2);
+        seatState.add(seat3);
+        seatState.add(seat4);
+        seatState.add(seat5);
+        seatState.add(seat6);
+        seatState.add(seat7);
+        seatState.add(seat8);
+        seatState.add(seat9);
+        seatState.add(seat10);
+        seatState.add(seat11);
+        seatState.add(seat12);
+        seatState.add(seat13);
+        seatState.add(seat14);
+        seatState.add(seat15);
+        seatState.add(seat16);
+        seatState.add(seat17);
+        seatState.add(seat18);
+        seatState.add(seat19);
+        seatState.add(seat20);
+        seatState.add(seat21);
+        seatState.add(seat22);
+        seatState.add(seat23);
+        seatState.add(seat24);
+        seatState.add(seat25);
+        seatState.add(seat26);
+        seatState.add(seat27);
+        seatState.add(seat28);
+        seatState.add(seat29);
+        seatState.add(seat30);
+    }
+    
     public ProfessorMain() {
         initComponents();
         
@@ -41,6 +86,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         LabCheckPanel.setVisible(false);
         seatCheckPanel.setVisible(false);
         
+        seatState();
                 
     }
 
@@ -73,6 +119,21 @@ public class ProfessorMain extends javax.swing.JFrame {
         seatCheckPanel.setVisible(false);
     }
     
+    public void connect() {  //DB연결 함수
+        try {
+            //JDBC드라이버 로딩
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //디비 연결 용 변수
+            String jdbcDriver = "jdbc:mysql://211.213.95.123:3360/labmanagement?serverTimeZone=UTC";
+            String dbId = "20203128"; //MySQL 접속 아이디("20203132"도 가능)
+            String dbPw = "20203128"; //접속 비밀번호(아이디를 20203132로 작성시, 비밀번호도 아이디와 같도록
+            conn = DriverManager.getConnection(jdbcDriver, dbId, dbPw);
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -235,9 +296,9 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addGap(194, 194, 194))
         );
 
-        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1110, 600));
+        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1110, 620));
 
-        TitlePanel.setBackground(new java.awt.Color(204, 204, 204));
+        TitlePanel.setBackground(new java.awt.Color(246, 226, 231));
         TitlePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         TitlePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         TitlePanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -249,6 +310,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("굴림", 0, 30)); // NOI18N
         jLabel1.setText("컴퓨터소프트웨어공학과 실습실 예약 시스템");
 
+        textField1.setBackground(new java.awt.Color(255, 255, 255));
         textField1.setEditable(false);
         textField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textField1.setText("홍길동");
@@ -386,10 +448,12 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addComponent(menuSeminarReser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(menuSeminarCancle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Seminar_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(Seminar_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
+
+        SeminarCanclePanel.setBackground(new java.awt.Color(254, 255, 233));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -412,6 +476,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        CancleButt.setBackground(new java.awt.Color(255, 255, 255));
         CancleButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         CancleButt.setText("취소");
         CancleButt.addActionListener(new java.awt.event.ActionListener() {
@@ -434,14 +499,16 @@ public class ProfessorMain extends javax.swing.JFrame {
         SeminarCanclePanelLayout.setVerticalGroup(
             SeminarCanclePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SeminarCanclePanelLayout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+                .addContainerGap(79, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(CancleButt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
 
-        getContentPane().add(SeminarCanclePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 600));
+        getContentPane().add(SeminarCanclePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
+
+        SeminarReserPanel.setBackground(new java.awt.Color(254, 255, 233));
 
         jLabel28.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel28.setText("시작시간 : ");
@@ -461,6 +528,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         endText.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         endText.setText("jTextField8");
 
+        seminarCheckButt.setBackground(new java.awt.Color(255, 255, 255));
         seminarCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         seminarCheckButt.setText("조회");
         seminarCheckButt.addActionListener(new java.awt.event.ActionListener() {
@@ -514,6 +582,8 @@ public class ProfessorMain extends javax.swing.JFrame {
 
         getContentPane().add(SeminarReserPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
+        SeminarReserCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
+
         jLabel31.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel31.setText("날짜 : ");
 
@@ -538,6 +608,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         jLabel34.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel34.setText("사용 가능한 강의실");
 
+        ReserButt.setBackground(new java.awt.Color(255, 255, 255));
         ReserButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         ReserButt.setText("예약");
         ReserButt.addActionListener(new java.awt.event.ActionListener() {
@@ -625,9 +696,12 @@ public class ProfessorMain extends javax.swing.JFrame {
 
         getContentPane().add(SeminarReserCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
 
+        TimeTableCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
+
         jComboBox4.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
 
+        TTCheckButt.setBackground(new java.awt.Color(255, 255, 255));
         TTCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         TTCheckButt.setText("조회");
         TTCheckButt.addActionListener(new java.awt.event.ActionListener() {
@@ -638,6 +712,8 @@ public class ProfessorMain extends javax.swing.JFrame {
 
         jLabel27.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel27.setText("실습실 : ");
+
+        TT.setBackground(new java.awt.Color(254, 255, 233));
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -777,10 +853,10 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addComponent(jLabel47)
                 .addGap(18, 18, 18)
                 .addComponent(menuTTCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(381, Short.MAX_VALUE))
+                .addContainerGap(391, Short.MAX_VALUE))
         );
 
-        getContentPane().add(TTCheck_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(TTCheck_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
 
         LabCheck_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
         LabCheck_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -852,10 +928,12 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addComponent(jLabel51)
                 .addGap(18, 18, 18)
                 .addComponent(menuLabCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(381, Short.MAX_VALUE))
+                .addContainerGap(391, Short.MAX_VALUE))
         );
 
-        getContentPane().add(LabCheck_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 610));
+        getContentPane().add(LabCheck_menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 150, 620));
+
+        LabCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
 
         jLabel4.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jLabel4.setText("강의실 : ");
@@ -863,6 +941,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         jComboBox1.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
 
+        LabCheckButt.setBackground(new java.awt.Color(255, 255, 255));
         LabCheckButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         LabCheckButt.setText("조회");
         LabCheckButt.addActionListener(new java.awt.event.ActionListener() {
@@ -871,6 +950,7 @@ public class ProfessorMain extends javax.swing.JFrame {
             }
         });
 
+        seatCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
         seatCheckPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout seatCheckPanelLayout = new javax.swing.GroupLayout(seatCheckPanel);
@@ -1017,10 +1097,10 @@ public class ProfessorMain extends javax.swing.JFrame {
                     .addComponent(LabCheckButt))
                 .addGap(34, 34, 34)
                 .addComponent(seatCheckPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
-        getContentPane().add(LabCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 600));
+        getContentPane().add(LabCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1030,7 +1110,7 @@ public class ProfessorMain extends javax.swing.JFrame {
        reset();
        LabCheck_menuPanel.setVisible(true);
        LabCheckPanel.setVisible(true);
-       menuLabCheck.setBackground(Color.pink);
+       menuLabCheck.setBackground(yellow);
     }//GEN-LAST:event_labCheckButtActionPerformed
 
     // 메인화면 - 특강 및 세미나 버튼
@@ -1038,7 +1118,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         reset();
         Seminar_menuPanel.setVisible(true);
         SeminarReserPanel.setVisible(true);
-        menuSeminarReser.setBackground(Color.pink);
+        menuSeminarReser.setBackground(yellow);
     }//GEN-LAST:event_seminarReserButtActionPerformed
 
     // 메인화면 - 시간표 조회 버튼
@@ -1046,7 +1126,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         reset();
         TTCheck_menuPanel.setVisible(true);
         TimeTableCheckPanel.setVisible(true);
-        menuTTCheck.setBackground(Color.pink);
+        menuTTCheck.setBackground(yellow);
     }//GEN-LAST:event_timeTableCheckButtActionPerformed
 
     // 타이틀 패널 클릭시 메인 패널로 이동
@@ -1061,7 +1141,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         Seminar_menuPanel.setVisible(true);
         SeminarCanclePanel.setVisible(true);
 
-        menuSeminarCancle.setBackground(Color.pink);
+        menuSeminarCancle.setBackground(yellow);
         
         // 테이블에 db에서 특강 예약 값 가져와서 띄우기
     }//GEN-LAST:event_menuSeminarCancleMouseClicked
@@ -1072,14 +1152,14 @@ public class ProfessorMain extends javax.swing.JFrame {
         Seminar_menuPanel.setVisible(true);
         SeminarReserPanel.setVisible(true);
 
-        menuSeminarReser.setBackground(Color.pink);
+        menuSeminarReser.setBackground(yellow);
     }//GEN-LAST:event_menuSeminarReserMouseClicked
 
     // 특강 날짜, 시간 입력 후 사용가능한 강의실 조회
     private void seminarCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seminarCheckButtActionPerformed
         reset();
         Seminar_menuPanel.setVisible(true);
-        menuSeminarReser.setBackground(Color.pink);
+        menuSeminarReser.setBackground(yellow);
 
         SeminarReserCheckPanel.setVisible(true);
         
@@ -1109,7 +1189,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         TTCheck_menuPanel.setVisible(true);
         TimeTableCheckPanel.setVisible(true);
 
-        menuTTCheck.setBackground(Color.pink);
+        menuTTCheck.setBackground(yellow);
     }//GEN-LAST:event_menuTTCheckMouseClicked
 
     // 특강 예약 버튼
@@ -1123,7 +1203,7 @@ public class ProfessorMain extends javax.swing.JFrame {
         LabCheck_menuPanel.setVisible(true);
         LabCheckPanel.setVisible(true);
 
-        menuLabCheck.setBackground(Color.pink);
+        menuLabCheck.setBackground(yellow);
     }//GEN-LAST:event_menuLabCheckMouseClicked
 
     // 강의실 선택 후 실습실 사용 현황 조회 버튼
@@ -1132,7 +1212,65 @@ public class ProfessorMain extends javax.swing.JFrame {
         
         // 입력받은 강의실의 각 좌석에 현재 사용하고 있는 학생 이름 띄우기
         
-        seat1.setText("홍길동");
+        for (int i = 0; i < 30; i++) {
+            seatState.get(i).setText("");  // 좌석 초기화
+            seatState.get(i).setEnabled(false);  // 좌석 비활성화
+        }
+
+        LocalDate nowDate = LocalDate.now();  // 현재 날짜 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");  // "yyyy/MM/dd"형식으로 포맷 정의
+        String formatedNow = nowDate.format(formatter);  // 포맷 적용
+
+        LocalTime nowTime = LocalTime.now();  // 현재 시간
+        int hour = nowTime.getHour();  // 시 구하기
+
+        connect();  // 디비연결
+
+        try {
+
+            // 1번 좌석부터 30번 좌석에 대해서 사용중인 좌석 찾기 
+            for (int i = 1; i <= 30; i++) {
+                
+                // 현재 시간을 기준으로 사용하고 있는 예약 찾기
+                sql = "select s.sName from reservation r, student s where r.sId = s.sId and r.labId = ? and r.dateR = ? and (r.startTimeR <= ? and r.endTimeR > ?) and r.useCheck = ? and seatId = ?";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, (String) jComboBox1.getSelectedItem());  // 강의실
+                pstmt.setString(2, formatedNow);  // 오늘 날짜
+                //pstmt.setString(2, "2022/11/10");  // 오늘 날짜
+                pstmt.setString(3, Integer.toString(hour));  // 현재 시간의 '시'
+                pstmt.setString(4, Integer.toString(hour));  // 현재 시간의 '시'
+                //pstmt.setString(3, "18");  // 현재 시간의 '시'
+                //pstmt.setString(4, "18");  // 현재 시간의 '시'
+                pstmt.setInt(5, 1);  // 사용 여부가 1
+                pstmt.setString(6, Integer.toString(i));  // i번째 좌석
+
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    seatState.get(i - 1).setText(rs.getString(1));  // 사용 중인 좌석에 이름 출력
+                    seatState.get(i - 1).setEnabled(true);  // 사용 중인 좌석 활성화
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_LabCheckButtActionPerformed
 
     /**/

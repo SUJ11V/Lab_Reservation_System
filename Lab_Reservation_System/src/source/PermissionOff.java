@@ -1,9 +1,12 @@
 package source;
 
-class PermissionOff implements Permission {
-  public void possible() {
-    // Bouml preserved body begin 00021282
-    // Bouml preserved body end 00021282
-  }
+public class PermissionOff implements Permission {
 
+    public void PermissionOff() {
+    }
+
+    @Override
+    public void possible(Reservation reservation) {
+        System.out.println("예약 미승인");
+    }
 }

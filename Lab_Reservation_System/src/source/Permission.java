@@ -1,4 +1,5 @@
 package source;
 
-interface Permission {
+public interface Permission {
+    public void possible(Reservation reservation);
 }

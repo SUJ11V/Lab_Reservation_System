@@ -65,7 +65,7 @@ public class LoginMain extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TitlePanel.setBackground(new java.awt.Color(204, 204, 204));
+        TitlePanel.setBackground(new java.awt.Color(246, 226, 231));
         TitlePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         TitlePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         TitlePanel.addMouseListener(new java.awt.event.MouseAdapter() {
