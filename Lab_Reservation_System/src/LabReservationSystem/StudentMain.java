@@ -1,5 +1,7 @@
 package LabReservationSystem;
 
+import static LabReservationSystem.LoginMain.loginId;
+import static LabReservationSystem.LoginMain.loginName;
 import source.Lecture;
 import source.Reservation;
 import source.Seminar;
@@ -276,6 +278,7 @@ public class StudentMain extends javax.swing.JFrame {
     public StudentMain() {
         initComponents();
         TitlePanel.setVisible(true);
+        textField1.setText(loginName);
         mainPanel.setVisible(true);
 
         Reser_menuPanel.setVisible(false);
@@ -4798,7 +4801,7 @@ public class StudentMain extends javax.swing.JFrame {
                     pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
                     //로그인 시 학생 정보 객체에 저장해서 아이디 가져와야 함
-                    pstmt.setString(1, "stu2");         //학생아이디 
+                    pstmt.setString(1, loginId);         //학생아이디 
                     pstmt.setString(2, reservation.labId);   //예약날짜
                     pstmt.setInt(3, i + 1);    //좌석번호
                     pstmt.setString(4, reservation.dateR);   //예약날짜
@@ -4915,7 +4918,7 @@ public class StudentMain extends javax.swing.JFrame {
                         boolean exist = true;
 
                         while (rs.next()) {
-                            if ("stu1".equals(rs.getString("sId"))) {
+                            if (loginId.equals(rs.getString("sId"))) {
                                 JOptionPane.showMessageDialog(this, "해당 시각에 이미 예약이 존재합니다.", "Message", JOptionPane.ERROR_MESSAGE);
                                 beforeReser.setVisible(true);
                                 beforeSeatStatePanel.setVisible(false); //좌석 안보이게 설정
@@ -6379,7 +6382,7 @@ public class StudentMain extends javax.swing.JFrame {
 
             boolean exist = true;
             while (rs.next()) {
-                if ("stu2".equals(rs.getString("sId"))) {
+                if (loginId.equals(rs.getString("sId"))) {
                     beforeSeatStatePanel.setVisible(false);
                     JOptionPane.showMessageDialog(this, "해당 시각에 이미 예약이 존재합니다.", "Message", JOptionPane.ERROR_MESSAGE);
                     aPanel.setVisible(true);
