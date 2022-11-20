@@ -4,16 +4,38 @@
  * and open the template in the editor.
  */
 package LabReservationSystem;
+import java.sql.*;
 
 /**
  *
  * @author asdf0
  */
 public class LoginMain extends javax.swing.JFrame {
+    
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    String sql; //쿼리문 받을 변수
 
-    /**
-     * Creates new form LoginMain
-     */
+    public void connect() {  //DB연결 함수
+        try {
+            //JDBC드라이버 로딩
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //디비 연결 용 변수
+            String jdbcDriver = "jdbc:mysql://211.213.95.123:3360/labmanagement?serverTimeZone=UTC";
+            String dbId = "20203128"; //MySQL 접속 아이디("20203132"도 가능)
+            String dbPw = "20203128"; //접속 비밀번호(아이디를 20203132로 작성시, 비밀번호도 아이디와 같도록
+            conn = DriverManager.getConnection(jdbcDriver, dbId, dbPw);
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    
+    
+    
     public LoginMain() {
         initComponents();
         

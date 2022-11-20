@@ -2416,17 +2416,17 @@ public class AssistantMain extends javax.swing.JFrame {
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "날짜", "학번", "이름", "시작시간", "종료시간", "관리권한여부"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -2434,6 +2434,7 @@ public class AssistantMain extends javax.swing.JFrame {
             }
         });
         jTable5.setSelectionBackground(new java.awt.Color(246, 226, 231));
+        jTable5.setShowGrid(false);
         jScrollPane6.setViewportView(jTable5);
 
         RightButt.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
@@ -2448,27 +2449,25 @@ public class AssistantMain extends javax.swing.JFrame {
         ManageRightPanel.setLayout(ManageRightPanelLayout);
         ManageRightPanelLayout.setHorizontalGroup(
             ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ManageRightPanelLayout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
+            .addGroup(ManageRightPanelLayout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(ManageRightPanelLayout.createSequentialGroup()
                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addGap(39, 39, 39)
                         .addComponent(LabRightCheckButt))
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 783, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RightButt))
-                .addGap(80, 80, 80))
+                    .addComponent(RightButt)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56))
         );
         ManageRightPanelLayout.setVerticalGroup(
             ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ManageRightPanelLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(LabRightCheckButt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ManageRightPanelLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27)
+                .addGap(41, 41, 41)
+                .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabRightCheckButt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(RightButt, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
@@ -5373,7 +5372,7 @@ public class AssistantMain extends javax.swing.JFrame {
     // 예약 승인 버튼
     private void ReserOkButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserOkButtActionPerformed
         // 선택된 테이블 값 예약 승인
-        
+
         DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
 
         int row = jTable1.getSelectedRow();
@@ -5381,11 +5380,11 @@ public class AssistantMain extends javax.swing.JFrame {
         if (row == -1) {  // 열이 선택되지 않았을 경우
             JOptionPane.showMessageDialog(this, "승인할 예약을 선택하세요");
         } else {  // 선택된 열이 존재할 경우
-            
+
             Reservation reservation = new Reservation((String) table.getValueAt(row, 1), (String) table.getValueAt(row, 0), (String) table.getValueAt(row, 2), (String) table.getValueAt(row, 3), 0);
             Permission permission = new PermissionOn();
             permission.possible(reservation);  // 예약 승인 1로 변경 
-            
+
             connect();  // 디비 연결
 
             try {
@@ -5740,11 +5739,116 @@ public class AssistantMain extends javax.swing.JFrame {
     // 실습실 예약 조회 
     private void LabRightCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LabRightCheckButtActionPerformed
         // 입력받은 실습실에 대해서 테이블에 실습실 예약 출력
+
+        DefaultTableModel table = (DefaultTableModel) jTable5.getModel();
+
+        table.setNumRows(0);  // 테이블 초기화
+
+        connect();  // 디비 연결
+
+        try {
+            // 입력받은 실습실에 대해서 날짜, 학번, 이름, 시작시간, 종료시간, 관리권한여부 조회
+            // 날짜 빠른순, 종료시간 느린순으로 정렬
+            sql = "select r.dateR, r.sId, s.sName, r.startTimeR, r.endTimeR, r.authority from reservation r, student s where r.sId = s.sId and r.labId = ? order by r.dateR asc, r.endTimeR desc";
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, (String) jComboBox5.getSelectedItem());  // 실습실
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};  // 날짜, 학번, 이름, 시작시간, 종료시간, 관리권한여부 값 저장
+                table.addRow(data);  // 테이블에 값 추가 
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
+
     }//GEN-LAST:event_LabRightCheckButtActionPerformed
 
     // 관리권한부여 버튼
     private void RightButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RightButtActionPerformed
         // 테이블에서 선택된 행의 학생의 db에 관리권한부여 정보 추가
+
+        DefaultTableModel table = (DefaultTableModel) jTable5.getModel();
+
+        int row = jTable5.getSelectedRow();
+
+        if (row == -1) {  // 열이 선택되지 않았을 경우
+            JOptionPane.showMessageDialog(this, "관리권한을 부여할 예약을 선택하세요");
+        } else {  // 선택된 열이 존재할 경우
+
+            connect();  // 디비 연결
+
+            try {
+
+                sql = "update reservation set authority = 1 where labId = ? and dateR = ? and sId = ? and startTimeR = ? and endTimeR = ? and authority = ? ";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, (String) jComboBox5.getSelectedItem());  // 강의실
+                pstmt.setString(2, (String) table.getValueAt(row, 0));  // 날짜
+                pstmt.setString(3, (String) table.getValueAt(row, 1));  // 학번
+                pstmt.setString(4, (String) table.getValueAt(row, 3));  // 시작시간
+                pstmt.setString(5, (String) table.getValueAt(row, 4));  // 종료시간
+                pstmt.setInt(6, 0);  // 관리권한여부
+
+                pstmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "관리권한이 부여되었습니다.");
+                    
+
+                // 테이블 새로고침 (수정된 테이블 값 반영해서 테이블 띄움)
+                table.setNumRows(0);  // 테이블 초기화
+
+                // 입력받은 실습실에 대해서 날짜, 학번, 이름, 시작시간, 종료시간, 관리권한여부 조회
+                // 날짜 빠른순, 종료시간 느린순으로 정렬
+                sql = "select r.dateR, r.sId, s.sName, r.startTimeR, r.endTimeR, r.authority from reservation r, student s where r.sId = s.sId and r.labId = ? order by r.dateR asc, r.endTimeR desc";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, (String) jComboBox5.getSelectedItem());  // 실습실
+
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};  // 날짜, 학번, 이름, 시작시간, 종료시간, 관리권한여부 값 저장
+                    table.addRow(data);  // 테이블에 값 추가 
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+
+        }
     }//GEN-LAST:event_RightButtActionPerformed
 
     // 승인 및 초기화 관리 메뉴바 - 회원 정보 초기화 선택 시
@@ -5824,7 +5928,6 @@ public class AssistantMain extends javax.swing.JFrame {
         seatStatusPanel.setVisible(true);
 
         // 입력받은 강의실의 각 좌석에 현재 사용하고 있는 학생 이름 띄우기
-
         for (int i = 0; i < 30; i++) {
             seatState.get(i).setText("");  // 좌석 초기화
             seatState.get(i).setEnabled(false);  // 좌석 비활성화
@@ -5843,7 +5946,7 @@ public class AssistantMain extends javax.swing.JFrame {
 
             // 1번 좌석부터 30번 좌석에 대해서 사용중인 좌석 찾기 
             for (int i = 1; i <= 30; i++) {
-                
+
                 // 현재 시간을 기준으로 사용하고 있는 예약 찾기
                 sql = "select s.sName from reservation r, student s where r.sId = s.sId and r.labId = ? and r.dateR = ? and (r.startTimeR <= ? and r.endTimeR > ?) and r.useCheck = ? and seatId = ?";
 
