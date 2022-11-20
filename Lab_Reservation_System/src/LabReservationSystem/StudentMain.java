@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.border.Border;
 
 public class StudentMain extends javax.swing.JFrame {
 
@@ -31,6 +32,7 @@ public class StudentMain extends javax.swing.JFrame {
     String labItem = null;  // 5시 이후 강의실 아이템 저장
     String[][] reser = {{"915", "0"}, {"916", "0"}, {"918", "0"}, {"911", "0"}};  // 예약카운트 2차원 배열
 
+    ArrayList<JPanel> timeTable =new ArrayList<>(); //시간표
     ArrayList<JRadioButton> seat = new ArrayList<>();
     ArrayList<JRadioButton> seatInquire = new ArrayList<>();
     Reservation reservation; //사용자에게 입력받을 예약 정보 객체
@@ -104,6 +106,72 @@ public class StudentMain extends javax.swing.JFrame {
         seatInquire.add(seat90);
     }
 
+    public void setTimeTable(){
+        timeTable.add(Mon1);
+        timeTable.add(Tue1);
+        timeTable.add(Wed1);
+        timeTable.add(Thu1);
+        timeTable.add(Fri1);
+        timeTable.add(Sat1);
+        timeTable.add(Sun1);
+        timeTable.add(Mon2);
+        timeTable.add(Tue2);
+        timeTable.add(Wed2);
+        timeTable.add(Thu2);
+        timeTable.add(Fri2);
+        timeTable.add(jPanel111);
+        timeTable.add(jPanel102);
+        timeTable.add(Mon3);
+        timeTable.add(Tue3);
+        timeTable.add(Wed3);
+        timeTable.add(Thu3);
+        timeTable.add(Fri3);
+        timeTable.add(jPanel112);
+        timeTable.add(jPanel103);
+        timeTable.add(Mon4);
+        timeTable.add(Tue4);
+        timeTable.add(Wed4);
+        timeTable.add(Thu4);
+        timeTable.add(Fri4);
+        timeTable.add(jPanel113);
+        timeTable.add(jPanel104);
+        timeTable.add(M5);
+        timeTable.add(Tue5);
+        timeTable.add(Wed5);
+        timeTable.add(Thu5);
+        timeTable.add(Fri5);
+        timeTable.add(jPanel114);
+        timeTable.add(jPanel105);
+        timeTable.add(M6);
+        timeTable.add(Tue6);
+        timeTable.add(Wed6);
+        timeTable.add(Thu6);
+        timeTable.add(Fri6);
+        timeTable.add(jPanel97);
+        timeTable.add(jPanel106);
+        timeTable.add(M7);
+        timeTable.add(Tue7);
+        timeTable.add(Wed7);
+        timeTable.add(Thu7);
+        timeTable.add(Fri7);
+        timeTable.add(jPanel98);
+        timeTable.add(jPanel107);
+        timeTable.add(M8);
+        timeTable.add(Tue8);
+        timeTable.add(Wed8);
+        timeTable.add(Thu8);
+        timeTable.add(Fri8);
+        timeTable.add(jPanel99);
+        timeTable.add(jPanel108);
+        timeTable.add(M9);
+        timeTable.add(Tue9);
+        timeTable.add(Wed9);
+        timeTable.add(Thu9);
+        timeTable.add(Fri9);
+        timeTable.add(jPanel100);
+        timeTable.add(jPanel109);
+    }
+    
     public int getDay(Reservation reservation) { //요일 구하기
         //dateR은 "yyyy/mm/dd" 형식으로 된 string type으로 받는다.
         int yNum = reservation.dateR.indexOf("/"); //4
@@ -2947,7 +3015,8 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel28.setText("강의실 : ");
 
         jTextField17.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-        jTextField17.setText("jTextField14");
+        jTextField17.setText("2022/11/21");
+        jTextField17.setToolTipText("");
 
         jComboBox9.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
         jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
@@ -2969,668 +3038,452 @@ public class StudentMain extends javax.swing.JFrame {
         Mon1.setBackground(new java.awt.Color(255, 255, 255));
         Mon1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Mon1.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Mon1Layout = new javax.swing.GroupLayout(Mon1);
-        Mon1.setLayout(Mon1Layout);
-        Mon1Layout.setHorizontalGroup(
-            Mon1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Mon1Layout.setVerticalGroup(
-            Mon1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Mon1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Mon1MouseClicked(evt);
+            }
+        });
+        Mon1.setLayout(new java.awt.GridLayout(1, 1));
 
         Mon2.setBackground(new java.awt.Color(255, 255, 255));
         Mon2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Mon2.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Mon2Layout = new javax.swing.GroupLayout(Mon2);
-        Mon2.setLayout(Mon2Layout);
-        Mon2Layout.setHorizontalGroup(
-            Mon2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Mon2Layout.setVerticalGroup(
-            Mon2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Mon2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Mon2MouseClicked(evt);
+            }
+        });
+        Mon2.setLayout(new java.awt.GridLayout(1, 1));
 
         Mon3.setBackground(new java.awt.Color(255, 255, 255));
         Mon3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Mon3.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Mon3Layout = new javax.swing.GroupLayout(Mon3);
-        Mon3.setLayout(Mon3Layout);
-        Mon3Layout.setHorizontalGroup(
-            Mon3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Mon3Layout.setVerticalGroup(
-            Mon3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Mon3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Mon3MouseClicked(evt);
+            }
+        });
+        Mon3.setLayout(new java.awt.GridLayout(1, 1));
 
         Mon4.setBackground(new java.awt.Color(255, 255, 255));
         Mon4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Mon4.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Mon4Layout = new javax.swing.GroupLayout(Mon4);
-        Mon4.setLayout(Mon4Layout);
-        Mon4Layout.setHorizontalGroup(
-            Mon4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Mon4Layout.setVerticalGroup(
-            Mon4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Mon4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Mon4MouseClicked(evt);
+            }
+        });
+        Mon4.setLayout(new java.awt.GridLayout(1, 1));
 
         M5.setBackground(new java.awt.Color(255, 255, 255));
         M5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         M5.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout M5Layout = new javax.swing.GroupLayout(M5);
-        M5.setLayout(M5Layout);
-        M5Layout.setHorizontalGroup(
-            M5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        M5Layout.setVerticalGroup(
-            M5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        M5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                M5MouseClicked(evt);
+            }
+        });
+        M5.setLayout(new java.awt.GridLayout(1, 1));
 
         M6.setBackground(new java.awt.Color(255, 255, 255));
         M6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         M6.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout M6Layout = new javax.swing.GroupLayout(M6);
-        M6.setLayout(M6Layout);
-        M6Layout.setHorizontalGroup(
-            M6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        M6Layout.setVerticalGroup(
-            M6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        M6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                M6MouseClicked(evt);
+            }
+        });
+        M6.setLayout(new java.awt.GridLayout(1, 1));
 
         M7.setBackground(new java.awt.Color(255, 255, 255));
         M7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         M7.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout M7Layout = new javax.swing.GroupLayout(M7);
-        M7.setLayout(M7Layout);
-        M7Layout.setHorizontalGroup(
-            M7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        M7Layout.setVerticalGroup(
-            M7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        M7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                M7MouseClicked(evt);
+            }
+        });
+        M7.setLayout(new java.awt.GridLayout(1, 1));
 
         M8.setBackground(new java.awt.Color(255, 255, 255));
         M8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         M8.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout M8Layout = new javax.swing.GroupLayout(M8);
-        M8.setLayout(M8Layout);
-        M8Layout.setHorizontalGroup(
-            M8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        M8Layout.setVerticalGroup(
-            M8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        M8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                M8MouseClicked(evt);
+            }
+        });
+        M8.setLayout(new java.awt.GridLayout(1, 1));
 
         M9.setBackground(new java.awt.Color(255, 255, 255));
         M9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         M9.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout M9Layout = new javax.swing.GroupLayout(M9);
-        M9.setLayout(M9Layout);
-        M9Layout.setHorizontalGroup(
-            M9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        M9Layout.setVerticalGroup(
-            M9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        M9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                M9MouseClicked(evt);
+            }
+        });
+        M9.setLayout(new java.awt.GridLayout(1, 1));
 
         Tue2.setBackground(new java.awt.Color(255, 255, 255));
         Tue2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tue2.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Tue2Layout = new javax.swing.GroupLayout(Tue2);
-        Tue2.setLayout(Tue2Layout);
-        Tue2Layout.setHorizontalGroup(
-            Tue2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Tue2Layout.setVerticalGroup(
-            Tue2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Tue2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tue2MouseClicked(evt);
+            }
+        });
+        Tue2.setLayout(new java.awt.GridLayout(1, 1));
 
         Tue3.setBackground(new java.awt.Color(255, 255, 255));
         Tue3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tue3.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Tue3Layout = new javax.swing.GroupLayout(Tue3);
-        Tue3.setLayout(Tue3Layout);
-        Tue3Layout.setHorizontalGroup(
-            Tue3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Tue3Layout.setVerticalGroup(
-            Tue3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Tue3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tue3MouseClicked(evt);
+            }
+        });
+        Tue3.setLayout(new java.awt.GridLayout(1, 1));
 
         Tue4.setBackground(new java.awt.Color(255, 255, 255));
         Tue4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tue4.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Tue4Layout = new javax.swing.GroupLayout(Tue4);
-        Tue4.setLayout(Tue4Layout);
-        Tue4Layout.setHorizontalGroup(
-            Tue4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Tue4Layout.setVerticalGroup(
-            Tue4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Tue4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tue4MouseClicked(evt);
+            }
+        });
+        Tue4.setLayout(new java.awt.GridLayout(1, 1));
 
         Tue5.setBackground(new java.awt.Color(255, 255, 255));
         Tue5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tue5.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Tue5Layout = new javax.swing.GroupLayout(Tue5);
-        Tue5.setLayout(Tue5Layout);
-        Tue5Layout.setHorizontalGroup(
-            Tue5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Tue5Layout.setVerticalGroup(
-            Tue5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Tue5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tue5MouseClicked(evt);
+            }
+        });
+        Tue5.setLayout(new java.awt.GridLayout(1, 1));
 
         Tue6.setBackground(new java.awt.Color(255, 255, 255));
         Tue6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tue6.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Tue6Layout = new javax.swing.GroupLayout(Tue6);
-        Tue6.setLayout(Tue6Layout);
-        Tue6Layout.setHorizontalGroup(
-            Tue6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Tue6Layout.setVerticalGroup(
-            Tue6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Tue6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tue6MouseClicked(evt);
+            }
+        });
+        Tue6.setLayout(new java.awt.GridLayout(1, 1));
 
         Tue7.setBackground(new java.awt.Color(255, 255, 255));
         Tue7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tue7.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Tue7Layout = new javax.swing.GroupLayout(Tue7);
-        Tue7.setLayout(Tue7Layout);
-        Tue7Layout.setHorizontalGroup(
-            Tue7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Tue7Layout.setVerticalGroup(
-            Tue7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Tue7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tue7MouseClicked(evt);
+            }
+        });
+        Tue7.setLayout(new java.awt.GridLayout(1, 1));
 
         Tue8.setBackground(new java.awt.Color(255, 255, 255));
         Tue8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tue8.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Tue8Layout = new javax.swing.GroupLayout(Tue8);
-        Tue8.setLayout(Tue8Layout);
-        Tue8Layout.setHorizontalGroup(
-            Tue8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Tue8Layout.setVerticalGroup(
-            Tue8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Tue8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tue8MouseClicked(evt);
+            }
+        });
+        Tue8.setLayout(new java.awt.GridLayout(1, 1));
 
         Tue9.setBackground(new java.awt.Color(255, 255, 255));
         Tue9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tue9.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Tue9Layout = new javax.swing.GroupLayout(Tue9);
-        Tue9.setLayout(Tue9Layout);
-        Tue9Layout.setHorizontalGroup(
-            Tue9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Tue9Layout.setVerticalGroup(
-            Tue9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Tue9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tue9MouseClicked(evt);
+            }
+        });
+        Tue9.setLayout(new java.awt.GridLayout(1, 1));
 
         Tue1.setBackground(new java.awt.Color(255, 255, 255));
         Tue1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tue1.setPreferredSize(new java.awt.Dimension(60, 60));
+        Tue1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tue1MouseClicked(evt);
+            }
+        });
+        Tue1.setLayout(new java.awt.GridLayout(1, 1));
 
-        javax.swing.GroupLayout Tue1Layout = new javax.swing.GroupLayout(Tue1);
-        Tue1.setLayout(Tue1Layout);
-        Tue1Layout.setHorizontalGroup(
-            Tue1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Tue1Layout.setVerticalGroup(
-            Tue1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-
+        Wed2.setBackground(new java.awt.Color(255, 255, 255));
         Wed2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Wed2.setPreferredSize(new java.awt.Dimension(60, 60));
+        Wed2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Wed2MouseClicked(evt);
+            }
+        });
+        Wed2.setLayout(new java.awt.GridLayout(1, 1));
 
-        javax.swing.GroupLayout Wed2Layout = new javax.swing.GroupLayout(Wed2);
-        Wed2.setLayout(Wed2Layout);
-        Wed2Layout.setHorizontalGroup(
-            Wed2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Wed2Layout.setVerticalGroup(
-            Wed2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-
+        Wed3.setBackground(new java.awt.Color(255, 255, 255));
         Wed3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Wed3.setPreferredSize(new java.awt.Dimension(60, 60));
+        Wed3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Wed3MouseClicked(evt);
+            }
+        });
+        Wed3.setLayout(new java.awt.GridLayout(1, 1));
 
-        javax.swing.GroupLayout Wed3Layout = new javax.swing.GroupLayout(Wed3);
-        Wed3.setLayout(Wed3Layout);
-        Wed3Layout.setHorizontalGroup(
-            Wed3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Wed3Layout.setVerticalGroup(
-            Wed3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-
+        Wed4.setBackground(new java.awt.Color(255, 255, 255));
         Wed4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Wed4.setPreferredSize(new java.awt.Dimension(60, 60));
+        Wed4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Wed4MouseClicked(evt);
+            }
+        });
+        Wed4.setLayout(new java.awt.GridLayout(1, 1));
 
-        javax.swing.GroupLayout Wed4Layout = new javax.swing.GroupLayout(Wed4);
-        Wed4.setLayout(Wed4Layout);
-        Wed4Layout.setHorizontalGroup(
-            Wed4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Wed4Layout.setVerticalGroup(
-            Wed4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-
+        Wed5.setBackground(new java.awt.Color(255, 255, 255));
         Wed5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Wed5.setPreferredSize(new java.awt.Dimension(60, 60));
+        Wed5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Wed5MouseClicked(evt);
+            }
+        });
+        Wed5.setLayout(new java.awt.GridLayout(1, 1));
 
-        javax.swing.GroupLayout Wed5Layout = new javax.swing.GroupLayout(Wed5);
-        Wed5.setLayout(Wed5Layout);
-        Wed5Layout.setHorizontalGroup(
-            Wed5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Wed5Layout.setVerticalGroup(
-            Wed5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-
+        Wed6.setBackground(new java.awt.Color(255, 255, 255));
         Wed6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Wed6.setPreferredSize(new java.awt.Dimension(60, 60));
+        Wed6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Wed6MouseClicked(evt);
+            }
+        });
+        Wed6.setLayout(new java.awt.GridLayout(1, 1));
 
-        javax.swing.GroupLayout Wed6Layout = new javax.swing.GroupLayout(Wed6);
-        Wed6.setLayout(Wed6Layout);
-        Wed6Layout.setHorizontalGroup(
-            Wed6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Wed6Layout.setVerticalGroup(
-            Wed6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-
+        Wed7.setBackground(new java.awt.Color(255, 255, 255));
         Wed7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Wed7.setPreferredSize(new java.awt.Dimension(60, 60));
+        Wed7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Wed7MouseClicked(evt);
+            }
+        });
+        Wed7.setLayout(new java.awt.GridLayout(1, 1));
 
-        javax.swing.GroupLayout Wed7Layout = new javax.swing.GroupLayout(Wed7);
-        Wed7.setLayout(Wed7Layout);
-        Wed7Layout.setHorizontalGroup(
-            Wed7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Wed7Layout.setVerticalGroup(
-            Wed7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-
+        Wed8.setBackground(new java.awt.Color(255, 255, 255));
         Wed8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Wed8.setPreferredSize(new java.awt.Dimension(60, 60));
+        Wed8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Wed8MouseClicked(evt);
+            }
+        });
+        Wed8.setLayout(new java.awt.GridLayout(1, 1));
 
-        javax.swing.GroupLayout Wed8Layout = new javax.swing.GroupLayout(Wed8);
-        Wed8.setLayout(Wed8Layout);
-        Wed8Layout.setHorizontalGroup(
-            Wed8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Wed8Layout.setVerticalGroup(
-            Wed8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-
+        Wed9.setBackground(new java.awt.Color(255, 255, 255));
         Wed9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Wed9.setPreferredSize(new java.awt.Dimension(60, 60));
+        Wed9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Wed9MouseClicked(evt);
+            }
+        });
+        Wed9.setLayout(new java.awt.GridLayout(1, 1));
 
-        javax.swing.GroupLayout Wed9Layout = new javax.swing.GroupLayout(Wed9);
-        Wed9.setLayout(Wed9Layout);
-        Wed9Layout.setHorizontalGroup(
-            Wed9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Wed9Layout.setVerticalGroup(
-            Wed9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-
+        Wed1.setBackground(new java.awt.Color(255, 255, 255));
         Wed1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Wed1.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Wed1Layout = new javax.swing.GroupLayout(Wed1);
-        Wed1.setLayout(Wed1Layout);
-        Wed1Layout.setHorizontalGroup(
-            Wed1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Wed1Layout.setVerticalGroup(
-            Wed1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Wed1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Wed1MouseClicked(evt);
+            }
+        });
+        Wed1.setLayout(new java.awt.GridLayout(1, 1));
 
         Thu2.setBackground(new java.awt.Color(255, 255, 255));
         Thu2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Thu2.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Thu2Layout = new javax.swing.GroupLayout(Thu2);
-        Thu2.setLayout(Thu2Layout);
-        Thu2Layout.setHorizontalGroup(
-            Thu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Thu2Layout.setVerticalGroup(
-            Thu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Thu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Thu2MouseClicked(evt);
+            }
+        });
+        Thu2.setLayout(new java.awt.GridLayout(1, 1));
 
         Thu3.setBackground(new java.awt.Color(255, 255, 255));
         Thu3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Thu3.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Thu3Layout = new javax.swing.GroupLayout(Thu3);
-        Thu3.setLayout(Thu3Layout);
-        Thu3Layout.setHorizontalGroup(
-            Thu3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Thu3Layout.setVerticalGroup(
-            Thu3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Thu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Thu3MouseClicked(evt);
+            }
+        });
+        Thu3.setLayout(new java.awt.GridLayout(1, 1));
 
         Thu4.setBackground(new java.awt.Color(255, 255, 255));
         Thu4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Thu4.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Thu4Layout = new javax.swing.GroupLayout(Thu4);
-        Thu4.setLayout(Thu4Layout);
-        Thu4Layout.setHorizontalGroup(
-            Thu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Thu4Layout.setVerticalGroup(
-            Thu4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Thu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Thu4MouseClicked(evt);
+            }
+        });
+        Thu4.setLayout(new java.awt.GridLayout(1, 1));
 
         Thu5.setBackground(new java.awt.Color(255, 255, 255));
         Thu5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Thu5.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Thu5Layout = new javax.swing.GroupLayout(Thu5);
-        Thu5.setLayout(Thu5Layout);
-        Thu5Layout.setHorizontalGroup(
-            Thu5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Thu5Layout.setVerticalGroup(
-            Thu5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Thu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Thu5MouseClicked(evt);
+            }
+        });
+        Thu5.setLayout(new java.awt.GridLayout(1, 1));
 
         Thu6.setBackground(new java.awt.Color(255, 255, 255));
         Thu6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Thu6.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Thu6Layout = new javax.swing.GroupLayout(Thu6);
-        Thu6.setLayout(Thu6Layout);
-        Thu6Layout.setHorizontalGroup(
-            Thu6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Thu6Layout.setVerticalGroup(
-            Thu6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Thu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Thu6MouseClicked(evt);
+            }
+        });
+        Thu6.setLayout(new java.awt.GridLayout(1, 1));
 
         Thu7.setBackground(new java.awt.Color(255, 255, 255));
         Thu7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Thu7.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Thu7Layout = new javax.swing.GroupLayout(Thu7);
-        Thu7.setLayout(Thu7Layout);
-        Thu7Layout.setHorizontalGroup(
-            Thu7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Thu7Layout.setVerticalGroup(
-            Thu7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Thu7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Thu7MouseClicked(evt);
+            }
+        });
+        Thu7.setLayout(new java.awt.GridLayout(1, 1));
 
         Thu8.setBackground(new java.awt.Color(255, 255, 255));
         Thu8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Thu8.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Thu8Layout = new javax.swing.GroupLayout(Thu8);
-        Thu8.setLayout(Thu8Layout);
-        Thu8Layout.setHorizontalGroup(
-            Thu8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Thu8Layout.setVerticalGroup(
-            Thu8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Thu8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Thu8MouseClicked(evt);
+            }
+        });
+        Thu8.setLayout(new java.awt.GridLayout(1, 1));
 
         Thu9.setBackground(new java.awt.Color(255, 255, 255));
         Thu9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Thu9.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Thu9Layout = new javax.swing.GroupLayout(Thu9);
-        Thu9.setLayout(Thu9Layout);
-        Thu9Layout.setHorizontalGroup(
-            Thu9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Thu9Layout.setVerticalGroup(
-            Thu9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Thu9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Thu9MouseClicked(evt);
+            }
+        });
+        Thu9.setLayout(new java.awt.GridLayout(1, 1));
 
         Thu1.setBackground(new java.awt.Color(255, 255, 255));
         Thu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Thu1.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Thu1Layout = new javax.swing.GroupLayout(Thu1);
-        Thu1.setLayout(Thu1Layout);
-        Thu1Layout.setHorizontalGroup(
-            Thu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Thu1Layout.setVerticalGroup(
-            Thu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Thu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Thu1MouseClicked(evt);
+            }
+        });
+        Thu1.setLayout(new java.awt.GridLayout(1, 1));
 
         Fri2.setBackground(new java.awt.Color(255, 255, 255));
         Fri2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fri2.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Fri2Layout = new javax.swing.GroupLayout(Fri2);
-        Fri2.setLayout(Fri2Layout);
-        Fri2Layout.setHorizontalGroup(
-            Fri2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Fri2Layout.setVerticalGroup(
-            Fri2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Fri2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Fri2MouseClicked(evt);
+            }
+        });
+        Fri2.setLayout(new java.awt.GridLayout(1, 1));
 
         Fri3.setBackground(new java.awt.Color(255, 255, 255));
         Fri3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fri3.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Fri3Layout = new javax.swing.GroupLayout(Fri3);
-        Fri3.setLayout(Fri3Layout);
-        Fri3Layout.setHorizontalGroup(
-            Fri3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Fri3Layout.setVerticalGroup(
-            Fri3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Fri3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Fri3MouseClicked(evt);
+            }
+        });
+        Fri3.setLayout(new java.awt.GridLayout(1, 1));
 
         Fri4.setBackground(new java.awt.Color(255, 255, 255));
         Fri4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fri4.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Fri4Layout = new javax.swing.GroupLayout(Fri4);
-        Fri4.setLayout(Fri4Layout);
-        Fri4Layout.setHorizontalGroup(
-            Fri4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Fri4Layout.setVerticalGroup(
-            Fri4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Fri4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Fri4MouseClicked(evt);
+            }
+        });
+        Fri4.setLayout(new java.awt.GridLayout(1, 1));
 
         Fri5.setBackground(new java.awt.Color(255, 255, 255));
         Fri5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fri5.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Fri5Layout = new javax.swing.GroupLayout(Fri5);
-        Fri5.setLayout(Fri5Layout);
-        Fri5Layout.setHorizontalGroup(
-            Fri5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Fri5Layout.setVerticalGroup(
-            Fri5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Fri5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Fri5MouseClicked(evt);
+            }
+        });
+        Fri5.setLayout(new java.awt.GridLayout(1, 1));
 
         Fri6.setBackground(new java.awt.Color(255, 255, 255));
         Fri6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fri6.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Fri6Layout = new javax.swing.GroupLayout(Fri6);
-        Fri6.setLayout(Fri6Layout);
-        Fri6Layout.setHorizontalGroup(
-            Fri6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Fri6Layout.setVerticalGroup(
-            Fri6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Fri6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Fri6MouseClicked(evt);
+            }
+        });
+        Fri6.setLayout(new java.awt.GridLayout(1, 1));
 
         Fri7.setBackground(new java.awt.Color(255, 255, 255));
         Fri7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fri7.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Fri7Layout = new javax.swing.GroupLayout(Fri7);
-        Fri7.setLayout(Fri7Layout);
-        Fri7Layout.setHorizontalGroup(
-            Fri7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Fri7Layout.setVerticalGroup(
-            Fri7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Fri7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Fri7MouseClicked(evt);
+            }
+        });
+        Fri7.setLayout(new java.awt.GridLayout(1, 1));
 
         Fri8.setBackground(new java.awt.Color(255, 255, 255));
         Fri8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fri8.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Fri8Layout = new javax.swing.GroupLayout(Fri8);
-        Fri8.setLayout(Fri8Layout);
-        Fri8Layout.setHorizontalGroup(
-            Fri8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Fri8Layout.setVerticalGroup(
-            Fri8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Fri8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Fri8MouseClicked(evt);
+            }
+        });
+        Fri8.setLayout(new java.awt.GridLayout(1, 1));
 
         Fri9.setBackground(new java.awt.Color(255, 255, 255));
         Fri9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fri9.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Fri9Layout = new javax.swing.GroupLayout(Fri9);
-        Fri9.setLayout(Fri9Layout);
-        Fri9Layout.setHorizontalGroup(
-            Fri9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Fri9Layout.setVerticalGroup(
-            Fri9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Fri9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Fri9MouseClicked(evt);
+            }
+        });
+        Fri9.setLayout(new java.awt.GridLayout(1, 1));
 
         Fri1.setBackground(new java.awt.Color(255, 255, 255));
         Fri1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fri1.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Fri1Layout = new javax.swing.GroupLayout(Fri1);
-        Fri1.setLayout(Fri1Layout);
-        Fri1Layout.setHorizontalGroup(
-            Fri1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Fri1Layout.setVerticalGroup(
-            Fri1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Fri1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Fri1MouseClicked(evt);
+            }
+        });
+        Fri1.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel53.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
         jLabel53.setText("화");
@@ -3647,272 +3500,177 @@ public class StudentMain extends javax.swing.JFrame {
         jPanel97.setBackground(new java.awt.Color(255, 255, 255));
         jPanel97.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel97.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel97Layout = new javax.swing.GroupLayout(jPanel97);
-        jPanel97.setLayout(jPanel97Layout);
-        jPanel97Layout.setHorizontalGroup(
-            jPanel97Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel97Layout.setVerticalGroup(
-            jPanel97Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel97.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel97MouseClicked(evt);
+            }
+        });
+        jPanel97.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel98.setBackground(new java.awt.Color(255, 255, 255));
         jPanel98.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel98.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel98Layout = new javax.swing.GroupLayout(jPanel98);
-        jPanel98.setLayout(jPanel98Layout);
-        jPanel98Layout.setHorizontalGroup(
-            jPanel98Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel98Layout.setVerticalGroup(
-            jPanel98Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel98.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel98MouseClicked(evt);
+            }
+        });
+        jPanel98.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel99.setBackground(new java.awt.Color(255, 255, 255));
         jPanel99.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel99.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel99Layout = new javax.swing.GroupLayout(jPanel99);
-        jPanel99.setLayout(jPanel99Layout);
-        jPanel99Layout.setHorizontalGroup(
-            jPanel99Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel99Layout.setVerticalGroup(
-            jPanel99Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel99.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel99MouseClicked(evt);
+            }
+        });
+        jPanel99.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel100.setBackground(new java.awt.Color(255, 255, 255));
         jPanel100.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel100.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel100Layout = new javax.swing.GroupLayout(jPanel100);
-        jPanel100.setLayout(jPanel100Layout);
-        jPanel100Layout.setHorizontalGroup(
-            jPanel100Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel100Layout.setVerticalGroup(
-            jPanel100Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel100.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel100MouseClicked(evt);
+            }
+        });
+        jPanel100.setLayout(new java.awt.GridLayout(1, 1));
 
         Sat1.setBackground(new java.awt.Color(255, 255, 255));
         Sat1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Sat1.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Sat1Layout = new javax.swing.GroupLayout(Sat1);
-        Sat1.setLayout(Sat1Layout);
-        Sat1Layout.setHorizontalGroup(
-            Sat1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Sat1Layout.setVerticalGroup(
-            Sat1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Sat1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Sat1MouseClicked(evt);
+            }
+        });
+        Sat1.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel102.setBackground(new java.awt.Color(255, 255, 255));
         jPanel102.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel102.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel102Layout = new javax.swing.GroupLayout(jPanel102);
-        jPanel102.setLayout(jPanel102Layout);
-        jPanel102Layout.setHorizontalGroup(
-            jPanel102Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel102Layout.setVerticalGroup(
-            jPanel102Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel102.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel102MouseClicked(evt);
+            }
+        });
+        jPanel102.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel103.setBackground(new java.awt.Color(255, 255, 255));
         jPanel103.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel103.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel103Layout = new javax.swing.GroupLayout(jPanel103);
-        jPanel103.setLayout(jPanel103Layout);
-        jPanel103Layout.setHorizontalGroup(
-            jPanel103Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel103Layout.setVerticalGroup(
-            jPanel103Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel103.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel103MouseClicked(evt);
+            }
+        });
+        jPanel103.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel104.setBackground(new java.awt.Color(255, 255, 255));
         jPanel104.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel104.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel104Layout = new javax.swing.GroupLayout(jPanel104);
-        jPanel104.setLayout(jPanel104Layout);
-        jPanel104Layout.setHorizontalGroup(
-            jPanel104Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel104Layout.setVerticalGroup(
-            jPanel104Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel104.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel104MouseClicked(evt);
+            }
+        });
+        jPanel104.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel105.setBackground(new java.awt.Color(255, 255, 255));
         jPanel105.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel105.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel105Layout = new javax.swing.GroupLayout(jPanel105);
-        jPanel105.setLayout(jPanel105Layout);
-        jPanel105Layout.setHorizontalGroup(
-            jPanel105Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel105Layout.setVerticalGroup(
-            jPanel105Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel105.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel105MouseClicked(evt);
+            }
+        });
+        jPanel105.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel106.setBackground(new java.awt.Color(255, 255, 255));
         jPanel106.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel106.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel106Layout = new javax.swing.GroupLayout(jPanel106);
-        jPanel106.setLayout(jPanel106Layout);
-        jPanel106Layout.setHorizontalGroup(
-            jPanel106Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel106Layout.setVerticalGroup(
-            jPanel106Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel106.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel106MouseClicked(evt);
+            }
+        });
+        jPanel106.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel107.setBackground(new java.awt.Color(255, 255, 255));
         jPanel107.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel107.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel107Layout = new javax.swing.GroupLayout(jPanel107);
-        jPanel107.setLayout(jPanel107Layout);
-        jPanel107Layout.setHorizontalGroup(
-            jPanel107Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel107Layout.setVerticalGroup(
-            jPanel107Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel107.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel107MouseClicked(evt);
+            }
+        });
+        jPanel107.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel108.setBackground(new java.awt.Color(255, 255, 255));
         jPanel108.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel108.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel108Layout = new javax.swing.GroupLayout(jPanel108);
-        jPanel108.setLayout(jPanel108Layout);
-        jPanel108Layout.setHorizontalGroup(
-            jPanel108Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel108Layout.setVerticalGroup(
-            jPanel108Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel108.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel108MouseClicked(evt);
+            }
+        });
+        jPanel108.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel109.setBackground(new java.awt.Color(255, 255, 255));
         jPanel109.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel109.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel109Layout = new javax.swing.GroupLayout(jPanel109);
-        jPanel109.setLayout(jPanel109Layout);
-        jPanel109Layout.setHorizontalGroup(
-            jPanel109Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel109Layout.setVerticalGroup(
-            jPanel109Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel109.setLayout(new java.awt.GridLayout(1, 1));
 
         Sun1.setBackground(new java.awt.Color(255, 255, 255));
         Sun1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Sun1.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout Sun1Layout = new javax.swing.GroupLayout(Sun1);
-        Sun1.setLayout(Sun1Layout);
-        Sun1Layout.setHorizontalGroup(
-            Sun1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        Sun1Layout.setVerticalGroup(
-            Sun1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        Sun1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Sun1MouseClicked(evt);
+            }
+        });
+        Sun1.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel111.setBackground(new java.awt.Color(255, 255, 255));
         jPanel111.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel111.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel111Layout = new javax.swing.GroupLayout(jPanel111);
-        jPanel111.setLayout(jPanel111Layout);
-        jPanel111Layout.setHorizontalGroup(
-            jPanel111Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel111Layout.setVerticalGroup(
-            jPanel111Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel111.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel111MouseClicked(evt);
+            }
+        });
+        jPanel111.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel112.setBackground(new java.awt.Color(255, 255, 255));
         jPanel112.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel112.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel112Layout = new javax.swing.GroupLayout(jPanel112);
-        jPanel112.setLayout(jPanel112Layout);
-        jPanel112Layout.setHorizontalGroup(
-            jPanel112Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel112Layout.setVerticalGroup(
-            jPanel112Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel112.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel112MouseClicked(evt);
+            }
+        });
+        jPanel112.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel113.setBackground(new java.awt.Color(255, 255, 255));
         jPanel113.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel113.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel113Layout = new javax.swing.GroupLayout(jPanel113);
-        jPanel113.setLayout(jPanel113Layout);
-        jPanel113Layout.setHorizontalGroup(
-            jPanel113Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel113Layout.setVerticalGroup(
-            jPanel113Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel113.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel113MouseClicked(evt);
+            }
+        });
+        jPanel113.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel114.setBackground(new java.awt.Color(255, 255, 255));
         jPanel114.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel114.setPreferredSize(new java.awt.Dimension(60, 60));
-
-        javax.swing.GroupLayout jPanel114Layout = new javax.swing.GroupLayout(jPanel114);
-        jPanel114.setLayout(jPanel114Layout);
-        jPanel114Layout.setHorizontalGroup(
-            jPanel114Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
-        );
-        jPanel114Layout.setVerticalGroup(
-            jPanel114Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jPanel114.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel114MouseClicked(evt);
+            }
+        });
+        jPanel114.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel57.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
         jLabel57.setText("토");
@@ -5029,7 +4787,7 @@ public class StudentMain extends javax.swing.JFrame {
     //5시 이전 좌석 선택 후 예약 버튼
     private void BeforeReserButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeforeReserButtActionPerformed
         connect(); //디비 연결
-
+        
         // DB에 예약 저장
         for (int i = 0; i < 30; i++) {
             if (seat.get(i).isSelected()) {
@@ -5040,7 +4798,7 @@ public class StudentMain extends javax.swing.JFrame {
                     pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
                     //로그인 시 학생 정보 객체에 저장해서 아이디 가져와야 함
-                    pstmt.setString(1, "stu1");         //학생아이디 
+                    pstmt.setString(1, "stu2");         //학생아이디 
                     pstmt.setString(2, reservation.labId);   //예약날짜
                     pstmt.setInt(3, i + 1);    //좌석번호
                     pstmt.setString(4, reservation.dateR);   //예약날짜
@@ -6505,25 +6263,2608 @@ public class StudentMain extends javax.swing.JFrame {
 
     // 5시 이전 조회 버튼
     private void beforeCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beforeCheckButtActionPerformed
-        beforeTTPanel.setVisible(true);
+        beforeTTPanel.setVisible(false);
         // 패널에 강의시간표 출력
         // 입력받은 날짜에 테투리 표시
-        Wed1.setBackground(yellow);
         // 입력받은 날짜에 세미나 출력
+        
+        connect();
+        setTimeTable();
+        for(int i=0;i<63;i++){
+            timeTable.get(i).setBackground(Color.LIGHT_GRAY);
+            timeTable.get(i).removeAll();
+        }
+        
+        //날짜, 실습실번호, 시작시간, 종료시간, 좌석번호
+        reservation =new Reservation(jTextField17.getText(),jComboBox9.getSelectedItem().toString(),"0","0",0);
+        try{
+            sql="select * from lecture where labId=?";
+            pstmt=conn.prepareStatement(sql);
+            
+            pstmt.setString(1, reservation.labId);  //실습실번호
+            
+            rs=pstmt.executeQuery();
+            int sTime;
+            int eTime;
+            for(int i=0;i<9;i++){
+                timeTable.get(getDay(reservation)+(i*7)-1).setBackground(Color.WHITE);
+            }
+            while(rs.next()){
+                sTime=Integer.parseInt(rs.getString("startTime"));
+                eTime=Integer.parseInt(rs.getString("endTime"));
+                for(int i=9 ; i<=16 ; i++){ //1교시부터 8교시까지
+                    for(int k=1 ; k<=7 ; k++){  //월요일부터 금요일까지 
+                        if(rs.getInt("day")==k && sTime<=i && i<eTime){
+                            timeTable.get(((((i-8)-1)*7)+k)-1).setBackground(Color.yellow); //강의가 있는 시간 색상 변경
+                            timeTable.get(((((i-8)-1)*7)+k)-1).add(new JLabel(rs.getString("lectureName"), JLabel.CENTER));
+                        }
+                    }
+                }
+            }
+            
+            sql="select * from seminar where labId=? and dateS=?";
+            pstmt=conn.prepareStatement(sql);
+            
+            pstmt.setString(1, reservation.labId);
+            pstmt.setString(2, reservation.dateR);
+            
+            rs=pstmt.executeQuery();
+            int k=getDay(reservation);
+            while(rs.next()){
+                sTime=Integer.parseInt(rs.getString("startTimeS"));
+                eTime=Integer.parseInt(rs.getString("endTimeS"));
+                for(int i=9;i<=16;i++){//1교시부터 8교시까지
+                    if(sTime<=i && i<eTime){
+                        timeTable.get(((((i-8)-1)*7)+k)-1).setBackground(Color.ORANGE);
+                        timeTable.get(((((i-8)-1)*7)+k)-1).add(new JLabel(rs.getString("seminarName"), JLabel.CENTER));
+                    }
+                }   
+                
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
+        beforeTTPanel.setVisible(true);
     }//GEN-LAST:event_beforeCheckButtActionPerformed
 
     // 5시 이전 좌석 조회 버튼
     private void beforeSeatCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beforeSeatCheckButtActionPerformed
         reset();
+        connect();
         Reser_menuPanel.setVisible(true);
         menuReser.setBackground(yellow);
         beforeSeatStatePanel.setVisible(true);
+        
+        resetRadio.setVisible(false);   //안보이게 설정
+        resetRadio.setSelected(true);
+        
+        jTextField15.setText(reservation.dateR);
+        jTextField16.setText(reservation.labId);
+        jTextField19.setText(reservation.startTimeR+":00");
+        jTextField20.setText(reservation.endTimeR+":00");
+        
+        //모든 좌석 활성화
+        for (int i = 0; i < 30; i++) {
+            seat.get(i).setEnabled(true);
+        }
+        
+        try {
+            //기존의 예약과 겹치는지 조회
+            sql = "select * from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))";
+            pstmt=conn.prepareStatement(sql); //디비 구문과 연결
 
+            pstmt.setString(1, reservation.dateR);      //날짜
+            pstmt.setString(2, reservation.startTimeR);
+            pstmt.setString(3, reservation.endTimeR);
+            pstmt.setString(4, reservation.startTimeR); //시작시간
+            pstmt.setString(5, reservation.endTimeR);   //종료시간
+            pstmt.setString(6, reservation.startTimeR); //시작시간
+            pstmt.setString(7, reservation.endTimeR);   //종료시간
+
+            rs=pstmt.executeQuery();
+
+            boolean exist = true;
+            while (rs.next()) {
+                if ("stu2".equals(rs.getString("sId"))) {
+                    beforeSeatStatePanel.setVisible(false);
+                    JOptionPane.showMessageDialog(this, "해당 시각에 이미 예약이 존재합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+                    aPanel.setVisible(true);
+                    exist = false;
+                    break;
+                }
+                // 예약 중인 좌석이라면 라디오버튼 비활성화
+                seat.get(rs.getInt("seatId") - 1).setEnabled(false);
+            }
+            if (exist) {
+                // 좌석 출력
+                beforeSeatStatePanel.setVisible(true);
+            }
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+                } catch (SQLException ex) {
+                }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_beforeSeatCheckButtActionPerformed
 
     private void seat36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seat36ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_seat36ActionPerformed
+    //시간표 0번째 위치
+    private void Mon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Mon1MouseClicked
+        // TODO add your handling code here:
+        //if(timeTable.get(0).getBackground().getRGB() == -16711936)
+        if(timeTable.get(0).getBackground().getRGB() == -256){  //노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(0).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(0).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(0).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="9";
+                reservation.endTimeR="10";
+                timeTable.get(0).setBackground(new Color(206,251,201));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("10")){    //선택한 패널과 이어지는 경우
+                    reservation.startTimeR="9";
+                    timeTable.get(0).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("9") && reservation.endTimeR.equals("10")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(0).setBackground(Color.WHITE);
+            }else{
+                reservation.startTimeR="10";
+                timeTable.get(0).setBackground(Color.WHITE);
+            }
+        }
+    }//GEN-LAST:event_Mon1MouseClicked
+
+    private void Tue1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tue1MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(1).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(1).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(1).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(1).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="9";
+                reservation.endTimeR="10";
+                timeTable.get(1).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("10")){    //선택한 패널과 이어지는 경우
+                    reservation.startTimeR="9";
+                    timeTable.get(1).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("9") && reservation.endTimeR.equals("10")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(1).setBackground(Color.WHITE);
+            }else{
+                reservation.startTimeR="10";
+                timeTable.get(1).setBackground(Color.WHITE);
+            }
+        }
+    }//GEN-LAST:event_Tue1MouseClicked
+
+    private void Wed1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Wed1MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(2).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(2).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(2).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(2).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="9";
+                reservation.endTimeR="10";
+                timeTable.get(2).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("10")){    //선택한 패널과 이어지는 경우
+                    reservation.startTimeR="9";
+                    timeTable.get(2).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("9") && reservation.endTimeR.equals("10")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(2).setBackground(Color.WHITE);
+            }else{
+                reservation.startTimeR="10";
+                timeTable.get(2).setBackground(Color.WHITE);
+            }
+        }
+    }//GEN-LAST:event_Wed1MouseClicked
+
+    private void Thu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Thu1MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(3).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(3).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(3).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(3).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="9";
+                reservation.endTimeR="10";
+                timeTable.get(3).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("10")){    //선택한 패널과 이어지는 경우
+                    reservation.startTimeR="9";
+                    timeTable.get(3).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("9") && reservation.endTimeR.equals("10")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(3).setBackground(Color.WHITE);
+            }else{
+                reservation.startTimeR="10";
+                timeTable.get(3).setBackground(Color.WHITE);
+            }
+        }
+    }//GEN-LAST:event_Thu1MouseClicked
+
+    private void Fri1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Fri1MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(4).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(4).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(4).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(4).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="9";
+                reservation.endTimeR="10";
+                timeTable.get(4).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("10")){    //선택한 패널과 이어지는 경우
+                    reservation.startTimeR="9";
+                    timeTable.get(4).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("9") && reservation.endTimeR.equals("10")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(4).setBackground(Color.WHITE);
+            }else{
+                reservation.startTimeR="10";
+                timeTable.get(4).setBackground(Color.WHITE);
+            }
+        }
+    }//GEN-LAST:event_Fri1MouseClicked
+
+    private void Sat1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sat1MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(5).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(5).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(5).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(5).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="9";
+                reservation.endTimeR="10";
+                timeTable.get(5).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("10")){    //선택한 패널과 이어지는 경우
+                    reservation.startTimeR="9";
+                    timeTable.get(5).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("9") && reservation.endTimeR.equals("10")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(5).setBackground(Color.WHITE);
+            }else{
+                reservation.startTimeR="10";
+                timeTable.get(5).setBackground(Color.WHITE);
+            }
+        }
+    }//GEN-LAST:event_Sat1MouseClicked
+
+    private void Sun1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sun1MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(6).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(6).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(6).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(6).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="9";
+                reservation.endTimeR="10";
+                timeTable.get(6).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("10")){    //선택한 패널과 이어지는 경우
+                    reservation.startTimeR="9";
+                    timeTable.get(6).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("9") && reservation.endTimeR.equals("10")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(6).setBackground(Color.WHITE);
+            }else{
+                reservation.startTimeR="10";
+                timeTable.get(6).setBackground(Color.WHITE);
+            }
+        }
+    }//GEN-LAST:event_Sun1MouseClicked
+
+    private void Mon2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Mon2MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(7).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(7).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(7).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(7).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="10";
+                reservation.endTimeR="11";
+                timeTable.get(7).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("11")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="10";
+                    timeTable.get(7).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("10")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="11";
+                    timeTable.get(7).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("10") && reservation.endTimeR.equals("11")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(7).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("10")){
+                reservation.startTimeR="11";
+                timeTable.get(7).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("11")){
+                reservation.endTimeR="10";
+                timeTable.get(7).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Mon2MouseClicked
+
+    private void Tue2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tue2MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(8).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(8).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(8).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(8).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="10";
+                reservation.endTimeR="11";
+                timeTable.get(8).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("11")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="10";
+                    timeTable.get(8).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("10")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="11";
+                    timeTable.get(8).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("10") && reservation.endTimeR.equals("11")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(8).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("10")){
+                reservation.startTimeR="11";
+                timeTable.get(8).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("11")){
+                reservation.endTimeR="10";
+                timeTable.get(8).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Tue2MouseClicked
+
+    private void Wed2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Wed2MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(9).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(9).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(9).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(9).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="10";
+                reservation.endTimeR="11";
+                timeTable.get(9).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("11")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="10";
+                    timeTable.get(9).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("10")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="11";
+                    timeTable.get(9).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("10") && reservation.endTimeR.equals("11")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(9).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("10")){
+                reservation.startTimeR="11";
+                timeTable.get(9).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("11")){
+                reservation.endTimeR="10";
+                timeTable.get(9).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Wed2MouseClicked
+
+    private void Thu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Thu2MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(10).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(10).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(10).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(10).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="10";
+                reservation.endTimeR="11";
+                timeTable.get(10).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("11")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="10";
+                    timeTable.get(10).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("10")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="11";
+                    timeTable.get(10).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("10") && reservation.endTimeR.equals("11")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(10).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("10")){
+                reservation.startTimeR="11";
+                timeTable.get(10).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("11")){
+                reservation.endTimeR="10";
+                timeTable.get(10).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Thu2MouseClicked
+
+    private void Fri2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Fri2MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(11).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(11).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(11).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(11).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="10";
+                reservation.endTimeR="11";
+                timeTable.get(11).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("11")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="10";
+                    timeTable.get(11).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("10")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="11";
+                    timeTable.get(11).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("10") && reservation.endTimeR.equals("11")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(11).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("10")){
+                reservation.startTimeR="11";
+                timeTable.get(11).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("11")){
+                reservation.endTimeR="10";
+                timeTable.get(11).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Fri2MouseClicked
+
+    private void jPanel111MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel111MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(12).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(12).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(12).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(12).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="10";
+                reservation.endTimeR="11";
+                timeTable.get(12).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("11")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="10";
+                    timeTable.get(12).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("10")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="11";
+                    timeTable.get(12).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("10") && reservation.endTimeR.equals("11")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(12).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("10")){
+                reservation.startTimeR="11";
+                timeTable.get(12).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("11")){
+                reservation.endTimeR="10";
+                timeTable.get(12).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel111MouseClicked
+
+    private void jPanel102MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel102MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(13).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(13).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(13).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(13).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="10";
+                reservation.endTimeR="11";
+                timeTable.get(13).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("11")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="10";
+                    timeTable.get(13).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("10")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="11";
+                    timeTable.get(13).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("10") && reservation.endTimeR.equals("11")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(13).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("10")){
+                reservation.startTimeR="11";
+                timeTable.get(13).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("11")){
+                reservation.endTimeR="10";
+                timeTable.get(13).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel102MouseClicked
+
+    private void Mon3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Mon3MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(14).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(14).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(14).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(14).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="11";
+                reservation.endTimeR="12";
+                timeTable.get(14).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("12")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="11";
+                    timeTable.get(14).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("11")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="12";
+                    timeTable.get(14).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("11") && reservation.endTimeR.equals("12")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(14).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("11")){
+                reservation.startTimeR="12";
+                timeTable.get(14).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("12")){
+                reservation.endTimeR="11";
+                timeTable.get(14).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Mon3MouseClicked
+
+    private void Tue3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tue3MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(15).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(15).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(15).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(15).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="11";
+                reservation.endTimeR="12";
+                timeTable.get(15).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("12")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="11";
+                    timeTable.get(15).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("11")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="12";
+                    timeTable.get(15).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("11") && reservation.endTimeR.equals("12")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(15).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("11")){
+                reservation.startTimeR="12";
+                timeTable.get(15).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("12")){
+                reservation.endTimeR="11";
+                timeTable.get(15).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Tue3MouseClicked
+
+    private void Wed3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Wed3MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(16).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(16).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(16).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(16).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="11";
+                reservation.endTimeR="12";
+                timeTable.get(16).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("12")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="11";
+                    timeTable.get(16).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("11")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="12";
+                    timeTable.get(16).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("11") && reservation.endTimeR.equals("12")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(16).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("11")){
+                reservation.startTimeR="12";
+                timeTable.get(16).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("12")){
+                reservation.endTimeR="11";
+                timeTable.get(16).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Wed3MouseClicked
+
+    private void Thu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Thu3MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(17).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(17).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(17).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(17).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="11";
+                reservation.endTimeR="12";
+                timeTable.get(17).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("12")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="11";
+                    timeTable.get(17).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("11")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="12";
+                    timeTable.get(17).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("11") && reservation.endTimeR.equals("12")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(17).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("11")){
+                reservation.startTimeR="12";
+                timeTable.get(17).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("12")){
+                reservation.endTimeR="11";
+                timeTable.get(17).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Thu3MouseClicked
+
+    private void Fri3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Fri3MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(18).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(18).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(18).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(18).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="11";
+                reservation.endTimeR="12";
+                timeTable.get(18).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("12")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="11";
+                    timeTable.get(18).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("11")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="12";
+                    timeTable.get(18).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("11") && reservation.endTimeR.equals("12")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(18).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("11")){
+                reservation.startTimeR="12";
+                timeTable.get(18).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("12")){
+                reservation.endTimeR="11";
+                timeTable.get(18).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Fri3MouseClicked
+
+    private void jPanel112MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel112MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(19).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(19).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(19).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(19).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="11";
+                reservation.endTimeR="12";
+                timeTable.get(19).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("12")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="11";
+                    timeTable.get(19).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("11")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="12";
+                    timeTable.get(19).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("11") && reservation.endTimeR.equals("12")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(19).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("11")){
+                reservation.startTimeR="12";
+                timeTable.get(19).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("12")){
+                reservation.endTimeR="11";
+                timeTable.get(19).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel112MouseClicked
+
+    private void jPanel103MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel103MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(20).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(20).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(20).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(20).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="11";
+                reservation.endTimeR="12";
+                timeTable.get(20).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("12")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="11";
+                    timeTable.get(20).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("11")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="12";
+                    timeTable.get(20).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("11") && reservation.endTimeR.equals("12")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(20).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("11")){
+                reservation.startTimeR="12";
+                timeTable.get(20).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("12")){
+                reservation.endTimeR="11";
+                timeTable.get(20).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel103MouseClicked
+
+    private void Mon4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Mon4MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(21).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(21).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(21).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(21).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="12";
+                reservation.endTimeR="13";
+                timeTable.get(21).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("13")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="12";
+                    timeTable.get(21).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("12")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="13";
+                    timeTable.get(21).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("12") && reservation.endTimeR.equals("13")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(21).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("12")){
+                reservation.startTimeR="13";
+                timeTable.get(21).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("13")){
+                reservation.endTimeR="12";
+                timeTable.get(21).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Mon4MouseClicked
+
+    private void Tue4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tue4MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(22).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(22).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(22).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(22).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="12";
+                reservation.endTimeR="13";
+                timeTable.get(22).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("13")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="12";
+                    timeTable.get(22).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("12")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="13";
+                    timeTable.get(22).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("12") && reservation.endTimeR.equals("13")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(22).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("12")){
+                reservation.startTimeR="13";
+                timeTable.get(22).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("13")){
+                reservation.endTimeR="12";
+                timeTable.get(22).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Tue4MouseClicked
+
+    private void Wed4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Wed4MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(23).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(23).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(23).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(23).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="12";
+                reservation.endTimeR="13";
+                timeTable.get(23).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("13")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="12";
+                    timeTable.get(23).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("12")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="13";
+                    timeTable.get(23).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("12") && reservation.endTimeR.equals("13")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(23).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("12")){
+                reservation.startTimeR="13";
+                timeTable.get(23).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("13")){
+                reservation.endTimeR="12";
+                timeTable.get(23).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Wed4MouseClicked
+
+    private void Thu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Thu4MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(24).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(24).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(24).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(24).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="12";
+                reservation.endTimeR="13";
+                timeTable.get(24).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("13")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="12";
+                    timeTable.get(24).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("12")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="13";
+                    timeTable.get(24).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("12") && reservation.endTimeR.equals("13")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(24).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("12")){
+                reservation.startTimeR="13";
+                timeTable.get(24).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("13")){
+                reservation.endTimeR="12";
+                timeTable.get(24).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Thu4MouseClicked
+
+    private void Fri4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Fri4MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(25).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(25).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(25).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(25).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="12";
+                reservation.endTimeR="13";
+                timeTable.get(25).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("13")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="12";
+                    timeTable.get(25).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("12")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="13";
+                    timeTable.get(25).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("12") && reservation.endTimeR.equals("13")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(25).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("12")){
+                reservation.startTimeR="13";
+                timeTable.get(25).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("13")){
+                reservation.endTimeR="12";
+                timeTable.get(25).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Fri4MouseClicked
+
+    private void jPanel113MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel113MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(26).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(26).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(26).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(26).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="12";
+                reservation.endTimeR="13";
+                timeTable.get(26).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("13")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="12";
+                    timeTable.get(26).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("12")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="13";
+                    timeTable.get(26).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("12") && reservation.endTimeR.equals("13")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(26).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("12")){
+                reservation.startTimeR="13";
+                timeTable.get(26).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("13")){
+                reservation.endTimeR="12";
+                timeTable.get(26).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel113MouseClicked
+
+    private void jPanel104MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel104MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(27).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(27).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(27).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(27).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="12";
+                reservation.endTimeR="13";
+                timeTable.get(27).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("13")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="12";
+                    timeTable.get(27).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("12")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="13";
+                    timeTable.get(27).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("12") && reservation.endTimeR.equals("13")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(27).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("12")){
+                reservation.startTimeR="13";
+                timeTable.get(27).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("13")){
+                reservation.endTimeR="12";
+                timeTable.get(27).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel104MouseClicked
+
+    private void M5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_M5MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(28).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(28).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(28).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(28).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="13";
+                reservation.endTimeR="14";
+                timeTable.get(28).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("14")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="13";
+                    timeTable.get(28).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("13")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="14";
+                    timeTable.get(28).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("13") && reservation.endTimeR.equals("14")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(28).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("13")){
+                reservation.startTimeR="14";
+                timeTable.get(28).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("14")){
+                reservation.endTimeR="13";
+                timeTable.get(28).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_M5MouseClicked
+
+    private void Tue5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tue5MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(29).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(29).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(29).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(29).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="13";
+                reservation.endTimeR="14";
+                timeTable.get(29).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("14")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="13";
+                    timeTable.get(29).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("13")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="14";
+                    timeTable.get(29).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("13") && reservation.endTimeR.equals("14")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(29).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("13")){
+                reservation.startTimeR="14";
+                timeTable.get(29).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("14")){
+                reservation.endTimeR="13";
+                timeTable.get(29).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Tue5MouseClicked
+
+    private void Wed5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Wed5MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(30).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(30).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(30).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(30).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="13";
+                reservation.endTimeR="14";
+                timeTable.get(30).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("14")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="13";
+                    timeTable.get(30).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("13")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="14";
+                    timeTable.get(30).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("13") && reservation.endTimeR.equals("14")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(30).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("13")){
+                reservation.startTimeR="14";
+                timeTable.get(30).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("14")){
+                reservation.endTimeR="13";
+                timeTable.get(30).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Wed5MouseClicked
+
+    private void Thu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Thu5MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(31).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(31).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(31).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(31).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="13";
+                reservation.endTimeR="14";
+                timeTable.get(31).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("14")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="13";
+                    timeTable.get(31).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("13")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="14";
+                    timeTable.get(31).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("13") && reservation.endTimeR.equals("14")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(31).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("13")){
+                reservation.startTimeR="14";
+                timeTable.get(31).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("14")){
+                reservation.endTimeR="13";
+                timeTable.get(31).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Thu5MouseClicked
+
+    private void Fri5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Fri5MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(32).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(32).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(32).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(32).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="13";
+                reservation.endTimeR="14";
+                timeTable.get(32).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("14")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="13";
+                    timeTable.get(32).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("13")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="14";
+                    timeTable.get(32).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("13") && reservation.endTimeR.equals("14")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(32).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("13")){
+                reservation.startTimeR="14";
+                timeTable.get(32).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("14")){
+                reservation.endTimeR="13";
+                timeTable.get(32).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Fri5MouseClicked
+
+    private void jPanel114MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel114MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(33).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(33).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(33).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(33).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="13";
+                reservation.endTimeR="14";
+                timeTable.get(33).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("14")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="13";
+                    timeTable.get(33).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("13")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="14";
+                    timeTable.get(33).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("13") && reservation.endTimeR.equals("14")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(33).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("13")){
+                reservation.startTimeR="14";
+                timeTable.get(33).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("14")){
+                reservation.endTimeR="13";
+                timeTable.get(33).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel114MouseClicked
+
+    private void jPanel105MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel105MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(34).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(34).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(34).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(34).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="13";
+                reservation.endTimeR="14";
+                timeTable.get(34).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("14")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="13";
+                    timeTable.get(34).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("13")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="14";
+                    timeTable.get(34).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("13") && reservation.endTimeR.equals("14")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(34).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("13")){
+                reservation.startTimeR="14";
+                timeTable.get(34).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("14")){
+                reservation.endTimeR="13";
+                timeTable.get(34).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel105MouseClicked
+
+    private void M6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_M6MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(35).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(35).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(35).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(35).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="14";
+                reservation.endTimeR="15";
+                timeTable.get(35).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("15")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="14";
+                    timeTable.get(35).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("14")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="15";
+                    timeTable.get(35).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("14") && reservation.endTimeR.equals("15")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(35).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("14")){
+                reservation.startTimeR="15";
+                timeTable.get(35).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("15")){
+                reservation.endTimeR="14";
+                timeTable.get(35).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_M6MouseClicked
+
+    private void Tue6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tue6MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(36).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(36).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(36).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(36).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="14";
+                reservation.endTimeR="15";
+                timeTable.get(36).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("15")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="14";
+                    timeTable.get(36).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("14")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="15";
+                    timeTable.get(36).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("14") && reservation.endTimeR.equals("15")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(36).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("14")){
+                reservation.startTimeR="15";
+                timeTable.get(36).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("15")){
+                reservation.endTimeR="14";
+                timeTable.get(36).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Tue6MouseClicked
+
+    private void Wed6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Wed6MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(37).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(37).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(37).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(37).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="14";
+                reservation.endTimeR="15";
+                timeTable.get(37).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("15")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="14";
+                    timeTable.get(37).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("14")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="15";
+                    timeTable.get(37).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("14") && reservation.endTimeR.equals("15")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(37).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("14")){
+                reservation.startTimeR="15";
+                timeTable.get(37).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("15")){
+                reservation.endTimeR="14";
+                timeTable.get(37).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Wed6MouseClicked
+
+    private void Thu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Thu6MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(38).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(38).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(38).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(38).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="14";
+                reservation.endTimeR="15";
+                timeTable.get(38).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("15")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="14";
+                    timeTable.get(38).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("14")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="15";
+                    timeTable.get(38).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("14") && reservation.endTimeR.equals("15")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(38).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("14")){
+                reservation.startTimeR="15";
+                timeTable.get(38).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("15")){
+                reservation.endTimeR="14";
+                timeTable.get(38).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Thu6MouseClicked
+
+    private void Fri6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Fri6MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(39).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(39).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(39).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(39).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="14";
+                reservation.endTimeR="15";
+                timeTable.get(39).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("15")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="14";
+                    timeTable.get(39).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("14")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="15";
+                    timeTable.get(39).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("14") && reservation.endTimeR.equals("15")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(39).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("14")){
+                reservation.startTimeR="15";
+                timeTable.get(39).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("15")){
+                reservation.endTimeR="14";
+                timeTable.get(39).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Fri6MouseClicked
+
+    private void jPanel97MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel97MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(40).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(40).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(40).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(40).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="14";
+                reservation.endTimeR="15";
+                timeTable.get(40).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("15")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="14";
+                    timeTable.get(40).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("14")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="15";
+                    timeTable.get(40).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("14") && reservation.endTimeR.equals("15")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(40).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("14")){
+                reservation.startTimeR="15";
+                timeTable.get(40).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("15")){
+                reservation.endTimeR="14";
+                timeTable.get(40).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel97MouseClicked
+
+    private void jPanel106MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel106MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(41).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(41).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(41).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(41).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="14";
+                reservation.endTimeR="15";
+                timeTable.get(41).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("15")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="14";
+                    timeTable.get(41).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("14")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="15";
+                    timeTable.get(41).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("14") && reservation.endTimeR.equals("15")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(41).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("14")){
+                reservation.startTimeR="15";
+                timeTable.get(41).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("15")){
+                reservation.endTimeR="14";
+                timeTable.get(41).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel106MouseClicked
+
+    private void M7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_M7MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(42).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(42).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(42).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(42).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="15";
+                reservation.endTimeR="16";
+                timeTable.get(42).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("16")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="15";
+                    timeTable.get(42).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("15")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="16";
+                    timeTable.get(42).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("15") && reservation.endTimeR.equals("16")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(42).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("15")){
+                reservation.startTimeR="16";
+                timeTable.get(42).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("16")){
+                reservation.endTimeR="15";
+                timeTable.get(42).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_M7MouseClicked
+
+    private void Tue7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tue7MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(43).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(43).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(43).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(43).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="15";
+                reservation.endTimeR="16";
+                timeTable.get(43).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("16")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="15";
+                    timeTable.get(43).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("15")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="16";
+                    timeTable.get(43).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("15") && reservation.endTimeR.equals("16")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(43).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("15")){
+                reservation.startTimeR="16";
+                timeTable.get(43).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("16")){
+                reservation.endTimeR="15";
+                timeTable.get(43).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Tue7MouseClicked
+
+    private void Wed7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Wed7MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(44).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(44).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(44).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(44).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="15";
+                reservation.endTimeR="16";
+                timeTable.get(44).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("16")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="15";
+                    timeTable.get(44).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("15")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="16";
+                    timeTable.get(44).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("15") && reservation.endTimeR.equals("16")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(44).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("15")){
+                reservation.startTimeR="16";
+                timeTable.get(44).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("16")){
+                reservation.endTimeR="15";
+                timeTable.get(44).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Wed7MouseClicked
+
+    private void Thu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Thu7MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(45).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(45).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(45).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(45).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="15";
+                reservation.endTimeR="16";
+                timeTable.get(45).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("16")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="15";
+                    timeTable.get(45).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("15")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="16";
+                    timeTable.get(45).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("15") && reservation.endTimeR.equals("16")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(45).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("15")){
+                reservation.startTimeR="16";
+                timeTable.get(45).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("16")){
+                reservation.endTimeR="15";
+                timeTable.get(45).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Thu7MouseClicked
+
+    private void Fri7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Fri7MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(46).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(46).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(46).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(46).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="15";
+                reservation.endTimeR="16";
+                timeTable.get(46).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("16")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="15";
+                    timeTable.get(46).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("15")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="16";
+                    timeTable.get(46).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("15") && reservation.endTimeR.equals("16")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(46).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("15")){
+                reservation.startTimeR="16";
+                timeTable.get(46).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("16")){
+                reservation.endTimeR="15";
+                timeTable.get(46).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Fri7MouseClicked
+
+    private void jPanel98MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel98MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(47).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(47).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(47).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(47).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="15";
+                reservation.endTimeR="16";
+                timeTable.get(47).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("16")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="15";
+                    timeTable.get(47).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("15")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="16";
+                    timeTable.get(47).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("15") && reservation.endTimeR.equals("16")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(47).setBackground(new Color(183,240,177));
+            }else if(reservation.startTimeR.equals("15")){
+                reservation.startTimeR="16";
+                timeTable.get(47).setBackground(new Color(183,240,177));
+            }else if(reservation.endTimeR.equals("16")){
+                reservation.endTimeR="15";
+                timeTable.get(47).setBackground(new Color(183,240,177));
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel98MouseClicked
+
+    private void jPanel107MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel107MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(48).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(48).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(48).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(48).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="15";
+                reservation.endTimeR="16";
+                timeTable.get(48).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("16")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="15";
+                    timeTable.get(48).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("15")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="16";
+                    timeTable.get(48).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("15") && reservation.endTimeR.equals("16")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(48).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("15")){
+                reservation.startTimeR="16";
+                timeTable.get(48).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("16")){
+                reservation.endTimeR="15";
+                timeTable.get(48).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel107MouseClicked
+
+    private void M8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_M8MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(49).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(49).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(49).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(49).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="16";
+                reservation.endTimeR="17";
+                timeTable.get(49).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("17")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="16";
+                    timeTable.get(49).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("16")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="17";
+                    timeTable.get(49).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("16") && reservation.endTimeR.equals("17")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(49).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("16")){
+                reservation.startTimeR="17";
+                timeTable.get(49).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(49).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_M8MouseClicked
+
+    private void Tue8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tue8MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(50).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(50).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(50).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(50).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="16";
+                reservation.endTimeR="17";
+                timeTable.get(50).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("17")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="16";
+                    timeTable.get(50).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("16")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="17";
+                    timeTable.get(50).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("16") && reservation.endTimeR.equals("17")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(50).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("16")){
+                reservation.startTimeR="17";
+                timeTable.get(50).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(50).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Tue8MouseClicked
+
+    private void Wed8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Wed8MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(51).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(51).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(51).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(51).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="16";
+                reservation.endTimeR="17";
+                timeTable.get(51).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("17")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="16";
+                    timeTable.get(51).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("16")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="17";
+                    timeTable.get(51).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("16") && reservation.endTimeR.equals("17")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(51).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("16")){
+                reservation.startTimeR="17";
+                timeTable.get(51).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(51).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Wed8MouseClicked
+
+    private void Thu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Thu8MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(52).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(52).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(52).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(52).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="16";
+                reservation.endTimeR="17";
+                timeTable.get(52).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("17")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="16";
+                    timeTable.get(52).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("16")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="17";
+                    timeTable.get(52).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("16") && reservation.endTimeR.equals("17")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(52).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("16")){
+                reservation.startTimeR="17";
+                timeTable.get(52).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(52).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Thu8MouseClicked
+
+    private void Fri8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Fri8MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(53).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(53).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(53).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(53).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="16";
+                reservation.endTimeR="17";
+                timeTable.get(53).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("17")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="16";
+                    timeTable.get(53).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("16")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="17";
+                    timeTable.get(53).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("16") && reservation.endTimeR.equals("17")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(53).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("16")){
+                reservation.startTimeR="17";
+                timeTable.get(53).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(53).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Fri8MouseClicked
+
+    private void jPanel99MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel99MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(54).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(54).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(54).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(54).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="16";
+                reservation.endTimeR="17";
+                timeTable.get(54).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("17")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="16";
+                    timeTable.get(54).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("16")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="17";
+                    timeTable.get(54).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("16") && reservation.endTimeR.equals("17")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(54).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("16")){
+                reservation.startTimeR="17";
+                timeTable.get(54).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(54).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel99MouseClicked
+
+    private void jPanel108MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel108MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(55).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(55).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(55).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(55).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="16";
+                reservation.endTimeR="17";
+                timeTable.get(55).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.startTimeR.equals("17")){    //기존의 시작 시간과 이어지는 경우
+                    reservation.startTimeR="16";
+                    timeTable.get(55).setBackground(new Color(183,240,177));
+                }else if(reservation.endTimeR.equals("16")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="17";
+                    timeTable.get(55).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("16") && reservation.endTimeR.equals("17")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(55).setBackground(Color.WHITE);
+            }else if(reservation.startTimeR.equals("16")){
+                reservation.startTimeR="17";
+                timeTable.get(55).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(55).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel108MouseClicked
+
+    private void M9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_M9MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(56).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(56).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(56).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(56).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="17";
+                reservation.endTimeR="18";
+                timeTable.get(56).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.endTimeR.equals("17")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="18";
+                    timeTable.get(56).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("17") && reservation.endTimeR.equals("18")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(56).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(56).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_M9MouseClicked
+
+    private void Tue9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tue9MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(57).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(57).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(57).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(57).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="17";
+                reservation.endTimeR="18";
+                timeTable.get(57).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.endTimeR.equals("17")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="18";
+                    timeTable.get(57).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("17") && reservation.endTimeR.equals("18")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(57).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(57).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Tue9MouseClicked
+
+    private void Wed9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Wed9MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(58).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(58).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(58).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(58).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="17";
+                reservation.endTimeR="18";
+                timeTable.get(58).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.endTimeR.equals("17")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="18";
+                    timeTable.get(58).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("17") && reservation.endTimeR.equals("18")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(58).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(58).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Wed9MouseClicked
+
+    private void Thu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Thu9MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(59).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(59).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(59).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(59).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="17";
+                reservation.endTimeR="18";
+                timeTable.get(59).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.endTimeR.equals("17")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="18";
+                    timeTable.get(59).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("17") && reservation.endTimeR.equals("18")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(59).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(59).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Thu9MouseClicked
+
+    private void Fri9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Fri9MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(60).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(60).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(60).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(60).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="17";
+                reservation.endTimeR="18";
+                timeTable.get(60).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.endTimeR.equals("17")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="18";
+                    timeTable.get(60).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("17") && reservation.endTimeR.equals("18")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(60).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(60).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_Fri9MouseClicked
+
+    private void jPanel100MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel100MouseClicked
+        // TODO add your handling code here:
+        if(timeTable.get(61).getBackground().getRGB() == -256){//노란색이라면
+            JOptionPane.showMessageDialog(this, "강의가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(61).getBackground().getRGB() == -14336){  //주황색이라면
+            JOptionPane.showMessageDialog(this, "세미나가 있는 시간은 선택할 수 없습니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(61).getBackground().getRGB() == -4144960){    //회색이라면
+            JOptionPane.showMessageDialog(this, "입력한 날짜와 일치하는 요일만 선택 가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        }else if(timeTable.get(61).getBackground().getRGB() == -1){ //흰색이라면
+            if(reservation.startTimeR.equals("0")){     //아직 아무것도 선택하지 않았을 경우
+                reservation.startTimeR="17";
+                reservation.endTimeR="18";
+                timeTable.get(61).setBackground(new Color(183,240,177));
+            }else{  //이미 선택한 패널이 있는 경우
+                if(reservation.endTimeR.equals("17")){    //기존의 종료 시간과 이어지는 경우
+                    reservation.endTimeR="18";
+                    timeTable.get(61).setBackground(new Color(183,240,177));
+                }else{
+                    JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{  //초록색인 경우
+            if(reservation.startTimeR.equals("17") && reservation.endTimeR.equals("18")){  //아무것도 선택하지 않아지는 경우
+                reservation.startTimeR="0";
+                reservation.endTimeR="0";
+                timeTable.get(61).setBackground(Color.WHITE);
+            }else if(reservation.endTimeR.equals("17")){
+                reservation.endTimeR="16";
+                timeTable.get(61).setBackground(Color.WHITE);
+            }else{
+                JOptionPane.showMessageDialog(this, "시간이 이어지도록 선택해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jPanel100MouseClicked
 
     // 연장버튼
     private void continueButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueButtActionPerformed
