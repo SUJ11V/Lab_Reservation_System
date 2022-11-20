@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import source.Seminar;
 
 /**
@@ -31,6 +32,48 @@ public class ProfessorMain extends javax.swing.JFrame {
     String sql; //쿼리문 받을 변수
    
     Color yellow = new Color(254,255,233);  // 노란색 저장
+    
+    public String getDayString(int day) {
+        String dayString = null;
+        if (day == 1) {
+            dayString = "월";
+        }
+        if (day == 2) {
+            dayString = "화";
+        }
+        if (day == 3) {
+            dayString = "수";
+        }
+        if (day == 4) {
+            dayString = "목";
+        }
+        if (day == 5) {
+            dayString = "금";
+        }
+        if (day == 6) {
+            dayString = "토";
+        }
+        if (day == 7) {
+            dayString = "일";
+        }
+
+        return dayString;
+    }
+    
+    public int getDay(Seminar seminar) { //요일 구하기
+        //dateR은 "yyyy/mm/dd" 형식으로 된 string type으로 받는다.
+        int yNum = seminar.dateS.indexOf("/"); //4
+        int mNum = seminar.dateS.indexOf("/", yNum + 1);//7
+
+        int year = Integer.parseInt(seminar.dateS.substring(0, yNum));    //년
+        int month = Integer.parseInt(seminar.dateS.substring(yNum + 1, mNum));   //월
+        int day = Integer.parseInt(seminar.dateS.substring(mNum + 1));    //일
+
+        LocalDate date = LocalDate.of(year, month, day);   //date에 날짜 저장
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        int dayOfWeekNumber = dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
+        return dayOfWeekNumber;                   //1: 월, 2: 화, 3: 수, ....
+    }
     
     ArrayList<JButton> seatState = new ArrayList<>();  // 좌석별 상태
     Seminar seminar;
@@ -95,21 +138,6 @@ public class ProfessorMain extends javax.swing.JFrame {
         
         seatState();
                 
-    }
-    
-    public int getDay(Seminar seminar) { //요일 구하기
-        //dateR은 "yyyy/mm/dd" 형식으로 된 string type으로 받는다.
-        int yNum = seminar.dateS.indexOf("/"); //4
-        int mNum = seminar.dateS.indexOf("/", yNum + 1);//7
-
-        int year = Integer.parseInt(seminar.dateS.substring(0, yNum));    //년
-        int month = Integer.parseInt(seminar.dateS.substring(yNum + 1, mNum));   //월
-        int day = Integer.parseInt(seminar.dateS.substring(mNum + 1));    //일
-
-        LocalDate date = LocalDate.of(year, month, day);   //date에 날짜 저장
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
-        int dayOfWeekNumber = dayOfWeek.getValue(); //날짜에 대한 요일을 숫자형식으로
-        return dayOfWeekNumber;                   //1: 월, 2: 화, 3: 수, ....
     }
     
     // 화면에 띄우는 패널들 초기화하는 함수
@@ -484,23 +512,24 @@ public class ProfessorMain extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "날짜", "시작시간", "종료시간", "강의실", "세미나"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setSelectionBackground(new java.awt.Color(246, 226, 231));
         jScrollPane1.setViewportView(jTable1);
 
         CancleButt.setBackground(new java.awt.Color(255, 255, 255));
@@ -594,7 +623,7 @@ public class ProfessorMain extends javax.swing.JFrame {
                         .addComponent(jLabel35)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(seminaName, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addContainerGap(433, Short.MAX_VALUE))
         );
         SeminarReserPanelLayout.setVerticalGroup(
             SeminarReserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -620,7 +649,7 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addContainerGap(188, Short.MAX_VALUE))
         );
 
-        getContentPane().add(SeminarReserPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
+        getContentPane().add(SeminarReserPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
 
         SeminarReserCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
 
@@ -728,7 +757,7 @@ public class ProfessorMain extends javax.swing.JFrame {
                             .addGroup(SeminarReserCheckPanelLayout.createSequentialGroup()
                                 .addGap(74, 74, 74)
                                 .addComponent(setRadioButton)))))
-                .addContainerGap(314, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
         SeminarReserCheckPanelLayout.setVerticalGroup(
             SeminarReserCheckPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -762,7 +791,7 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addContainerGap(119, Short.MAX_VALUE))
         );
 
-        getContentPane().add(SeminarReserCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
+        getContentPane().add(SeminarReserCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
 
         TimeTableCheckPanel.setBackground(new java.awt.Color(254, 255, 233));
 
@@ -785,23 +814,24 @@ public class ProfessorMain extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "요일", "강의명", "교수명", "시작시간", "종료시간"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable4.setSelectionBackground(new java.awt.Color(246, 226, 231));
         jScrollPane4.setViewportView(jTable4);
 
         javax.swing.GroupLayout TTLayout = new javax.swing.GroupLayout(TT);
@@ -834,7 +864,7 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addComponent(TTCheckButt)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TimeTableCheckPanelLayout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
+                .addContainerGap(90, Short.MAX_VALUE)
                 .addComponent(TT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81))
         );
@@ -851,7 +881,7 @@ public class ProfessorMain extends javax.swing.JFrame {
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
-        getContentPane().add(TimeTableCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 950, 620));
+        getContentPane().add(TimeTableCheckPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
 
         TTCheck_menuPanel.setBackground(new java.awt.Color(255, 255, 255));
         TTCheck_menuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -1210,8 +1240,39 @@ public class ProfessorMain extends javax.swing.JFrame {
         SeminarCanclePanel.setVisible(true);
 
         menuSeminarCancle.setBackground(yellow);
-        
+
         // 테이블에 db에서 특강 예약 값 가져와서 띄우기
+        connect();
+
+        // 테이블에 db에서 시간표 값 가져와서 띄우기
+        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+        table.setNumRows(0);  // 테이블 초기화
+
+        try {
+            sql = "select s.dateS, s.startTimeS, s.endTimeS, s.labId, s.seminarName, p.pName from seminar s, professor p where s.pId = p.pId order by s.dateS";
+            pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};
+                table.addRow(data);  // 테이블에 값 추가 
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_menuSeminarCancleMouseClicked
 
     // 특강 및 세미나 메뉴바 - 특강 예약 선택 시
@@ -1226,13 +1287,105 @@ public class ProfessorMain extends javax.swing.JFrame {
     // 특강 조회 및 취소 - 취소 버튼 클릭 시
     private void CancleButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancleButtActionPerformed
         // 테이블에서 선택된 행 db에서 삭제
+
+        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+
+        int row = jTable1.getSelectedRow();
+
+        if (row == -1) {  // 열이 선택되지 않았을 경우
+            JOptionPane.showMessageDialog(this, "취소할 세미나를 선택하세요");
+        } else {  // 선택된 열이 존재할 경우
+
+            connect();  // 디비 연결
+
+            try {
+
+                // 해당 학번, 날짜, 시작시간, 종료시간에 대한 예약 삭제
+                sql = "delete from seminar where dateS = ? and startTimeS = ? and endTimeS = ? and labId =? and seminarName = ?";
+
+                pstmt = conn.prepareStatement(sql);
+
+                pstmt.setString(1, (String) table.getValueAt(row, 0));  // 날짜
+                pstmt.setString(2, (String) table.getValueAt(row, 1));  // 시작시간
+                pstmt.setString(3, (String) table.getValueAt(row, 2));  // 종료시간
+                pstmt.setString(4, (String) table.getValueAt(row, 3));  // 강의실
+                pstmt.setString(5, (String) table.getValueAt(row, 4));  // 세미나명
+
+                pstmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "세미나 취소가 완료되었습니다.");
+
+                // 테이블 새로고침 (수정된 테이블 값 반영해서 테이블 띄움)
+                table.setNumRows(0);  // 테이블 초기화
+
+                sql = "select s.dateS, s.startTimeS, s.endTimeS, s.labId, s.seminarName, p.pName from seminar s, professor p where s.pId = p.pId order by s.dateS";
+
+                pstmt = conn.prepareStatement(sql);
+
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    Object data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};
+                    table.addRow(data);  // 테이블에 값 추가 
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            } finally {
+                if (rs != null) try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+                if (pstmt != null) try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+                if (conn != null) try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+
+        }
     }//GEN-LAST:event_CancleButtActionPerformed
 
     // 실습실 선택 후 시간표 조회 클릭 시
     private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
         TT.setVisible(true);
-        
+
+        connect();
+
         // 테이블에 db에서 시간표 값 가져와서 띄우기
+        DefaultTableModel table = (DefaultTableModel) jTable4.getModel();
+        table.setNumRows(0);  // 테이블 초기화
+
+        try {
+            sql = "select l.day, l.lectureName, pName, l.startTime, l.endTime from lecture l, professor p where l.pId = p.pId and l.labId=? order by l.day";
+            pstmt = conn.prepareStatement(sql); //디비 구문과 연결
+
+            pstmt.setString(1, jComboBox4.getSelectedItem().toString());    //실습실
+
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Object data[] = {getDayString(Integer.parseInt(rs.getString(1))) + "요일", rs.getString(2), rs.getString(3), rs.getString(4) + " : 00", rs.getString(5) + " : 00"};
+                table.addRow(data);  // 테이블에 값 추가 
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (SQLException ex) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (SQLException ex) {
+            }
+        }
     }//GEN-LAST:event_TTCheckButtActionPerformed
 
     // 시간표 조회 메뉴바 - 실습실 별 시간표 조회 선택 시

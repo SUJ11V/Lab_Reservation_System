@@ -442,11 +442,12 @@
             <Component class="javax.swing.JTable" name="jTable1">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="4">
-                    <Column editable="false" title="Title 1" type="java.lang.Object"/>
-                    <Column editable="false" title="Title 2" type="java.lang.Object"/>
-                    <Column editable="false" title="Title 3" type="java.lang.Object"/>
-                    <Column editable="false" title="Title 4" type="java.lang.Object"/>
+                  <Table columnCount="5" rowCount="4">
+                    <Column editable="false" title="&#xb0a0;&#xc9dc;" type="java.lang.Object"/>
+                    <Column editable="false" title="&#xc2dc;&#xc791;&#xc2dc;&#xac04;" type="java.lang.Object"/>
+                    <Column editable="false" title="&#xc885;&#xb8cc;&#xc2dc;&#xac04;" type="java.lang.Object"/>
+                    <Column editable="false" title="&#xac15;&#xc758;&#xc2e4;" type="java.lang.Object"/>
+                    <Column editable="false" title="&#xc138;&#xbbf8;&#xb098;" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -471,7 +472,15 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                   </TableColumnModel>
+                </Property>
+                <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="e7" green="e2" red="f6" type="rgb"/>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -504,7 +513,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="150" y="110" width="950" height="620"/>
+          <AbsoluteConstraints x="150" y="110" width="960" height="620"/>
         </Constraint>
       </Constraints>
 
@@ -541,7 +550,7 @@
                           <Component id="seminaName" min="-2" pref="76" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="423" max="32767" attributes="0"/>
+                  <EmptySpace pref="433" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -697,7 +706,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="150" y="110" width="950" height="620"/>
+          <AbsoluteConstraints x="150" y="110" width="960" height="620"/>
         </Constraint>
       </Constraints>
 
@@ -762,7 +771,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="314" max="32767" attributes="0"/>
+                  <EmptySpace pref="324" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -955,7 +964,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="150" y="110" width="950" height="620"/>
+          <AbsoluteConstraints x="150" y="110" width="960" height="620"/>
         </Constraint>
       </Constraints>
 
@@ -972,7 +981,7 @@
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="80" max="32767" attributes="0"/>
+                  <EmptySpace pref="90" max="32767" attributes="0"/>
                   <Component id="TT" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
               </Group>
@@ -1073,12 +1082,45 @@
                 <Component class="javax.swing.JTable" name="jTable4">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="4">
-                        <Column editable="false" title="Title 1" type="java.lang.Object"/>
-                        <Column editable="false" title="Title 2" type="java.lang.Object"/>
-                        <Column editable="false" title="Title 3" type="java.lang.Object"/>
-                        <Column editable="false" title="Title 4" type="java.lang.Object"/>
+                      <Table columnCount="5" rowCount="4">
+                        <Column editable="false" title="&#xc694;&#xc77c;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xac15;&#xc758;&#xba85;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xad50;&#xc218;&#xba85;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc2dc;&#xc791;&#xc2dc;&#xac04;" type="java.lang.Object"/>
+                        <Column editable="false" title="&#xc885;&#xb8cc;&#xc2dc;&#xac04;" type="java.lang.Object"/>
                       </Table>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
+                    </Property>
+                    <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="e7" green="e2" red="f6" type="rgb"/>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>

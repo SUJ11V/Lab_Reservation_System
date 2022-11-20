@@ -3022,6 +3022,10 @@
                   <EmptySpace pref="46" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
+                          <Component id="jLabel64" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jTextField3" min="-2" pref="134" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Component id="jComboBox5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                           <Component id="LabRightCheckButt" min="-2" max="-2" attributes="0"/>
@@ -3030,6 +3034,15 @@
                       <Component id="jScrollPane6" min="-2" pref="858" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="419" max="-2" attributes="0"/>
+                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jComboBox6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="419" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -3040,12 +3053,26 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jComboBox5" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="LabRightCheckButt" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                          <Component id="jLabel64" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="jScrollPane6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="RightButt" pref="33" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="298" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jComboBox6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="299" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -3154,6 +3181,47 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RightButtActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBox6">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#xad74;&#xb9bc;" size="14" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="915"/>
+                <StringItem index="1" value="916"/>
+                <StringItem index="2" value="918"/>
+                <StringItem index="3" value="911"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel10">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#xad74;&#xb9bc;" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#xc2e4;&#xc2b5;&#xc2e4; : "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextField3">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="14" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel64">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#xb0a0;&#xc9dc; : "/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

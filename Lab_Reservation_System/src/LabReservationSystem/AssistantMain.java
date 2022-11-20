@@ -61,19 +61,19 @@ public class AssistantMain extends javax.swing.JFrame {
         if (day == 2) {
             dayString = "화";
         }
-        if (day == 2) {
+        if (day == 3) {
             dayString = "수";
         }
-        if (day == 2) {
+        if (day == 4) {
             dayString = "목";
         }
-        if (day == 2) {
+        if (day == 5) {
             dayString = "금";
         }
-        if (day == 2) {
+        if (day == 6) {
             dayString = "토";
         }
-        if (day == 2) {
+        if (day == 7) {
             dayString = "일";
         }
 
@@ -489,6 +489,10 @@ public class AssistantMain extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
         RightButt = new javax.swing.JButton();
+        jComboBox6 = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel64 = new javax.swing.JLabel();
         NoticeAddPanel = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         UserManage_menuPanel = new javax.swing.JPanel();
@@ -2469,6 +2473,17 @@ public class AssistantMain extends javax.swing.JFrame {
             }
         });
 
+        jComboBox6.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "915", "916", "918", "911" }));
+
+        jLabel10.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        jLabel10.setText("실습실 : ");
+
+        jTextField3.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+
+        jLabel64.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel64.setText("날짜 : ");
+
         javax.swing.GroupLayout ManageRightPanelLayout = new javax.swing.GroupLayout(ManageRightPanel);
         ManageRightPanel.setLayout(ManageRightPanelLayout);
         ManageRightPanelLayout.setHorizontalGroup(
@@ -2477,12 +2492,23 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(ManageRightPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel64)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(LabRightCheckButt))
                     .addComponent(RightButt)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56))
+            .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ManageRightPanelLayout.createSequentialGroup()
+                    .addGap(419, 419, 419)
+                    .addComponent(jLabel10)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(419, Short.MAX_VALUE)))
         );
         ManageRightPanelLayout.setVerticalGroup(
             ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2490,12 +2516,22 @@ public class AssistantMain extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabRightCheckButt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LabRightCheckButt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel64)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(RightButt, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addGap(41, 41, 41))
+            .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ManageRightPanelLayout.createSequentialGroup()
+                    .addGap(298, 298, 298)
+                    .addGroup(ManageRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10))
+                    .addContainerGap(299, Short.MAX_VALUE)))
         );
 
         getContentPane().add(ManageRightPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 960, 620));
@@ -5158,16 +5194,20 @@ public class AssistantMain extends javax.swing.JFrame {
     private void TTCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TTCheckButtActionPerformed
         TT.setVisible(true);
         connect();
+        
+        DefaultTableModel table = (DefaultTableModel) jTable4.getModel();
+            table.setNumRows(0);  // 테이블 초기화
 
         try {
-            sql = "select * from lecture where labId=? order by day";
+            sql = "select l.day, l.lectureName, pName, l.startTime, l.endTime from lecture l, professor p where l.pId = p.pId and l.labId=? order by l.day";
             pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
             pstmt.setString(1, jComboBox4.getSelectedItem().toString());    //실습실
 
             rs = pstmt.executeQuery();
-            while (rs.next()) { // 레코드(Record, Row) 생성
-
+            while (rs.next()) { 
+                Object data[] = {getDayString(Integer.parseInt(rs.getString(1))) + "요일", rs.getString(2), rs.getString(3), rs.getString(4) + " : 00", rs.getString(5) + " : 00"};  
+                table.addRow(data);  // 테이블에 값 추가 
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -5763,7 +5803,7 @@ public class AssistantMain extends javax.swing.JFrame {
 
     // 실습실 예약 조회 
     private void LabRightCheckButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LabRightCheckButtActionPerformed
-        // 입력받은 실습실에 대해서 테이블에 실습실 예약 출력
+       // 입력받은 실습실에 대해서 테이블에 실습실 예약 출력
 
         DefaultTableModel table = (DefaultTableModel) jTable5.getModel();
 
@@ -5774,11 +5814,12 @@ public class AssistantMain extends javax.swing.JFrame {
         try {
             // 입력받은 실습실에 대해서 날짜, 학번, 이름, 시작시간, 종료시간, 관리권한여부 조회
             // 날짜 빠른순, 종료시간 느린순으로 정렬
-            sql = "select r.dateR, r.sId, s.sName, r.startTimeR, r.endTimeR, r.authority from reservation r, student s where r.sId = s.sId and r.labId = ? order by r.dateR asc, r.endTimeR desc";
+            sql = "select r.dateR, r.sId, s.sName, r.startTimeR, r.endTimeR, r.authority from reservation r, student s where r.sId = s.sId and r.dateR = ? and r.labId = ? order by r.dateR asc, r.endTimeR desc";
 
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, (String) jComboBox5.getSelectedItem());  // 실습실
+            pstmt.setString(1, jTextField3.getText());  //날짜
+            pstmt.setString(2, (String) jComboBox5.getSelectedItem());  // 실습실
 
             rs = pstmt.executeQuery();
 
@@ -5836,18 +5877,18 @@ public class AssistantMain extends javax.swing.JFrame {
                 pstmt.executeUpdate();
 
                 JOptionPane.showMessageDialog(this, "관리권한이 부여되었습니다.");
-                    
 
                 // 테이블 새로고침 (수정된 테이블 값 반영해서 테이블 띄움)
                 table.setNumRows(0);  // 테이블 초기화
 
                 // 입력받은 실습실에 대해서 날짜, 학번, 이름, 시작시간, 종료시간, 관리권한여부 조회
                 // 날짜 빠른순, 종료시간 느린순으로 정렬
-                sql = "select r.dateR, r.sId, s.sName, r.startTimeR, r.endTimeR, r.authority from reservation r, student s where r.sId = s.sId and r.labId = ? order by r.dateR asc, r.endTimeR desc";
+                sql = "select r.dateR, r.sId, s.sName, r.startTimeR, r.endTimeR, r.authority from reservation r, student s where r.sId = s.sId and r.dateR = ? and r.labId = ? order by r.dateR asc, r.endTimeR desc";
 
                 pstmt = conn.prepareStatement(sql);
 
-                pstmt.setString(1, (String) jComboBox5.getSelectedItem());  // 실습실
+                pstmt.setString(1, jTextField3.getText());  //날짜
+                pstmt.setString(2, (String) jComboBox5.getSelectedItem());  // 실습실
 
                 rs = pstmt.executeQuery();
 
@@ -6132,10 +6173,12 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JComboBox<String> jComboBox9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -6194,6 +6237,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -6222,6 +6266,7 @@ public class AssistantMain extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField lab;
