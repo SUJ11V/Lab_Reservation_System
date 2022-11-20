@@ -6050,7 +6050,7 @@ public class StudentMain extends javax.swing.JFrame {
                     }
                 }
                 sql = "select count(*),labId from reservation where dateR=? and ((startTimeR >=? and startTimeR<?) or (endTimeR>? and endTimeR<=?) or (startTimeR>=? and endTimeR<=?))"
-                        + "group by labId";
+                        + "group by labId having count(*)>=30";
                 pstmt = conn.prepareStatement(sql); //디비 구문과 연결
 
                 pstmt.setString(1, reservation.dateR);      //날짜
